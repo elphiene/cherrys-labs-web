@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en-AU">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>cherry's labs — wiki</title>
+        <meta name="description" content="cherry's labs - wiki" />
+        <meta name="author" content="Elphiene" />
+        <meta name="year" content="2026" />
+        <link rel="icon" type="image/x-icon" href="../retro/images/icons/favicon.png" />
+        <link rel="stylesheet" href="style.css" />
+        <style>
+            /* ── wiki page extras ── */
+            .wiki-layout {
+                display: grid;
+                grid-template-columns: 200px 1fr;
+                gap: var(--spacing-md);
+                align-items: start;
+            }
+
+            .wiki-sidebar {
+                position: sticky;
+                top: 120px;
+            }
+
+            .wiki-sidebar a {
+                display: block;
+                padding: var(--spacing-xs) 0;
+                font-size: var(--font-size-small);
+                border-bottom: 1px solid var(--color-white-alpha-10);
+            }
+
+            .wiki-sidebar a:last-child {
+                border-bottom: none;
+            }
+
+            .wiki-entry {
+                margin-bottom: var(--spacing-md);
+                padding-bottom: var(--spacing-md);
+                border-bottom: 1px solid var(--color-white-alpha-10);
+            }
+
+            .wiki-entry:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+
+            .wiki-entry h3 {
+                margin-bottom: var(--spacing-xs);
+            }
+
+            @media (max-width: 768px) {
+                .wiki-layout {
+                    grid-template-columns: 1fr;
+                }
+                .wiki-sidebar {
+                    position: static;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <img src="../retro/images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+            <nav>
+                <a href="index.html">home</a>
+                <a href="projects.html">projects</a>
+                <a href="programs.html">programs</a>
+                <a href="store.html">store</a>
+                <a href="wiki.html">wiki</a>
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <h2>wiki</h2>
+
+                <div class="wiki-layout">
+
+                    <!-- SIDEBAR — add an <a href="#entry-id">entry name</a> per entry -->
+                    <div class="card wiki-sidebar">
+                        <h3>contents</h3>
+                        <a href="#deckcraft">deckcraft</a>
+                        <!-- add more links here -->
+                    </div>
+
+                    <!-- MAIN CONTENT -->
+                    <div class="card">
+
+                        <!-- ─────────────────────────────────────────
+                             WIKI ENTRIES
+                             To add an entry:
+                             1. Copy one .wiki-entry block below
+                             2. Set a unique id on the block
+                             3. Add a matching <a href="#id"> in the sidebar
+                        ───────────────────────────────────────── -->
+
+                        <div class="wiki-entry" id="deckcraft">
+                            <h3>deckcraft</h3>
+                            <p>A Minecraft launcher built for Steam Deck.</p>
+                            <!-- expand with more detail as needed -->
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                webmaster: <a href="https://elphiene.github.io/elphiene/elphiene">elphiene</a>
+                | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
+            </p>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".card").forEach((card, i) => {
+                    card.style.animationDelay = `${i * 0.1}s`;
+                });
+            });
+        </script>
+    </body>
+</html>

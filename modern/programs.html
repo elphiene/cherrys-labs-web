@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en-AU">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>cherry's labs — programs</title>
+        <meta name="description" content="cherry's labs - programs" />
+        <meta name="author" content="Elphiene" />
+        <meta name="year" content="2026" />
+        <link rel="icon" type="image/x-icon" href="../retro/images/icons/favicon.png" />
+        <link rel="stylesheet" href="style.css" />
+        <style>
+            /* ── programs page extras ── */
+            .program-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: var(--spacing-md);
+            }
+
+            .program-card {
+                display: flex;
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+
+            .program-card img {
+                width: 100%;
+                aspect-ratio: 16/9;
+                object-fit: cover;
+                border-radius: calc(var(--radius) / 2);
+                border: 1px solid var(--border-color-white);
+            }
+
+            .tags {
+                display: flex;
+                gap: var(--spacing-xs);
+                flex-wrap: wrap;
+            }
+
+            .tag {
+                font-size: 11px;
+                padding: 2px 8px;
+                border-radius: 20px;
+                border: 1px solid var(--border-color-white);
+                color: #ccc;
+            }
+
+            /* Status */
+            .tag.status-wip      { border-color: #f59e0b; color: #f59e0b; }
+            .tag.status-complete { border-color: #22c55e; color: #22c55e; }
+            .tag.status-abandoned{ border-color: #6b7280; color: #6b7280; }
+
+            /* Platform */
+            .tag.platform { border-color: var(--border-color-white); color: #aaa; }
+
+            .program-links {
+                display: flex;
+                gap: var(--spacing-sm);
+                margin-top: auto;
+                padding-top: var(--spacing-xs);
+            }
+
+            .program-links a {
+                font-size: var(--font-size-small);
+                color: var(--color-pink);
+            }
+
+            @media (max-width: 480px) {
+                .program-grid { grid-template-columns: 1fr; }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <img src="../retro/images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+            <nav>
+                <a href="index.html">home</a>
+                <a href="projects.html">projects</a>
+                <a href="programs.html">programs</a>
+                <a href="store.html">store</a>
+                <a href="wiki.html">wiki</a>
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <h2>programs</h2>
+
+                <!-- ─────────────────────────────────────────
+                     PROGRAM GRID
+                     To add a program: copy one .card.program-card block.
+                     Status tags: status-wip / status-complete / status-abandoned
+                     Platform tags: add class="tag platform" with the platform name
+                ───────────────────────────────────────── -->
+                <div class="program-grid">
+
+                    <!-- PROGRAM CARD TEMPLATE
+                    <div class="card program-card">
+                        <img src="path/to/screenshot.png" alt="program name" />
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                            <span class="tag platform">linux</span>
+                            <span class="tag platform">windows</span>
+                        </div>
+                        <h3>program title</h3>
+                        <p>Short description of the program.</p>
+                        <div class="program-links">
+                            <a href="#">github</a>
+                        </div>
+                    </div>
+                    -->
+
+                    <div class="card program-card">
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                            <span class="tag platform">linux</span>
+                        </div>
+                        <h3>deckcraft</h3>
+                        <p>A Minecraft launcher built for Steam Deck.</p>
+                        <div class="program-links">
+                            <a href="#">github</a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                webmaster: <a href="https://elphiene.github.io/elphiene/elphiene">elphiene</a>
+                | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
+            </p>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".card").forEach((card, i) => {
+                    card.style.animationDelay = `${i * 0.1}s`;
+                });
+            });
+        </script>
+    </body>
+</html>

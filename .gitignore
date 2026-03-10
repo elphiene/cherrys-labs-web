@@ -3,3 +3,4 @@ Agent
 *.key
 *.env
 .env*
+CLAUDE.md

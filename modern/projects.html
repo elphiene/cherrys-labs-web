@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en-AU">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>cherry's labs — projects</title>
+        <meta name="description" content="cherry's labs - projects" />
+        <meta name="author" content="Elphiene" />
+        <meta name="year" content="2026" />
+        <link rel="icon" type="image/x-icon" href="../retro/images/icons/favicon.png" />
+        <link rel="stylesheet" href="style.css" />
+        <style>
+            /* ── projects page extras ── */
+            .project-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: var(--spacing-md);
+            }
+
+            .project-card {
+                display: flex;
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+
+            .project-card img {
+                width: 100%;
+                aspect-ratio: 16/9;
+                object-fit: cover;
+                border-radius: calc(var(--radius) / 2);
+                border: 1px solid var(--border-color-white);
+            }
+
+            .project-card .tags {
+                display: flex;
+                gap: var(--spacing-xs);
+                flex-wrap: wrap;
+            }
+
+            .tag {
+                font-size: 11px;
+                padding: 2px 8px;
+                border-radius: 20px;
+                border: 1px solid var(--border-color-white);
+                color: #ccc;
+            }
+
+            .tag.status-wip      { border-color: #f59e0b; color: #f59e0b; }
+            .tag.status-complete { border-color: #22c55e; color: #22c55e; }
+            .tag.status-abandoned{ border-color: #6b7280; color: #6b7280; }
+
+            .project-links {
+                display: flex;
+                gap: var(--spacing-sm);
+                margin-top: auto;
+                padding-top: var(--spacing-xs);
+            }
+
+            .project-links a {
+                font-size: var(--font-size-small);
+                color: var(--color-pink);
+            }
+
+            @media (max-width: 480px) {
+                .project-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <img src="../retro/images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+            <nav>
+                <a href="index.html">home</a>
+                <a href="projects.html">projects</a>
+                <a href="programs.html">programs</a>
+                <a href="store.html">store</a>
+                <a href="wiki.html">wiki</a>
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <h2>projects</h2>
+
+                <!-- ─────────────────────────────────────────
+                     PROJECT GRID
+                     To add a project: copy one .card.project-card block.
+                     Status tags: status-wip / status-complete / status-abandoned
+                ───────────────────────────────────────── -->
+                <div class="project-grid">
+
+                    <!-- PROJECT CARD TEMPLATE
+                    <div class="card project-card">
+                        <img src="path/to/image.png" alt="project name" />
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                        </div>
+                        <h3>project title</h3>
+                        <p>Short description of the project.</p>
+                        <div class="project-links">
+                            <a href="#">source</a>
+                            <a href="#">demo</a>
+                        </div>
+                    </div>
+                    -->
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                        </div>
+                        <h3>project title</h3>
+                        <p>Short description of the project goes here.</p>
+                        <div class="project-links">
+                            <a href="#">source</a>
+                            <a href="#">demo</a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                webmaster: <a href="https://elphiene.github.io/elphiene/elphiene">elphiene</a>
+                | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
+            </p>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".card").forEach((card, i) => {
+                    card.style.animationDelay = `${i * 0.1}s`;
+                });
+            });
+        </script>
+    </body>
+</html>
