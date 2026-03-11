@@ -7,7 +7,11 @@
         <meta name="description" content="cherry's labs - programs" />
         <meta name="author" content="Elphiene" />
         <meta name="year" content="2026" />
-        <link rel="icon" type="image/x-icon" href="../retro/images/icons/favicon.png" />
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="../retro/images/icons/favicon.png"
+        />
         <link rel="stylesheet" href="style.css" />
         <style>
             /* ── programs page extras ── */
@@ -46,12 +50,24 @@
             }
 
             /* Status */
-            .tag.status-wip      { border-color: #f59e0b; color: #f59e0b; }
-            .tag.status-complete { border-color: #22c55e; color: #22c55e; }
-            .tag.status-abandoned{ border-color: #6b7280; color: #6b7280; }
+            .tag.status-wip {
+                border-color: #f59e0b;
+                color: #f59e0b;
+            }
+            .tag.status-complete {
+                border-color: #22c55e;
+                color: #22c55e;
+            }
+            .tag.status-abandoned {
+                border-color: #6b7280;
+                color: #6b7280;
+            }
 
             /* Platform */
-            .tag.platform { border-color: var(--border-color-white); color: #aaa; }
+            .tag.platform {
+                border-color: var(--border-color-white);
+                color: #aaa;
+            }
 
             .program-links {
                 display: flex;
@@ -66,13 +82,38 @@
             }
 
             @media (max-width: 480px) {
-                .program-grid { grid-template-columns: 1fr; }
+                .program-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* Stretched-link for wiki navigation */
+            .card {
+                position: relative;
+            }
+            .card-wiki-link {
+                color: inherit;
+                text-decoration: none;
+            }
+            .card-wiki-link::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: var(--radius);
+            }
+            .program-links {
+                position: relative;
+                z-index: 1;
             }
         </style>
     </head>
     <body>
         <header>
-            <img src="../retro/images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+            <img
+                src="../retro/images/logos/cherrys-labs.png"
+                alt="cherry's labs"
+                class="logo"
+            />
             <nav>
                 <a href="index.html">home</a>
                 <a href="projects.html">projects</a>
@@ -93,7 +134,6 @@
                      Platform tags: add class="tag platform" with the platform name
                 ───────────────────────────────────────── -->
                 <div class="program-grid">
-
                     <!-- PROGRAM CARD TEMPLATE
                     <div class="card program-card">
                         <img src="path/to/screenshot.png" alt="program name" />
@@ -113,22 +153,107 @@
                     <div class="card program-card">
                         <div class="tags">
                             <span class="tag status-wip">wip</span>
-                            <span class="tag platform">linux</span>
+                            <span class="tag platform">SteamOS</span>
+                            <span class="tag platform">Linux</span>
                         </div>
-                        <h3>deckcraft</h3>
-                        <p>A Minecraft launcher built for Steam Deck.</p>
+                        <h3>
+                            <a
+                                class="card-wiki-link"
+                                href="wiki/tidal-collaborative.html"
+                                >Tidal-Collaborative</a
+                            >
+                        </h3>
+                        <p>
+                            A self-hosted collaborative playlist sync for Tidal
+                            (music streaming).
+                        </p>
                         <div class="program-links">
-                            <a href="#">github</a>
+                            <a
+                                href="https://github.com/elphiene/tidal-collaborative"
+                                >Github</a
+                            >
                         </div>
                     </div>
 
+                    <div class="card program-card">
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                            <span class="tag platform">SteamOS</span>
+                            <span class="tag platform">Linux</span>
+                        </div>
+                        <h3>
+                            <a class="card-wiki-link" href="wiki/deckcraft.html"
+                                >Deckcraft</a
+                            >
+                        </h3>
+                        <p>A Minecraft launcher built for Steam Deck.</p>
+                        <div class="program-links">
+                            <a href="#">Github</a>
+                        </div>
+                    </div>
+
+                    <div class="card program-card">
+                        <div class="tags">
+                            <span class="tag status-complete">complete</span>
+                            <span class="tag platform">HTML</span>
+                        </div>
+                        <h3>
+                            <a
+                                class="card-wiki-link"
+                                href="wiki/non-steam-grid-generator.html"
+                                >Non-Steam-Grid-Generator</a
+                            >
+                        </h3>
+                        <p>
+                            A webpage for creating custom art for non-steam
+                            games. Automatically creates the correct sized art
+                            and files.
+                        </p>
+                        <div class="program-links">
+                            <a
+                                href="https://github.com/CherryGaySoda/Non-Steam-Grid-Generator"
+                                >Github</a
+                            >
+                        </div>
+                    </div>
+
+                    <div class="card program-card">
+                        <div class="tags">
+                            <span class="tag status-complete">complete</span>
+                            <span class="tag platform">Rust</span>
+                            <span class="tag platform">SteamOS</span>
+                            <span class="tag platform">Linux</span>
+                        </div>
+                        <h3>
+                            <a
+                                class="card-wiki-link"
+                                href="wiki/dockswitch.html"
+                                >DockSwitch</a
+                            >
+                        </h3>
+                        <p>
+                            Auto-switches SteamOS between Gaming Mode and
+                            Desktop Mode when a dock is connected or
+                            disconnected. Allows the user to seamlessly swap
+                            between handheld and desktop gaming.
+                        </p>
+                        <div class="program-links">
+                            <a
+                                href="https://github.com/CherryGaySoda/DockSwitch"
+                                >Github</a
+                            >
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
 
         <footer>
             <p>
-                webmaster: <a href="https://elphiene.github.io/elphiene/elphiene">elphiene</a>
+                webmaster:
+                <a href="https://elphiene.github.io/elphiene/elphiene"
+                    >elphiene</a
+                >
                 | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
             </p>
         </footer>

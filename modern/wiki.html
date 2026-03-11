@@ -10,51 +10,37 @@
         <link rel="icon" type="image/x-icon" href="../retro/images/icons/favicon.png" />
         <link rel="stylesheet" href="style.css" />
         <style>
-            /* ── wiki page extras ── */
-            .wiki-layout {
+            /* ── wiki index page extras ── */
+            .wiki-grid {
                 display: grid;
-                grid-template-columns: 200px 1fr;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
                 gap: var(--spacing-md);
-                align-items: start;
             }
 
-            .wiki-sidebar {
-                position: sticky;
-                top: 120px;
+            .wiki-card {
+                display: flex;
+                flex-direction: column;
+                gap: var(--spacing-xs);
+                text-decoration: none;
+                color: inherit;
             }
 
-            .wiki-sidebar a {
-                display: block;
-                padding: var(--spacing-xs) 0;
-                font-size: var(--font-size-small);
-                border-bottom: 1px solid var(--color-white-alpha-10);
+            /* Stretched-link */
+            .card { position: relative; }
+            .wiki-card-link {
+                color: inherit;
+                text-decoration: none;
+            }
+            .wiki-card-link::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: var(--radius);
             }
 
-            .wiki-sidebar a:last-child {
-                border-bottom: none;
-            }
-
-            .wiki-entry {
-                margin-bottom: var(--spacing-md);
-                padding-bottom: var(--spacing-md);
-                border-bottom: 1px solid var(--color-white-alpha-10);
-            }
-
-            .wiki-entry:last-child {
-                border-bottom: none;
-                margin-bottom: 0;
-            }
-
-            .wiki-entry h3 {
-                margin-bottom: var(--spacing-xs);
-            }
-
-            @media (max-width: 768px) {
-                .wiki-layout {
+            @media (max-width: 480px) {
+                .wiki-grid {
                     grid-template-columns: 1fr;
-                }
-                .wiki-sidebar {
-                    position: static;
                 }
             }
         </style>
@@ -75,33 +61,34 @@
             <section>
                 <h2>wiki</h2>
 
-                <div class="wiki-layout">
+                <!-- ─────────────────────────────────────────
+                     WIKI INDEX
+                     To add an article:
+                     1. Create wiki/your-article-name.html
+                     2. Copy one .card below and point href to it
+                ───────────────────────────────────────── -->
+                <div class="wiki-grid">
 
-                    <!-- SIDEBAR — add an <a href="#entry-id">entry name</a> per entry -->
-                    <div class="card wiki-sidebar">
-                        <h3>contents</h3>
-                        <a href="#deckcraft">deckcraft</a>
-                        <!-- add more links here -->
-                    </div>
-
-                    <!-- MAIN CONTENT -->
                     <div class="card">
-
-                        <!-- ─────────────────────────────────────────
-                             WIKI ENTRIES
-                             To add an entry:
-                             1. Copy one .wiki-entry block below
-                             2. Set a unique id on the block
-                             3. Add a matching <a href="#id"> in the sidebar
-                        ───────────────────────────────────────── -->
-
-                        <div class="wiki-entry" id="deckcraft">
-                            <h3>deckcraft</h3>
-                            <p>A Minecraft launcher built for Steam Deck.</p>
-                            <!-- expand with more detail as needed -->
-                        </div>
-
+                        <h3><a class="wiki-card-link" href="wiki/tidal-collaborative.html">tidal-collaborative</a></h3>
+                        <p>A self-hosted collaborative playlist sync for Tidal.</p>
                     </div>
+
+                    <div class="card">
+                        <h3><a class="wiki-card-link" href="wiki/deckcraft.html">deckcraft</a></h3>
+                        <p>A Minecraft launcher built for Steam Deck.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3><a class="wiki-card-link" href="wiki/non-steam-grid-generator.html">non-steam-grid-generator</a></h3>
+                        <p>Browser tool for generating custom Steam artwork for non-Steam games.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3><a class="wiki-card-link" href="wiki/dockswitch.html">dockswitch</a></h3>
+                        <p>Auto-switches SteamOS between Gaming Mode and Desktop Mode on dock events.</p>
+                    </div>
+
                 </div>
             </section>
         </main>

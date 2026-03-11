@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en-AU">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>cherry's labs — wiki: deckcraft</title>
+        <meta name="description" content="cherry's labs wiki - deckcraft" />
+        <meta name="author" content="Elphiene" />
+        <meta name="year" content="2026" />
+        <link rel="icon" type="image/x-icon" href="../../retro/images/icons/favicon.png" />
+        <link rel="stylesheet" href="../style.css" />
+        <style>
+            /* ── wiki article ── */
+            .back-link {
+                display: inline-block;
+                font-size: var(--font-size-small);
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .wiki-article {
+                background-color: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--color-white-alpha-10);
+                border-radius: var(--radius);
+                padding: var(--spacing-lg);
+            }
+
+            .wiki-section {
+                margin-bottom: var(--spacing-lg);
+                padding-bottom: var(--spacing-lg);
+                border-bottom: 1px solid var(--color-white-alpha-10);
+            }
+
+            .wiki-section:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .wiki-section h3 {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .wiki-section p {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .wiki-section p:last-child {
+                margin-bottom: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <img src="../../retro/images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+            <nav>
+                <a href="../index.html">home</a>
+                <a href="../projects.html">projects</a>
+                <a href="../programs.html">programs</a>
+                <a href="../store.html">store</a>
+                <a href="../wiki.html">wiki</a>
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <a class="back-link" href="../wiki.html">← wiki</a>
+                <h2>deckcraft</h2>
+
+                <div class="wiki-article">
+
+                    <div class="wiki-section" id="overview">
+                        <h3>overview</h3>
+                        <p>A Minecraft launcher built specifically for Steam Deck, designed to make installing and managing Minecraft straightforward on SteamOS.</p>
+                        <!-- expand: what problem it solves, who it's for, current status -->
+                    </div>
+
+                    <div class="wiki-section" id="tech-stack">
+                        <h3>tech stack</h3>
+                        <p><!-- document: language, framework, key dependencies --></p>
+                    </div>
+
+                    <div class="wiki-section" id="development">
+                        <h3>development</h3>
+                        <p><!-- document the development process, design decisions, known issues, roadmap --></p>
+                    </div>
+
+                    <div class="wiki-section" id="links">
+                        <h3>links</h3>
+                        <p><a href="#">github (coming soon)</a></p>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                webmaster: <a href="https://elphiene.github.io/elphiene/elphiene">elphiene</a>
+                | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
+            </p>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".wiki-article").forEach((el, i) => {
+                    el.style.animationDelay = `${i * 0.1}s`;
+                });
+            });
+        </script>
+    </body>
+</html>
