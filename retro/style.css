@@ -65,8 +65,8 @@ body::before {
 body {
     font-family: courier new;
     background-color: black;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: clamp(15px, 5vw, 100px);
+    padding-right: clamp(15px, 5vw, 100px);
     color: var(--color-text-white);
     font-family: var(--text-main);
     margin: 20px;
@@ -148,8 +148,17 @@ a:hover {
 
 #header {
     padding-top: 30px;
-    display: flexbox;
-    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#header img {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
 }
 
 li {
@@ -220,9 +229,10 @@ li {
 
 .containerA {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
-    align-items: center;
-    gap: 0px;
+    align-items: flex-start;
+    gap: 20px;
     margin-top: 30px;
     margin-bottom: 50px;
 }
@@ -230,9 +240,11 @@ li {
 #projects {
     background: var(--color-bg-grey);
     border: var(--border);
-    height: 250px;
+    min-height: 200px;
+    height: auto;
     overflow: auto;
-    width: 400px;
+    flex: 1 1 280px;
+    max-width: 100%;
     box-shadow: 0 0 13px 6px var(--color-primary-pink);
 }
 
@@ -241,8 +253,10 @@ li {
 
 .containerB {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
-    align-items: justify-content;
+    align-items: flex-start;
+    gap: 20px;
     margin-top: 20px;
     margin-bottom: 50px;
 }
@@ -251,13 +265,11 @@ li {
     display: flex;
     flex-direction: column;
     border: var(--border);
-    min-width: 50%;
-    height: 300px;
+    flex: 1 1 280px;
+    min-height: 200px;
+    height: auto;
     text-align: left;
-    align-content: left;
-    align-self: left;
     background-color: var(--color-bg-grey);
-    border: var(--border);
     box-shadow: 0 0 13px 6px var(--color-primary-pink);
 }
 
@@ -288,11 +300,10 @@ li {
     flex-direction: column;
     background: var(--color-bg-grey);
     border: var(--border);
-    width: 325px;
-    height: 300px;
+    flex: 1 1 200px;
+    height: auto;
     text-align: left;
-    align-content: left;
-    align-self: center;
+    align-self: flex-start;
     padding-left: 30px;
     padding-right: 10px;
     box-shadow: 0 0 13px 6px var(--color-primary-pink);
@@ -316,18 +327,21 @@ li {
 
 .containerC {
     display: flex;
-    align-items: left;
-    gap: 0px;
-    margin: 50px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 20px 0;
 }
 
 #updates {
     background-color: var(--color-bg-grey);
     border: var(--border);
     margin-top: 20px;
-    height: 250px;
+    min-height: 150px;
+    height: auto;
     overflow: auto;
-    max-width: 50%;
+    flex: 1 1 280px;
+    max-width: 100%;
     box-shadow: 0 0 13px 6px var(--color-primary-pink);
 }
 
@@ -396,8 +410,9 @@ ul li a.active {
 /* Container for flexbox layouts */
 .container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
-    align-items: justify-content;
+    align-items: flex-start;
     gap: 20px;
     margin-top: 0;
 }
