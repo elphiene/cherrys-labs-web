@@ -1,2 +1,3 @@
 name = "cherryslabs-retro"
-pages_build_output_dir = "."
+assets = { directory = "." }
+compatibility_date = "2025-01-01"
