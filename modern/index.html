@@ -14,14 +14,65 @@
         <link
             rel="icon"
             type="image/x-icon"
-            href="../retro/images/icons/favicon.png"
+            href="images/icons/favicon.png"
         />
         <link rel="stylesheet" href="style.css" />
+        <style>
+            /* ── index page extras ── */
+            .nav-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: var(--spacing-md);
+                margin-top: var(--spacing-md);
+            }
+
+            .nav-card {
+                display: flex;
+                flex-direction: column;
+                gap: var(--spacing-xs);
+                border-left-width: 1px;
+            }
+
+            .tags {
+                display: flex;
+                gap: var(--spacing-xs);
+                flex-wrap: wrap;
+            }
+
+            .tag {
+                font-size: 11px;
+                padding: 2px 8px;
+                border-radius: 20px;
+                border: 1px solid var(--border-color-white);
+                color: #ccc;
+            }
+
+            /* Stretched-link */
+            .card {
+                position: relative;
+            }
+            .card-nav-link {
+                color: inherit;
+                text-decoration: none;
+            }
+            .card-nav-link::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: var(--radius);
+            }
+
+            @media (max-width: 480px) {
+                .nav-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
     </head>
     <body>
         <header>
             <img
-                src="../retro/images/logos/cherrys-labs.png"
+                src="images/logos/cherrys-labs.png"
                 alt="cherry's labs"
                 class="logo"
             />
@@ -52,14 +103,50 @@
                 </div>
             </section>
 
-            <!-- Projects/Store Highlight Section -->
-            <section class="showcase">
-                <h2>Latest Projects & Products</h2>
-                <p>
-                    Check out our <a href="projects.html">projects</a>,
-                    <a href="programs.html">programs</a>, and
-                    <a href="store.html">store</a> for 3D prints and tech!
-                </p>
+            <!-- Nav Cards Section -->
+            <section>
+                <div class="card">
+                    <h3>Latest Projects &amp; Products</h3>
+                    <div class="nav-grid">
+                        <div class="card nav-card">
+                            <div class="tags">
+                                <span class="tag">hardware + software</span>
+                            </div>
+                            <h3>
+                                <a class="card-nav-link" href="projects.html"
+                                    >projects</a
+                                >
+                            </h3>
+                            <p>
+                                Physical builds and larger collaborative work.
+                            </p>
+                        </div>
+
+                        <div class="card nav-card">
+                            <div class="tags">
+                                <span class="tag">linux · steamos</span>
+                            </div>
+                            <h3>
+                                <a class="card-nav-link" href="programs.html"
+                                    >programs</a
+                                >
+                            </h3>
+                            <p>Software tools, utilities, and launchers.</p>
+                        </div>
+
+                        <div class="card nav-card">
+                            <div class="tags">
+                                <span class="tag">3d prints · gadgets</span>
+                            </div>
+                            <h3>
+                                <a class="card-nav-link" href="store.html"
+                                    >store</a
+                                >
+                            </h3>
+                            <p>3D printed items and physical tech for sale.</p>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- News Section -->
