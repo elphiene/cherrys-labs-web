@@ -70,24 +70,42 @@
 
                     <div class="wiki-section" id="overview">
                         <h3>overview</h3>
-                        <p>A self-hosted server that lets multiple users collaboratively sync and manage Tidal playlists in real time.</p>
-                        <!-- expand: what problem it solves, who it's for, current status -->
+                        <p>A self-hosted server that lets multiple users collaboratively sync Tidal playlists in real time. Sign in with your Tidal account in any browser, link a playlist, and every change — adds, removes — propagates to all collaborators automatically.</p>
+                        <p>Status: work in progress. Self-hosted via Docker, home lab friendly. Requires a free Tidal developer app registration for OAuth.</p>
+                    </div>
+
+                    <div class="wiki-section" id="how-it-works">
+                        <h3>how it works</h3>
+                        <p>The server polls each linked Tidal playlist every 60 seconds. It detects added and removed tracks via set-difference, writes changes to SQLite, then calls the Tidal API to propagate those changes to every other linked user's playlist. All open browser tabs receive a WebSocket notification instantly.</p>
+                        <p>Authentication uses OAuth 2.1 PKCE entirely server-side — no token ever touches the browser. Tidal access and refresh tokens are encrypted at rest with AES-256-GCM. Sessions use httpOnly cookies with a 30-day expiry.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
-                        <p>Node.js (Express + WebSocket), SQLite, Docker (node:20-alpine, multi-platform amd64 + arm64).</p>
-                        <!-- expand: architecture overview, key dependencies, database schema notes -->
+                        <p>Server: Node.js 20 LTS, Express 4, ws (WebSocket), better-sqlite3, express-session, Node.js built-in crypto (AES-256-GCM).</p>
+                        <p>Database: SQLite — the entire state is one file, trivial to back up.</p>
+                        <p>Container: Docker on node:20-alpine. Multi-platform build — amd64 and arm64. Published to Docker Hub.</p>
+                        <p>Frontend: Vanilla HTML / CSS / JS. No frameworks.</p>
+                        <p>Tidal API: openapi.tidal.com/v2 (JSON:API).</p>
+                    </div>
+
+                    <div class="wiki-section" id="setup">
+                        <h3>setup</h3>
+                        <p>Pull and run with Docker Compose — no build needed:</p>
+                        <pre style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;padding:12px;font-size:13px;overflow-x:auto;color:#ccc;font-family:'Courier New',monospace">curl -O https://raw.githubusercontent.com/elphiene/tidal-collaborative/main/docker/docker-compose.yml
+docker compose up -d</pre>
+                        <p>Then open <code style="font-family:'Courier New',monospace;font-size:13px;color:var(--color-pink)">http://localhost:3000</code> — the setup wizard handles the rest, including Tidal OAuth configuration and encryption key generation.</p>
+                        <p>System requirements: Linux, Docker Engine 24+, ≥128 MB RAM, any modern browser. Users must be on the home LAN or connected via VPN.</p>
                     </div>
 
                     <div class="wiki-section" id="development">
                         <h3>development</h3>
-                        <p><!-- document the development process, design decisions, known issues, roadmap --></p>
+                        <p>Roadmap: track reorder sync, granular permissions (view-only collaborators), configurable poll interval per playlist, pagination for very large playlists (&gt;500 tracks).</p>
                     </div>
 
                     <div class="wiki-section" id="links">
                         <h3>links</h3>
-                        <p><a href="https://github.com/elphiene/tidal-collaborative">github.com/elphiene/tidal-collaborative</a></p>
+                        <p><a href="https://github.com/elphiene/tidal-collaborative">github.com/elphiene/tidal-collaborative ↗</a></p>
                     </div>
 
                 </div>

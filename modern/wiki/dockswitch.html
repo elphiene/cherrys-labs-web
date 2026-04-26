@@ -70,24 +70,35 @@
 
                     <div class="wiki-section" id="overview">
                         <h3>overview</h3>
-                        <p>A Rust utility that monitors dock connection events and automatically switches SteamOS between Gaming Mode and Desktop Mode, allowing seamless transitions between handheld and desktop use.</p>
-                        <!-- expand: what problem it solves, who it's for, current status -->
+                        <p>A Rust utility that monitors dock connection events via libudev and automatically switches SteamOS between Gaming Mode and Desktop Mode, allowing seamless transitions between handheld and desktop use.</p>
+                        <p>Status: complete. Distributed as an AppImage. MIT licensed.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
-                        <p>Rust. Targets SteamOS / Linux.</p>
-                        <!-- expand: key crates/libraries, how dock events are detected (udev?), systemd integration if any -->
+                        <p>Language: Rust. Target: SteamOS / Linux.</p>
+                        <p>Dock detection: libudev — monitors kernel udev events for dock connect/disconnect. Build dependencies: libudev-dev, libwayland-dev, libgl-dev.</p>
+                        <p>Distribution: AppImage (DockSwitch-x86_64.AppImage). The installer writes a sudoers rule once, then runs as a daemon on every login — no manual service management needed.</p>
                     </div>
 
-                    <div class="wiki-section" id="development">
-                        <h3>development</h3>
-                        <p><!-- document the development process, design decisions, known issues, roadmap --></p>
+                    <div class="wiki-section" id="setup">
+                        <h3>setup</h3>
+                        <p>1. Download <code style="font-family:'Courier New',monospace;font-size:13px;color:var(--color-pink)">DockSwitch-x86_64.AppImage</code> from the releases page.</p>
+                        <p>2. Make it executable and run it: <code style="font-family:'Courier New',monospace;font-size:13px;color:var(--color-pink)">chmod +x DockSwitch-x86_64.AppImage &amp;&amp; ./DockSwitch-x86_64.AppImage</code></p>
+                        <p>3. Click <strong>Install Daemon</strong> — prompts for password once to write a sudoers rule.</p>
+                        <p>4. Click <strong>Register Dock</strong> — connect your dock, check the devices that identify it, save.</p>
+                        <p>Done. The daemon starts on login and switches sessions automatically.</p>
+                    </div>
+
+                    <div class="wiki-section" id="build">
+                        <h3>build from source</h3>
+                        <pre style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;padding:12px;font-size:13px;overflow-x:auto;color:#ccc;font-family:'Courier New',monospace">cargo build --release
+./build-appimage.sh   # produces DockSwitch-x86_64.AppImage</pre>
                     </div>
 
                     <div class="wiki-section" id="links">
                         <h3>links</h3>
-                        <p><a href="https://github.com/CherryGaySoda/DockSwitch">github.com/CherryGaySoda/DockSwitch</a></p>
+                        <p><a href="https://github.com/CherryGaySoda/DockSwitch">github.com/CherryGaySoda/DockSwitch ↗</a></p>
                     </div>
 
                 </div>
