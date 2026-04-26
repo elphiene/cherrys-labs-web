@@ -7,7 +7,11 @@
         <meta name="description" content="cherry's labs - projects" />
         <meta name="author" content="Elphiene" />
         <meta name="year" content="2026" />
-        <link rel="icon" type="image/x-icon" href="images/icons/favicon.png" />
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="images/icons/favicon.png"
+        />
         <link rel="stylesheet" href="style.css" />
         <style>
             /* ── projects page extras ── */
@@ -21,120 +25,84 @@
                 display: flex;
                 flex-direction: column;
                 gap: var(--spacing-xs);
-                padding: 0;
-                overflow: hidden;
             }
 
-            .card-image {
+            .project-card img {
                 width: 100%;
                 aspect-ratio: 16/9;
-                background: #0a0a0a;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-bottom: 1px solid rgba(255,255,255,0.05);
-                overflow: hidden;
-                flex-shrink: 0;
-            }
-
-            .card-image img {
-                width: 100%;
-                height: 100%;
                 object-fit: cover;
+                border-radius: calc(var(--radius) / 2);
+                border: 1px solid var(--border-color-white);
             }
 
-            .img-placeholder {
-                font-family: 'Courier New', monospace;
-                font-size: 11px;
-                color: #2a2a2a;
-                user-select: none;
-            }
-
-            .card-body {
-                padding: var(--spacing-md);
+            .project-card .tags {
                 display: flex;
-                flex-direction: column;
-                gap: 8px;
-                flex: 1;
-            }
-
-            .tags {
-                display: flex;
-                gap: 6px;
+                gap: var(--spacing-xs);
                 flex-wrap: wrap;
-                align-items: center;
             }
 
             .tag {
-                font-family: 'Courier New', monospace;
                 font-size: 11px;
-                padding: 2px 7px;
-                border-radius: 4px;
-                border: 1px solid rgba(255,255,255,0.1);
-                color: #888;
-                background: rgba(255,255,255,0.03);
+                padding: 2px 8px;
+                border-radius: 20px;
+                border: 1px solid var(--border-color-white);
+                color: #ccc;
             }
 
-            .tag.status-wip      { border-color: #f59e0b; color: #f59e0b; background: rgba(245,158,11,0.07); }
-            .tag.status-complete { border-color: #22c55e; color: #22c55e; background: rgba(34,197,94,0.07); }
-            .tag.status-on-hold  { border-color: #6b7280; color: #6b7280; background: rgba(107,114,128,0.07); }
-
-            .card-body h3 {
-                font-size: 17px;
-                color: var(--color-pink);
-                margin: 0;
+            .tag.status-wip {
+                border-color: #f59e0b;
+                color: #f59e0b;
             }
-
-            .card-body p {
-                font-size: 13px;
-                color: #aaa;
-                line-height: 1.55;
-                margin: 0;
-                flex: 1;
+            .tag.status-complete {
+                border-color: #22c55e;
+                color: #22c55e;
+            }
+            .tag.status-abandoned {
+                border-color: #6b7280;
+                color: #6b7280;
             }
 
             .project-links {
                 display: flex;
                 gap: var(--spacing-sm);
-                padding-top: 4px;
-                position: relative;
-                z-index: 1;
+                margin-top: auto;
+                padding-top: var(--spacing-xs);
             }
 
             .project-links a {
-                font-family: 'Courier New', monospace;
-                font-size: 12px;
-                color: #666;
-                transition: color 0.2s;
-            }
-
-            .project-links a:hover {
+                font-size: var(--font-size-small);
                 color: var(--color-pink);
-                text-decoration: none;
             }
 
-            .card { position: relative; }
+            @media (max-width: 480px) {
+                .project-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
 
+            /* Stretched-link for wiki navigation */
+            .card { position: relative; }
             .card-wiki-link {
                 color: inherit;
                 text-decoration: none;
             }
-
             .card-wiki-link::after {
-                content: "";
+                content: '';
                 position: absolute;
                 inset: 0;
                 border-radius: var(--radius);
             }
-
-            @media (max-width: 480px) {
-                .project-grid { grid-template-columns: 1fr; }
-            }
+            .project-links { position: relative; z-index: 1; }
+            .program-links { position: relative; z-index: 1; }
         </style>
     </head>
     <body>
         <header>
-            <img src="images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+            <img
+                src="images/logos/cherrys-labs.png"
+                alt="cherry's labs"
+                class="logo"
+            />
             <nav>
                 <a href="index.html">home</a>
                 <a href="projects.html">projects</a>
@@ -147,37 +115,50 @@
         <main>
             <section>
                 <h2>projects</h2>
+
+                <!-- ─────────────────────────────────────────
+                     PROJECT GRID
+                     To add a project: copy one .card.project-card block.
+                     Status tags: status-wip / status-complete / status-abandoned
+                ───────────────────────────────────────── -->
                 <div class="project-grid">
+                    <!-- PROJECT CARD TEMPLATE
+                    <div class="card project-card">
+                        <img src="path/to/image.png" alt="project name" />
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                        </div>
+                        <h3>project title</h3>
+                        <p>Short description of the project.</p>
+                        <div class="project-links">
+                            <a href="#">source</a>
+                            <a href="#">demo</a>
+                        </div>
+                    </div>
+                    -->
 
                     <div class="card project-card">
-                        <div class="card-image">
-                            <span class="img-placeholder">[ project image ]</span>
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
                         </div>
-                        <div class="card-body">
-                            <div class="tags">
-                                <span class="tag status-wip">wip</span>
-                                <span class="tag">Node.js</span>
-                                <span class="tag">Docker</span>
-                                <span class="tag">SQLite</span>
-                                <span class="tag">Self-hosted</span>
-                            </div>
-                            <h3><a class="card-wiki-link" href="wiki/tidal-collaborative.html">tidal-collaborative</a></h3>
-                            <p>A self-hosted server that lets multiple users collaboratively sync Tidal playlists in real time. Sign in via OAuth, link a playlist, and changes propagate to all collaborators within 60 seconds via WebSocket push. Runs on Docker, home lab friendly — amd64 and arm64.</p>
-                            <div class="project-links">
-                                <a href="https://github.com/elphiene/tidal-collaborative">github ↗</a>
-                                <a href="wiki/tidal-collaborative.html">wiki ↗</a>
+                        <h3><a class="card-wiki-link" href="wiki/tidal-collaborative.html">Tidal-Collaborative</a></h3>
+                        <p>
+                            A self-hosted collaborative playlist sync for Tidal
+                            (music streaming).
+                        </p>
+                            <div class="program-links">
+                                <a href="https://github.com/elphiene/tidal-collaborative">Github</a>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
         </main>
 
         <footer>
             <p>
-                webmaster: <a href="https://elphiene.github.io/elphiene/elphiene">elphiene</a>
-                | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
+                webmaster: <a href="https://elphiene.com">elphiene</a> | 2026 |
+                <a href="https://cherrysofa.com">cherrysofa.com</a>
             </p>
         </footer>
 
