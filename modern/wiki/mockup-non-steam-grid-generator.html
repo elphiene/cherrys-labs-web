@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en-AU">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>cherry's labs — wiki: non-steam-grid-generator [MOCKUP]</title>
+        <link rel="icon" type="image/x-icon" href="../images/icons/favicon.png" />
+        <link rel="stylesheet" href="../style.css" />
+        <style>
+            .back-link {
+                display: inline-block;
+                font-size: var(--font-size-small);
+                margin-bottom: var(--spacing-sm);
+                font-family: 'Courier New', monospace;
+                color: #666;
+            }
+
+            .wiki-article {
+                background-color: rgba(255,255,255,0.03);
+                border: 1px solid var(--color-white-alpha-10);
+                border-radius: var(--radius);
+                padding: var(--spacing-lg);
+            }
+
+            .wiki-section {
+                margin-bottom: var(--spacing-lg);
+                padding-bottom: var(--spacing-lg);
+                border-bottom: 1px solid var(--color-white-alpha-10);
+            }
+
+            .wiki-section:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .wiki-section h3 { margin-bottom: var(--spacing-sm); font-size: 16px; color: var(--color-pink); }
+            .wiki-section p { margin-bottom: var(--spacing-sm); font-size: 14px; color: #bbb; line-height: 1.65; }
+            .wiki-section p:last-child { margin-bottom: 0; }
+
+            code {
+                font-family: 'Courier New', monospace;
+                font-size: 13px;
+                color: var(--color-pink);
+                background: rgba(236,72,153,0.07);
+                padding: 1px 5px;
+                border-radius: 3px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 13px;
+                margin: var(--spacing-xs) 0 var(--spacing-sm);
+            }
+
+            th {
+                text-align: left;
+                padding: 8px 12px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                font-family: 'Courier New', monospace;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: #555;
+            }
+
+            td {
+                padding: 8px 12px;
+                border-bottom: 1px solid rgba(255,255,255,0.04);
+                color: #aaa;
+                vertical-align: top;
+            }
+
+            td:first-child { font-family: 'Courier New', monospace; color: var(--color-pink); white-space: nowrap; }
+
+            .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: var(--spacing-sm); }
+
+            .tag {
+                font-family: 'Courier New', monospace;
+                font-size: 10px;
+                padding: 2px 7px;
+                border-radius: 4px;
+                border: 1px solid rgba(255,255,255,0.1);
+                color: #888;
+            }
+
+            .tag.complete { border-color: #22c55e; color: #22c55e; }
+
+            ul { color: #aaa; font-size: 14px; line-height: 1.9; padding-left: 20px; margin-bottom: var(--spacing-sm); }
+
+            .mockup-pill {
+                position: fixed;
+                bottom: 16px;
+                right: 16px;
+                background: var(--color-purple);
+                color: #fff;
+                font-family: 'Courier New', monospace;
+                font-size: 11px;
+                padding: 5px 12px;
+                border-radius: 20px;
+                z-index: 9999;
+                pointer-events: none;
+                opacity: 0.8;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="mockup-pill">mockup</div>
+
+        <header>
+            <img src="../images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+            <nav>
+                <a href="../index.html">home</a>
+                <a href="../projects.html">projects</a>
+                <a href="../programs.html">programs</a>
+                <a href="../store.html">store</a>
+                <a href="../wiki.html">wiki</a>
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <a class="back-link" href="../mockup-wiki.html">← wiki</a>
+                <h2>non-steam-grid-generator</h2>
+
+                <div class="wiki-article">
+
+                    <div class="wiki-section" id="overview">
+                        <h3>overview</h3>
+                        <div class="tag-row">
+                            <span class="tag complete">complete</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JS</span>
+                            <span class="tag">Canvas API</span>
+                            <span class="tag">Web</span>
+                        </div>
+                        <p>A single-page browser tool for generating correctly sized Steam artwork for non-Steam games. Upload a logo, set a title and colours, and it outputs all five Steam artwork types as PNG files — ready to import directly into Steam.</p>
+                        <p>Runs entirely in the browser. No install, no account, no server. <a href="https://cherrygaysoda.github.io/Non-Steam-Grid-Generator/">Live at cherrygaysoda.github.io/Non-Steam-Grid-Generator</a>.</p>
+                    </div>
+
+                    <div class="wiki-section" id="output">
+                        <h3>generated assets</h3>
+                        <p>Five Steam artwork types are produced per generation:</p>
+                        <table>
+                            <tr><th>asset</th><th>dimensions</th><th>content</th></tr>
+                            <tr><td>Library Capsule</td><td>600×900px</td><td>Vertical — logo in upper third, game title below</td></tr>
+                            <tr><td>Library Header</td><td>920×430px</td><td>Horizontal — logo left-aligned, title at bottom-right</td></tr>
+                            <tr><td>Hero Graphic</td><td>1920×620px</td><td>Wide cinematic — background only, no text or logo overlay</td></tr>
+                            <tr><td>Library Logo</td><td>1280×720px</td><td>Centred logo on coloured background</td></tr>
+                            <tr><td>Icon</td><td>256×256px</td><td>Small square — centred logo, no text</td></tr>
+                        </table>
+                        <p>Files are named <code>[gametitle]_[assettype]_[dimensions].png</code> and downloaded sequentially.</p>
+                    </div>
+
+                    <div class="wiki-section" id="usage">
+                        <h3>usage</h3>
+                        <p>Configuration panel (left side):</p>
+                        <ul>
+                            <li>Game title text input</li>
+                            <li>Logo / icon image upload</li>
+                            <li>Optional background image upload</li>
+                            <li>Background colour picker with eyedropper (samples from uploaded image)</li>
+                            <li>Font selector — 11 options including Orbitron, Black Ops One, Audiowide</li>
+                            <li>Text weight: Regular / Bold / Black</li>
+                            <li>Text colour picker</li>
+                            <li>Text size slider: 50–200%</li>
+                            <li>Logo size slider: 20–80%</li>
+                            <li>Toggles: text stroke, drop shadow, blur background, darken background</li>
+                        </ul>
+                        <p>Click <strong>Generate</strong> to render all canvases, then <strong>Download</strong> to save all five files.</p>
+                    </div>
+
+                    <div class="wiki-section" id="tech-stack">
+                        <h3>tech stack</h3>
+                        <p>Pure HTML / CSS / JavaScript — no frameworks, no dependencies, no build step. A single <code>index.html</code> file.</p>
+                        <p>Image processing uses the <strong>HTML5 Canvas API</strong>. Images are loaded as <code>Image</code> objects and rendered onto five canvas elements with cover-fit scaling. Optional effects: 10px blur, 40% darkening overlay.</p>
+                        <p>Text rendering automatically wraps and scales down if it exceeds maximum width. Drop shadow and stroke are applied via canvas context before text draw. Multi-line text uses 1.2× font size line-height.</p>
+                        <p>Download converts each canvas to a PNG blob sequentially with 300ms delays to allow the browser to process each file.</p>
+                    </div>
+
+                    <div class="wiki-section" id="links">
+                        <h3>links</h3>
+                        <p><a href="https://cherrygaysoda.github.io/Non-Steam-Grid-Generator/">live tool ↗</a></p>
+                        <p><a href="https://github.com/CherryGaySoda/Non-Steam-Grid-Generator">github.com/CherryGaySoda/Non-Steam-Grid-Generator ↗</a></p>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                webmaster: <a href="https://elphiene.github.io/elphiene/elphiene">elphiene</a>
+                | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
+            </p>
+        </footer>
+    </body>
+</html>
