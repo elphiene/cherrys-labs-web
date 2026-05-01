@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>cherry's labs — wiki: tidal-collaborative</title>
-        <meta name="description" content="cherry's labs wiki - tidal-collaborative" />
+        <title>cherry's labs — wiki: daytona-controls</title>
+        <meta name="description" content="cherry's labs wiki - daytona-controls" />
         <meta name="author" content="Elphiene" />
         <meta name="year" content="2026" />
         <link rel="icon" type="image/x-icon" href="../images/icons/favicon.png" />
@@ -64,40 +64,34 @@
         <main>
             <section>
                 <a class="back-link" href="../wiki.html">← wiki</a>
-                <h2>tidal-collaborative</h2>
+                <h2>daytona-controls</h2>
 
                 <div class="wiki-article">
 
                     <div class="wiki-section" id="overview">
                         <h3>overview</h3>
-                        <p>A self-hosted server that lets multiple Tidal users collaboratively sync playlists in real time. Sign in with your Tidal account in any browser, link a playlist, and every change — adds and removes — propagates to all collaborators automatically within 60 seconds.</p>
-                        <p>Designed to run on a home server or NAS (CasaOS, Debian, etc.) via Docker. Users must be on the same home LAN or connected via VPN.</p>
+                        <p>A GUI editor for ElSemi Model 2 Emulator <code>.input</code> control-binding files. Lets you visually remap controls and save presets, removing the need to hand-edit the emulator's config files.</p>
+                        <p>Supports live gamepad input detection so you can press a button to bind it directly.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
-                        <p><strong>Server:</strong> Node.js 20 LTS, Express 4, <code>ws</code> (WebSocket), better-sqlite3 (SQLite), express-session.</p>
-                        <p><strong>Auth &amp; encryption:</strong> Tidal OAuth 2.1 PKCE — handled entirely server-side, no tokens ever touch the browser. Tidal access and refresh tokens are encrypted at rest with AES-256-GCM using a key stored in the database (or overridden via env var).</p>
-                        <p><strong>Container:</strong> Docker on <code>node:20-alpine</code>, multi-platform (amd64 + arm64). Image published to Docker Hub.</p>
-                        <p><strong>Web UI:</strong> Vanilla HTML/CSS/JavaScript — no frameworks or build step.</p>
-                    </div>
-
-                    <div class="wiki-section" id="architecture">
-                        <h3>architecture</h3>
-                        <p>The server polls each linked Tidal playlist every 60 seconds, detects added/removed tracks via set-difference against the SQLite state, writes changes to the shared playlist table, calls the Tidal API to propagate those changes to every other linked user's playlist, and pushes real-time notifications to all open browser tabs over WebSocket.</p>
-                        <p>Secrets (encryption key, session secret) are auto-generated on first run and stored in SQLite. Setting the corresponding env vars overrides the database values, which is useful for existing deployments or deterministic local dev.</p>
-                        <p>A first-run setup wizard in the browser handles Tidal OAuth app registration, admin PIN creation, and the redirect URI calculation.</p>
+                        <p><strong>Language:</strong> Rust (2021 edition).</p>
+                        <p><strong>GUI:</strong> egui 0.27 + eframe 0.27 — immediate-mode GUI framework, produces a native desktop window.</p>
+                        <p><strong>Gamepad input:</strong> gilrs 0.10 — cross-platform gamepad/joystick library for live button detection.</p>
+                        <p><strong>Config serialisation:</strong> serde + toml 0.8 for reading and writing preset files. rfd 0.14 for native file dialogs (open/save).</p>
+                        <p><strong>Release build:</strong> LTO enabled, single codegen unit, symbols stripped — produces a small, fast binary.</p>
                     </div>
 
                     <div class="wiki-section" id="development">
                         <h3>development</h3>
-                        <p>The entire persistent state is one SQLite file (<code>docker/data/db.sqlite</code>), making backups trivial.</p>
-                        <p><strong>Roadmap:</strong> track reorder sync, granular view-only collaborator permissions, configurable poll interval per playlist, pagination for large playlists (&gt;500 tracks).</p>
+                        <p>The parser module handles reading ElSemi Model 2's <code>.input</code> binding format. The presets module manages saving and loading named control layouts. The gamepad module wraps gilrs to surface live input events to the UI.</p>
+                        <p>The tool ships with sample preset files for common controller layouts.</p>
                     </div>
 
                     <div class="wiki-section" id="links">
                         <h3>links</h3>
-                        <p><a href="https://github.com/elphiene/tidal-collaborative">github.com/elphiene/tidal-collaborative</a></p>
+                        <p><a href="https://github.com/elphiene/daytona-controls">github.com/elphiene/daytona-controls</a></p>
                     </div>
 
                 </div>
@@ -106,7 +100,7 @@
 
         <footer>
             <p>
-                webmaster: <a href="https://elphiene.github.io/elphiene/elphiene">elphiene</a>
+                webmaster: <a href="https://elphiene.com">elphiene</a>
                 | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
             </p>
         </footer>
