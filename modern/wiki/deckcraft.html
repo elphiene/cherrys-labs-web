@@ -70,23 +70,28 @@
 
                     <div class="wiki-section" id="overview">
                         <h3>overview</h3>
-                        <p>A Minecraft launcher built specifically for Steam Deck, designed to make installing and managing Minecraft straightforward on SteamOS.</p>
-                        <!-- expand: what problem it solves, who it's for, current status -->
+                        <p>A controller and touch-friendly Minecraft launcher built for Steam Deck and Linux gaming handhelds. Zero configuration required — DeckCraft automatically downloads the correct Java version, authenticates via Microsoft/Xbox Live, and manages Minecraft instances without any manual setup.</p>
+                        <p>Phases 0–6 are complete, meaning the launcher is fully functional for vanilla Minecraft across all versions. Mod loader support is planned for future phases.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
-                        <p><!-- document: language, framework, key dependencies --></p>
+                        <p><strong>Backend:</strong> Rust with Tauri 2.x (native desktop framework), SQLx (database), Tokio (async runtime), reqwest (HTTP), minecraft-msa-auth (Microsoft authentication).</p>
+                        <p><strong>Frontend:</strong> Svelte 5 + SvelteKit, TailwindCSS, TypeScript.</p>
+                        <p><strong>Packaging:</strong> Flatpak targeting the GNOME 47 runtime (webkit2gtk-4.1). Follows the XDG Base Directory spec — config in <code>~/.config/deckcraft/</code>, data in <code>~/.local/share/deckcraft/</code>.</p>
+                        <p><strong>Java management:</strong> Automatically downloads Adoptium (Eclipse Temurin) builds — Java 8 for MC 1.0–1.16, Java 16 for 1.17, Java 17 for 1.18–1.20, Java 21 for 1.21+.</p>
                     </div>
 
                     <div class="wiki-section" id="development">
                         <h3>development</h3>
-                        <p><!-- document the development process, design decisions, known issues, roadmap --></p>
+                        <p>Authentication uses the Microsoft OAuth2 + Xbox Live flow, opened in the system browser and completed via deep link callback. Sessions currently require re-login on restart.</p>
+                        <p>Game assets and libraries are downloaded with SHA1 verification against Mojang's version manifest. Instances are stored as individual directories under <code>~/.local/share/deckcraft/instances/</code>, each containing its own game directory, libraries, assets, and native libraries.</p>
+                        <p><strong>Planned:</strong> mod loader support (Phase 7), mod management UI (Phase 8).</p>
                     </div>
 
                     <div class="wiki-section" id="links">
                         <h3>links</h3>
-                        <p><a href="#">github (coming soon)</a></p>
+                        <p><a href="https://github.com/CherryGaySoda/DeckCraft">github.com/CherryGaySoda/DeckCraft</a></p>
                     </div>
 
                 </div>
