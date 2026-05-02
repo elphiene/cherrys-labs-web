@@ -5,3 +5,4 @@ Agent
 .env*
 CLAUDE.md
 .wrangler/
+cherry-manager/
