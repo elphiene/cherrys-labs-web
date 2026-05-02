@@ -4,3 +4,4 @@ Agent
 *.env
 .env*
 CLAUDE.md
+.wrangler/
