@@ -4,24 +4,184 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>cherry's labs</title>
-        <meta name="description" content="cherry's labs - modern UI" />
-        <meta
-            name="keywords"
-            content="HTML, CSS, JavaScript, cherry's labs, projects, 3D printing, store"
-        />
+        <meta name="description" content="cherry's labs — hardware, software, and maker projects by cherry and el." />
         <meta name="author" content="Elphiene" />
         <meta name="year" content="2026" />
-        <link
-            rel="icon"
-            type="image/x-icon"
-            href="images/icons/favicon.png"
-        />
+        <link rel="icon" type="image/x-icon" href="images/icons/favicon.png" />
         <link rel="stylesheet" href="style.css" />
         <style>
-            /* ── index page extras ── */
+            /* ── header: horizontal logo-left / nav-right ── */
+            header {
+                text-align: left;
+                padding: 12px var(--spacing-md);
+            }
+
+            .header-inner {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            header .logo {
+                max-width: 160px;
+                margin-bottom: 0;
+            }
+
+            header nav {
+                justify-content: flex-end;
+                flex-wrap: nowrap;
+                gap: var(--spacing-xs);
+            }
+
+            body { padding-top: 70px; }
+
+            /* ── hamburger ── */
+            .nav-toggle {
+                display: none;
+                flex-direction: column;
+                gap: 5px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 8px;
+                border-radius: 6px;
+            }
+
+            .nav-toggle span {
+                display: block;
+                width: 22px;
+                height: 2px;
+                background: var(--color-text);
+                border-radius: 2px;
+                transition: all 0.25s ease;
+            }
+
+            .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+            .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+            @media (max-width: 768px) {
+                body { padding-top: 60px; }
+                .nav-toggle { display: flex; }
+                header nav {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0; right: 0;
+                    flex-direction: column;
+                    align-items: stretch;
+                    background: rgba(8,8,8,0.98);
+                    backdrop-filter: blur(20px);
+                    border-bottom: 1px solid rgba(236,72,153,0.3);
+                    padding: 8px 16px 16px;
+                    gap: 0;
+                }
+                header nav.open { display: flex; }
+                header nav a {
+                    padding: 12px 16px;
+                    border-bottom: 1px solid rgba(255,255,255,0.05);
+                    border-radius: 0;
+                }
+                header nav a:last-child { border-bottom: none; }
+            }
+
+            /* ── section label ── */
+            .section-label {
+                font-family: var(--font-mono);
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.15em;
+                color: #555;
+                margin-bottom: var(--spacing-xs);
+            }
+
+            /* ── person cards ── */
+            .person-card {
+                display: flex;
+                gap: var(--spacing-md);
+                align-items: flex-start;
+            }
+
+            .person-avatar {
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: var(--font-heading);
+                font-size: 22px;
+                flex-shrink: 0;
+                color: #fff;
+            }
+
+            .person-info { flex: 1; }
+            .person-info h2 { font-size: 20px; margin-bottom: 2px; }
+            .person-info .pronouns { font-size: 12px; color: #666; font-style: italic; margin-bottom: 2px; }
+            .person-info .role { font-family: var(--font-mono); font-size: 12px; color: var(--color-purple); margin-bottom: var(--spacing-xs); }
+            .person-info p { font-size: 14px; color: #bbb; line-height: 1.5; margin-bottom: var(--spacing-xs); }
+
+            .person-links { display: flex; gap: var(--spacing-sm); flex-wrap: wrap; }
+            .person-links a {
+                font-family: var(--font-mono);
+                font-size: 12px;
+                color: #666;
+                border-bottom: 1px solid #333;
+                text-decoration: none;
+                transition: color 0.2s, border-color 0.2s;
+            }
+            .person-links a:hover { color: var(--color-pink); border-color: var(--color-pink); }
+
+            @media (max-width: 480px) { .person-card { flex-direction: column; } }
+
+            /* ── stats panel ── */
+            .stats-panel { overflow: hidden; }
+
+            .stats-label {
+                font-family: var(--font-heading);
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: #555;
+                margin-bottom: var(--spacing-sm);
+            }
+
+            #stats-heatmap {
+                width: 100%;
+                overflow-x: auto;
+                margin-bottom: var(--spacing-sm);
+            }
+
+            #stats-heatmap svg { display: block; }
+
+            .stats-nums {
+                display: flex;
+                gap: var(--spacing-lg);
+                flex-wrap: wrap;
+                font-family: var(--font-mono);
+                font-size: 13px;
+                color: #555;
+            }
+
+            .stats-nums strong {
+                font-family: var(--font-glitch);
+                display: block;
+                font-size: 32px;
+                color: var(--color-pink);
+                line-height: 1;
+                margin-bottom: 2px;
+                text-shadow: 0 0 16px rgba(236,72,153,0.3);
+            }
+
+            .stats-fallback { font-size: 13px; color: #444; font-family: var(--font-mono); }
+
+            /* ── nav cards ── */
             .nav-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
                 gap: var(--spacing-md);
                 margin-top: var(--spacing-md);
             }
@@ -30,15 +190,9 @@
                 display: flex;
                 flex-direction: column;
                 gap: var(--spacing-xs);
-                border-left-width: 1px;
             }
 
-            .tags {
-                display: flex;
-                gap: var(--spacing-xs);
-                flex-wrap: wrap;
-            }
-
+            .tags { display: flex; gap: var(--spacing-xs); flex-wrap: wrap; }
             .tag {
                 font-size: 11px;
                 padding: 2px 8px;
@@ -47,110 +201,102 @@
                 color: #ccc;
             }
 
-            /* Stretched-link */
-            .card {
-                position: relative;
-            }
-            .card-nav-link {
-                color: inherit;
-                text-decoration: none;
-            }
-            .card-nav-link::after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                border-radius: var(--radius);
-            }
+            .card { position: relative; }
+            .card-nav-link { color: inherit; text-decoration: none; }
+            .card-nav-link::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
 
-            @media (max-width: 480px) {
-                .nav-grid {
-                    grid-template-columns: 1fr;
-                }
-            }
+            @media (max-width: 480px) { .nav-grid { grid-template-columns: 1fr; } }
         </style>
     </head>
     <body>
         <header>
-            <img
-                src="images/logos/cherrys-labs.png"
-                alt="cherry's labs"
-                class="logo"
-            />
-            <nav>
-                <a href="projects.html">projects</a>
-                <a href="programs.html">programs</a>
-                <a href="store.html">store</a>
-                <a href="wiki.html">wiki</a>
-            </nav>
+            <div class="header-inner">
+                <img src="images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+                <nav id="main-nav">
+                    <a href="index.html">home</a>
+                    <a href="hardware.html">hardware</a>
+                    <a href="software.html">software</a>
+                    <a href="store.html">store</a>
+                    <a href="wiki.html">wiki</a>
+                </nav>
+            </div>
         </header>
 
         <main>
-            <!-- Intro Cards Section -->
+            <!-- Team -->
             <section class="intros">
-                <div class="card">
-                    <h2>cherry</h2>
-                    <p><em>she/her</em></p>
-                    <p>text</p>
-                    <p class="sub-info">sub-info</p>
+                <p class="section-label">the team</p>
+                <div class="card person-card">
+                    <div class="person-avatar">C</div>
+                    <div class="person-info">
+                        <h2>cherry</h2>
+                        <p class="pronouns">she/her</p>
+                        <p class="role">founder · hardware</p>
+                        <p>text</p>
+                        <div class="person-links">
+                            <a href="https://cherrysofa.com">cherrysofa.com ↗</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="card">
-                    <h2>el</h2>
-                    <p><em>they/them</em><br />artist, webmaster.</p>
-                    <p>
-                        debian 13<br />lenovo ideapad slim 3<br />bambu lab a1 +
-                        ams lite
-                    </p>
+                <div class="card person-card">
+                    <div class="person-avatar">E</div>
+                    <div class="person-info">
+                        <h2>el</h2>
+                        <p class="pronouns">they/them</p>
+                        <p class="role">developer · webmaster</p>
+                        <p>artist, webmaster. debian 13 · lenovo ideapad slim 3 · bambu lab a1 + ams lite</p>
+                        <div class="person-links">
+                            <a href="https://github.com/elphiene">github ↗</a>
+                            <a href="https://elphiene.github.io/elphiene/elphiene">elphiene ↗</a>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Nav Cards Section -->
+            <!-- GitHub stats -->
             <section>
+                <p class="section-label">github activity</p>
+                <div class="card stats-panel">
+                    <div class="stats-label">combined activity — last 12 months</div>
+                    <div id="stats-heatmap"><p class="stats-fallback">loading...</p></div>
+                    <div class="stats-nums" id="stats-nums">
+                        <div><strong id="el-commits">—</strong>el's commits</div>
+                        <div><strong id="cherry-commits">—</strong>cherry's commits</div>
+                        <div><strong id="total-repos">—</strong>public repos</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Nav cards -->
+            <section>
+                <p class="section-label">explore</p>
                 <div class="card">
-                    <h3>Latest Projects &amp; Products</h3>
                     <div class="nav-grid">
                         <div class="card nav-card">
-                            <div class="tags">
-                                <span class="tag">hardware + software</span>
-                            </div>
-                            <h3>
-                                <a class="card-nav-link" href="projects.html"
-                                    >projects</a
-                                >
-                            </h3>
-                            <p>
-                                Physical builds and larger collaborative work.
-                            </p>
+                            <div class="tags"><span class="tag">3d prints · gadgets</span></div>
+                            <h3><a class="card-nav-link" href="hardware.html">hardware</a></h3>
+                            <p>Physical builds, 3D prints, and maker projects.</p>
                         </div>
-
                         <div class="card nav-card">
-                            <div class="tags">
-                                <span class="tag">linux · steamos</span>
-                            </div>
-                            <h3>
-                                <a class="card-nav-link" href="programs.html"
-                                    >programs</a
-                                >
-                            </h3>
+                            <div class="tags"><span class="tag">linux · steamos</span></div>
+                            <h3><a class="card-nav-link" href="software.html">software</a></h3>
                             <p>Software tools, utilities, and launchers.</p>
                         </div>
-
                         <div class="card nav-card">
-                            <div class="tags">
-                                <span class="tag">3d prints · gadgets</span>
-                            </div>
-                            <h3>
-                                <a class="card-nav-link" href="store.html"
-                                    >store</a
-                                >
-                            </h3>
+                            <div class="tags"><span class="tag">3d prints · gadgets</span></div>
+                            <h3><a class="card-nav-link" href="store.html">store</a></h3>
                             <p>3D printed items and physical tech for sale.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- News Section -->
+            <!-- News -->
             <section class="news">
+                <p class="section-label">news</p>
                 <div class="card">
                     <h3>Latest News</h3>
                     <article>
@@ -161,23 +307,18 @@
                 </div>
             </section>
 
-            <!-- Updates Section -->
+            <!-- Updates -->
             <section class="updates">
+                <p class="section-label">updates</p>
                 <div class="card">
                     <h3>Updates</h3>
                     <article>
                         <time>february 16th 8:53am</time>
-                        <p>
-                            created modern website, adjusted css styling and
-                            formatting. -e
-                        </p>
+                        <p>created modern website, adjusted css styling and formatting. -e</p>
                     </article>
                     <article>
                         <time>january 14th 6:53pm</time>
-                        <p>
-                            formatted and filled in index page, created
-                            sub-pages. added css styling. -e
-                        </p>
+                        <p>formatted and filled in index page, created sub-pages. added css styling. -e</p>
                     </article>
                 </div>
             </section>
@@ -185,22 +326,112 @@
 
         <footer>
             <p>
-                webmaster:
-                <a href="https://elphiene.github.io/elphiene/elphiene"
-                    >elphiene</a
-                >
+                webmaster: <a href="https://elphiene.github.io/elphiene/elphiene">elphiene</a>
                 | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
             </p>
         </footer>
 
         <script>
-            // Simple fade-in animation timing for cards
-            document.addEventListener("DOMContentLoaded", () => {
-                const cards = document.querySelectorAll(".card");
-                cards.forEach((card, index) => {
-                    card.style.animationDelay = `${index * 0.1}s`;
+            // Hamburger
+            const toggle = document.querySelector('.nav-toggle');
+            const nav    = document.getElementById('main-nav');
+            toggle.addEventListener('click', () => {
+                const open = nav.classList.toggle('open');
+                toggle.classList.toggle('active', open);
+                toggle.setAttribute('aria-expanded', String(open));
+            });
+            document.addEventListener('click', (e) => {
+                if (!toggle.contains(e.target) && !nav.contains(e.target)) {
+                    nav.classList.remove('open');
+                    toggle.classList.remove('active');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Card fade-in
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.card').forEach((card, i) => {
+                    card.style.animationDelay = `${i * 0.08}s`;
                 });
             });
+
+            // GitHub stats
+            async function loadStats() {
+                const heatmapEl = document.getElementById('stats-heatmap');
+                const elCommitsEl   = document.getElementById('el-commits');
+                const cherryCommitsEl = document.getElementById('cherry-commits');
+                const totalReposEl  = document.getElementById('total-repos');
+
+                try {
+                    const [elData, cherryData, elUser, cherryUser] = await Promise.all([
+                        fetch('https://github-contributions-api.jogruber.de/v4/elphiene?y=last').then(r => r.json()),
+                        fetch('https://github-contributions-api.jogruber.de/v4/CherryGaySoda?y=last').then(r => r.json()),
+                        fetch('https://api.github.com/users/elphiene').then(r => r.json()),
+                        fetch('https://api.github.com/users/CherryGaySoda').then(r => r.json()),
+                    ]);
+
+                    // Merge contributions by date
+                    const merged = {};
+                    for (const c of elData.contributions)     merged[c.date] = (merged[c.date] || 0) + c.count;
+                    for (const c of cherryData.contributions) merged[c.date] = (merged[c.date] || 0) + c.count;
+
+                    // Build date range (last 52 weeks from today)
+                    const today = new Date();
+                    const start = new Date(today);
+                    start.setDate(start.getDate() - 364);
+                    // Align to Sunday
+                    start.setDate(start.getDate() - start.getDay());
+
+                    const CELL = 11, GAP = 2, ROWS = 7;
+                    const dates = [];
+                    const d = new Date(start);
+                    while (d <= today) {
+                        dates.push(d.toISOString().slice(0, 10));
+                        d.setDate(d.getDate() + 1);
+                    }
+                    const weeks = Math.ceil(dates.length / 7);
+                    const svgW  = weeks * (CELL + GAP);
+                    const svgH  = ROWS  * (CELL + GAP);
+
+                    // Max count for relative scaling
+                    const maxCount = Math.max(1, ...Object.values(merged));
+
+                    // Color levels
+                    function cellColor(count) {
+                        if (!count) return 'rgba(255,255,255,0.05)';
+                        const t = count / maxCount;
+                        if (t < 0.25) return 'rgba(147,84,211,0.4)';
+                        if (t < 0.5)  return 'rgba(147,84,211,0.7)';
+                        if (t < 0.75) return 'rgba(236,72,153,0.7)';
+                        return '#ec4899';
+                    }
+
+                    let rects = '';
+                    dates.forEach((date, i) => {
+                        const col = Math.floor(i / 7);
+                        const row = i % 7;
+                        const x = col * (CELL + GAP);
+                        const y = row * (CELL + GAP);
+                        const count = merged[date] || 0;
+                        rects += `<rect x="${x}" y="${y}" width="${CELL}" height="${CELL}" rx="2" fill="${cellColor(count)}" data-date="${date}" data-count="${count}"><title>${date}: ${count} commits</title></rect>`;
+                    });
+
+                    heatmapEl.innerHTML = `<svg width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}">${rects}</svg>`;
+
+                    // Summary numbers
+                    const elTotal     = elData.contributions.reduce((s, c) => s + c.count, 0);
+                    const cherryTotal = cherryData.contributions.reduce((s, c) => s + c.count, 0);
+                    elCommitsEl.textContent     = elTotal;
+                    cherryCommitsEl.textContent = cherryTotal;
+                    totalReposEl.textContent    = (elUser.public_repos || 0) + (cherryUser.public_repos || 0);
+
+                } catch (err) {
+                    heatmapEl.innerHTML = '<p class="stats-fallback">github stats unavailable</p>';
+                    elCommitsEl.textContent = cherryCommitsEl.textContent = totalReposEl.textContent = '—';
+                }
+            }
+
+            loadStats();
         </script>
     </body>
 </html>

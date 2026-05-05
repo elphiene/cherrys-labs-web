@@ -4,101 +4,198 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>cherry's labs — wiki</title>
-        <meta name="description" content="cherry's labs - wiki" />
+        <meta name="description" content="cherry's labs - documentation and project wiki." />
         <meta name="author" content="Elphiene" />
         <meta name="year" content="2026" />
         <link rel="icon" type="image/x-icon" href="images/icons/favicon.png" />
         <link rel="stylesheet" href="style.css" />
         <style>
-            /* ── wiki index page extras ── */
-            .wiki-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: var(--spacing-md);
+            /* ── header: horizontal ── */
+            header { text-align: left; padding: 12px var(--spacing-md); }
+            .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+            header .logo { max-width: 160px; margin-bottom: 0; }
+            header nav { justify-content: flex-end; flex-wrap: nowrap; gap: var(--spacing-xs); }
+            body { padding-top: 70px; }
+
+            .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; border-radius: 6px; }
+            .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--color-text); border-radius: 2px; transition: all 0.25s; }
+            .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+            .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+            @media (max-width: 768px) {
+                body { padding-top: 60px; }
+                .nav-toggle { display: flex; }
+                header nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; background: rgba(8,8,8,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(236,72,153,0.3); padding: 8px 16px 16px; gap: 0; }
+                header nav.open { display: flex; }
+                header nav a { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); border-radius: 0; }
+                header nav a:last-child { border-bottom: none; }
             }
 
-            .wiki-card {
+            /* ── wiki list ── */
+            .wiki-desc {
+                font-size: 14px;
+                color: #888;
+                margin-bottom: var(--spacing-md);
+            }
+
+            .wiki-list { display: flex; flex-direction: column; }
+
+            .wiki-entry {
                 display: flex;
-                flex-direction: column;
-                gap: var(--spacing-xs);
+                align-items: baseline;
+                gap: var(--spacing-md);
+                padding: 14px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
                 text-decoration: none;
-                color: inherit;
+                transition: padding-left 0.2s ease, border-color 0.2s;
             }
 
-            /* Stretched-link */
-            .card { position: relative; }
-            .wiki-card-link {
-                color: inherit;
+            .wiki-entry:last-child { border-bottom: none; }
+
+            .wiki-entry:hover {
+                padding-left: 8px;
+                border-color: rgba(236,72,153,0.2);
                 text-decoration: none;
             }
-            .wiki-card-link::after {
-                content: '';
-                position: absolute;
-                inset: 0;
-                border-radius: var(--radius);
+
+            .wiki-name {
+                font-family: var(--font-mono);
+                font-size: 14px;
+                color: var(--color-pink);
+                min-width: 230px;
+                flex-shrink: 0;
             }
 
-            @media (max-width: 480px) {
-                .wiki-grid {
-                    grid-template-columns: 1fr;
-                }
+            .wiki-meta { display: flex; flex-direction: column; gap: 4px; }
+
+            .wiki-entry-desc { font-size: 13px; color: #888; }
+
+            .wiki-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+
+            .wiki-tag {
+                font-family: var(--font-mono);
+                font-size: 10px;
+                padding: 1px 6px;
+                border-radius: 3px;
+                border: 1px solid rgba(255,255,255,0.08);
+                color: #555;
+            }
+
+            @media (max-width: 600px) {
+                .wiki-entry { flex-direction: column; gap: 6px; }
+                .wiki-name { min-width: unset; }
             }
         </style>
     </head>
     <body>
         <header>
-            <img src="images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
-            <nav>
-                <a href="index.html">home</a>
-                <a href="projects.html">projects</a>
-                <a href="programs.html">programs</a>
-                <a href="store.html">store</a>
-                <a href="wiki.html">wiki</a>
-            </nav>
+            <div class="header-inner">
+                <img src="images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+                <nav id="main-nav">
+                    <a href="index.html">home</a>
+                    <a href="hardware.html">hardware</a>
+                    <a href="software.html">software</a>
+                    <a href="store.html">store</a>
+                    <a href="wiki.html">wiki</a>
+                </nav>
+            </div>
         </header>
 
         <main>
             <section>
                 <h2>wiki</h2>
+                <p class="wiki-desc">Full documentation for all cherry's labs projects — tech stacks, architecture, setup guides, and dev notes.</p>
 
-                <!-- ─────────────────────────────────────────
-                     WIKI INDEX
-                     To add an article:
-                     1. Create wiki/your-article-name.html
-                     2. Copy one .card below and point href to it
-                ───────────────────────────────────────── -->
-                <div class="wiki-grid">
+                <div class="card">
+                    <!-- ─────────────────────────────────────────
+                         WIKI INDEX
+                         To add an article:
+                         1. Create wiki/your-article-name.html
+                         2. Copy one .wiki-entry block and point href to it
+                    ───────────────────────────────────────── -->
+                    <div class="wiki-list">
 
-                    <div class="card">
-                        <h3><a class="wiki-card-link" href="wiki/tidal-collaborative.html">tidal-collaborative</a></h3>
-                        <p>A self-hosted collaborative playlist sync for Tidal.</p>
+                        <a class="wiki-entry" href="wiki/tidal-collaborative.html">
+                            <span class="wiki-name">tidal-collaborative</span>
+                            <div class="wiki-meta">
+                                <span class="wiki-entry-desc">Self-hosted collaborative Tidal playlist sync</span>
+                                <div class="wiki-tags">
+                                    <span class="wiki-tag">Node.js</span>
+                                    <span class="wiki-tag">Docker</span>
+                                    <span class="wiki-tag">SQLite</span>
+                                    <span class="wiki-tag">wip</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="wiki-entry" href="wiki/deckcraft.html">
+                            <span class="wiki-name">deckcraft</span>
+                            <div class="wiki-meta">
+                                <span class="wiki-entry-desc">Minecraft launcher for Steam Deck</span>
+                                <div class="wiki-tags">
+                                    <span class="wiki-tag">Rust</span>
+                                    <span class="wiki-tag">Tauri</span>
+                                    <span class="wiki-tag">Svelte</span>
+                                    <span class="wiki-tag">wip</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="wiki-entry" href="wiki/non-steam-grid-generator.html">
+                            <span class="wiki-name">non-steam-grid-generator</span>
+                            <div class="wiki-meta">
+                                <span class="wiki-entry-desc">Browser tool for generating Steam artwork for non-Steam games</span>
+                                <div class="wiki-tags">
+                                    <span class="wiki-tag">HTML</span>
+                                    <span class="wiki-tag">Canvas API</span>
+                                    <span class="wiki-tag">complete</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="wiki-entry" href="wiki/dockswitch.html">
+                            <span class="wiki-name">dockswitch</span>
+                            <div class="wiki-meta">
+                                <span class="wiki-entry-desc">Auto-switches SteamOS between Gaming Mode and Desktop Mode on dock events</span>
+                                <div class="wiki-tags">
+                                    <span class="wiki-tag">Rust</span>
+                                    <span class="wiki-tag">SteamOS</span>
+                                    <span class="wiki-tag">complete</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="wiki-entry" href="wiki/peerchat.html">
+                            <span class="wiki-name">peerchat</span>
+                            <div class="wiki-meta">
+                                <span class="wiki-entry-desc">Fully peer-to-peer terminal chat — text, file transfer, voice, ASCII webcam via libp2p</span>
+                                <div class="wiki-tags">
+                                    <span class="wiki-tag">Rust</span>
+                                    <span class="wiki-tag">Linux</span>
+                                    <span class="wiki-tag">macOS</span>
+                                    <span class="wiki-tag">wip</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="wiki-entry" href="wiki/daytona-controls.html">
+                            <span class="wiki-name">daytona-controls</span>
+                            <div class="wiki-meta">
+                                <span class="wiki-entry-desc">GUI editor for ElSemi Model 2 Emulator control-binding files with live gamepad detection</span>
+                                <div class="wiki-tags">
+                                    <span class="wiki-tag">Rust</span>
+                                    <span class="wiki-tag">Linux</span>
+                                    <span class="wiki-tag">Windows</span>
+                                    <span class="wiki-tag">wip</span>
+                                </div>
+                            </div>
+                        </a>
+
                     </div>
-
-                    <div class="card">
-                        <h3><a class="wiki-card-link" href="wiki/deckcraft.html">deckcraft</a></h3>
-                        <p>A Minecraft launcher built for Steam Deck.</p>
-                    </div>
-
-                    <div class="card">
-                        <h3><a class="wiki-card-link" href="wiki/non-steam-grid-generator.html">non-steam-grid-generator</a></h3>
-                        <p>Browser tool for generating custom Steam artwork for non-Steam games.</p>
-                    </div>
-
-                    <div class="card">
-                        <h3><a class="wiki-card-link" href="wiki/dockswitch.html">dockswitch</a></h3>
-                        <p>Auto-switches SteamOS between Gaming Mode and Desktop Mode on dock events.</p>
-                    </div>
-
-                    <div class="card">
-                        <h3><a class="wiki-card-link" href="wiki/peerchat.html">peerchat</a></h3>
-                        <p>A fully peer-to-peer terminal chat app in Rust — text, file transfer, voice, and ASCII webcam.</p>
-                    </div>
-
-                    <div class="card">
-                        <h3><a class="wiki-card-link" href="wiki/daytona-controls.html">daytona-controls</a></h3>
-                        <p>GUI editor for ElSemi Model 2 Emulator control-binding files, with live gamepad input detection.</p>
-                    </div>
-
                 </div>
             </section>
         </main>
@@ -111,10 +208,19 @@
         </footer>
 
         <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                document.querySelectorAll(".card").forEach((card, i) => {
-                    card.style.animationDelay = `${i * 0.1}s`;
-                });
+            const toggle = document.querySelector('.nav-toggle');
+            const nav    = document.getElementById('main-nav');
+            toggle.addEventListener('click', () => {
+                const open = nav.classList.toggle('open');
+                toggle.classList.toggle('active', open);
+                toggle.setAttribute('aria-expanded', String(open));
+            });
+            document.addEventListener('click', (e) => {
+                if (!toggle.contains(e.target) && !nav.contains(e.target)) {
+                    nav.classList.remove('open');
+                    toggle.classList.remove('active');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
             });
         </script>
     </body>
