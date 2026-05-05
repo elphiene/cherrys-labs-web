@@ -15,7 +15,7 @@
             .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
             header .logo { max-width: 160px; margin-bottom: 0; }
             header nav { justify-content: flex-end; flex-wrap: nowrap; gap: var(--spacing-xs); }
-            body { padding-top: 70px; }
+            body { padding-top: 90px; }
             .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; border-radius: 6px; }
             .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--color-text); border-radius: 2px; transition: all 0.25s; }
             .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -97,20 +97,18 @@
         </header>
 
         <main>
-            <section class="showcase">
-                <h2>store</h2>
-                <p>3D printed items and gadgets/tech. More coming soon!</p>
-            </section>
-
             <section>
+                <h2>store</h2>
+                <p style="color:#888; font-size:14px; margin-bottom: var(--spacing-md);">3D printed items and gadgets/tech.</p>
+
                 <!-- ─────────────────────────────────────────
                      STORE GRID
-                     To add a product: copy one .card.product-card block.
+                     To add a product: copy the PRODUCT CARD TEMPLATE below.
                      Category tags: type-3dprint / type-gadget
                 ───────────────────────────────────────── -->
                 <div class="store-grid">
 
-                    <!-- PRODUCT CARD TEMPLATE
+                    <!-- PRODUCT CARD TEMPLATE — copy this block and fill in details
                     <div class="card product-card">
                         <img src="path/to/photo.jpg" alt="product name" />
                         <div class="tags">
@@ -122,13 +120,9 @@
                     </div>
                     -->
 
-                    <div class="card product-card">
-                        <div class="tags">
-                            <span class="tag type-3dprint">3d print</span>
-                        </div>
-                        <h3>product name</h3>
-                        <p>Short description of the item.</p>
-                        <span class="price">$0.00</span>
+                    <div class="card product-card" style="align-items:center; justify-content:center; text-align:center; min-height:180px;">
+                        <h3 style="color:#555; font-size:16px;">coming soon</h3>
+                        <p style="color:#444; font-size:13px;">products are on the way.</p>
                     </div>
 
                 </div>
