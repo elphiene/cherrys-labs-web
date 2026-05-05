@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Rubik+Glitch&display=swap');
+
 /* ========================================
    CSS VARIABLES (DRY PRINCIPLE)
    ======================================== */
@@ -37,7 +39,10 @@
     --blur-amount-strong: 20px;
 
     /* Typography */
-    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --font-heading: 'Audiowide', sans-serif;
+    --font-main: 'Quantico', sans-serif;
+    --font-glitch: 'Rubik Glitch', sans-serif;
+    --font-mono: 'Courier New', Courier, monospace;
     --font-size-base: 16px;
     --font-size-small: 14px;
     --font-size-h2: 24px;
@@ -141,6 +146,7 @@ nav {
 }
 
 nav a {
+    font-family: var(--font-heading);
     color: var(--color-text);
     text-decoration: none;
     font-size: var(--font-size-base);
@@ -184,16 +190,18 @@ section {
 }
 
 section h2 {
-    font-size: 28px; /* Increased from 24px */
+    font-family: var(--font-heading);
+    font-size: 28px;
     color: var(--color-pink);
-    margin-bottom: var(--spacing-sm); /* Keep sm for section spacing */
+    margin-bottom: var(--spacing-sm);
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 section h3 {
-    font-size: 22px; /* Increased from 20px */
+    font-family: var(--font-heading);
+    font-size: 22px;
     color: var(--color-pink);
-    margin-bottom: var(--spacing-xs); /* Changed from sm to xs */
+    margin-bottom: var(--spacing-xs);
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
@@ -201,55 +209,51 @@ section h3 {
    CARD STYLES
    ======================================== */
 .card {
-    background-color: rgba(26, 26, 26, 0.7);
+    background-color: rgba(18, 18, 18, 0.82);
     background-image: linear-gradient(
         135deg,
-        rgba(236, 72, 153, 0.05) 0%,
-        transparent 50%,
-        rgba(147, 84, 211, 0.03) 100%
+        rgba(236, 72, 153, 0.03) 0%,
+        transparent 60%,
+        rgba(147, 84, 211, 0.02) 100%
     );
     backdrop-filter: blur(var(--blur-amount-strong));
     -webkit-backdrop-filter: blur(var(--blur-amount-strong));
-    box-shadow: 0 8px 24px rgba(236, 72, 153, 0.2),
-                0 4px 12px rgba(0, 0, 0, 0.3),
-                var(--shadow-white);
-    border: var(--border-width) solid rgba(255, 255, 255, 0.2);
-    border-left: 4px solid var(--color-pink);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius);
-    padding: var(--spacing-md);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: var(--spacing-sm);
+    box-shadow: none;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s;
     animation: fadeIn 0.6s ease-out;
 }
 
 .card:hover {
-    background-color: rgba(42, 42, 42, 0.8);
-    background-image: linear-gradient(
-        135deg,
-        rgba(236, 72, 153, 0.08) 0%,
-        transparent 50%,
-        rgba(147, 84, 211, 0.05) 100%
-    );
-    border-color: rgba(255, 255, 255, 0.4);
-    border-left-color: var(--color-purple);
-    box-shadow: 0 12px 32px rgba(236, 72, 153, 0.35),
-                0 6px 16px rgba(0, 0, 0, 0.4),
-                var(--shadow-white-strong);
-    transform: translateY(-4px);
+    transform: translateY(-3px);
+    border-color: rgba(236, 72, 153, 0.25);
+    box-shadow:
+        0 0 24px rgba(236, 72, 153, 0.2),
+        0 0 48px rgba(236, 72, 153, 0.08),
+        inset 0 1px 0 rgba(236, 72, 153, 0.3),
+        0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .card h2 {
+    font-family: var(--font-heading);
     color: var(--color-pink);
-    margin-bottom: var(--spacing-xs); /* Changed from sm (16px) to xs (8px) */
-    font-size: 28px; /* Increased from 24px for better hierarchy */
+    margin-bottom: var(--spacing-xs);
+    font-size: 28px;
 }
 
 .card h3 {
+    font-family: var(--font-heading);
     color: var(--color-pink);
-    margin-bottom: var(--spacing-xs); /* Changed from sm (16px) to xs (8px) */
-    font-size: 22px; /* Increased from 20px */
+    margin-bottom: var(--spacing-xs);
+    font-size: 22px;
 }
 
 .card h4 {
+    font-family: var(--font-heading);
     color: var(--color-text);
     margin-bottom: var(--spacing-xs);
     font-size: var(--font-size-h4);
@@ -472,7 +476,6 @@ footer a:hover {
 
     .card {
         padding: var(--spacing-sm);
-        border-left-width: 3px;
     }
 }
 

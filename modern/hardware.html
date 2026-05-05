@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>cherry's labs — store</title>
-        <meta name="description" content="cherry's labs - store" />
+        <title>cherry's labs — hardware</title>
+        <meta name="description" content="cherry's labs - hardware builds, 3D prints, and physical projects." />
         <meta name="author" content="Elphiene" />
         <meta name="year" content="2026" />
         <link rel="icon" type="image/x-icon" href="images/icons/favicon.png" />
@@ -16,11 +16,13 @@
             header .logo { max-width: 160px; margin-bottom: 0; }
             header nav { justify-content: flex-end; flex-wrap: nowrap; gap: var(--spacing-xs); }
             body { padding-top: 70px; }
+
             .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; border-radius: 6px; }
             .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--color-text); border-radius: 2px; transition: all 0.25s; }
             .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
             .nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
             .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
             @media (max-width: 768px) {
                 body { padding-top: 60px; }
                 .nav-toggle { display: flex; }
@@ -30,53 +32,68 @@
                 header nav a:last-child { border-bottom: none; }
             }
 
-            /* ── store page extras ── */
-            .store-grid {
+            /* ── hardware grid ── */
+            .hardware-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
                 gap: var(--spacing-md);
             }
 
-            .product-card {
+            .hardware-card {
                 display: flex;
                 flex-direction: column;
-                gap: var(--spacing-xs);
+                padding: 0;
+                overflow: hidden;
             }
 
-            .product-card img {
+            .card-image {
                 width: 100%;
-                aspect-ratio: 1/1;
-                object-fit: cover;
-                border-radius: calc(var(--radius) / 2);
-                border: 1px solid var(--border-color-white);
-            }
-
-            .product-card .price {
-                font-size: var(--font-size-base);
-                color: var(--color-pink);
-                font-weight: bold;
-            }
-
-            .tags {
+                aspect-ratio: 16/9;
+                background: #0a0a0a;
                 display: flex;
-                gap: var(--spacing-xs);
-                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                overflow: hidden;
+                flex-shrink: 0;
             }
+
+            .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+            .hardware-card:hover .card-image img { transform: scale(1.04); }
+            .img-placeholder { font-family: var(--font-mono); font-size: 11px; color: #222; user-select: none; }
+
+            .card-body {
+                padding: var(--spacing-md);
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                flex: 1;
+            }
+
+            .tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 
             .tag {
+                font-family: var(--font-mono);
                 font-size: 11px;
-                padding: 2px 8px;
-                border-radius: 20px;
-                border: 1px solid var(--border-color-white);
-                color: #ccc;
+                padding: 2px 7px;
+                border-radius: 4px;
+                border: 1px solid rgba(255,255,255,0.1);
+                color: #888;
+                background: rgba(255,255,255,0.03);
             }
 
-            .tag.type-3dprint { border-color: var(--color-purple); color: var(--color-purple); }
-            .tag.type-gadget  { border-color: var(--color-pink);   color: var(--color-pink);   }
+            .tag.status-wip      { border-color: #f59e0b; color: #f59e0b; background: rgba(245,158,11,0.07); }
+            .tag.status-complete { border-color: #22c55e; color: #22c55e; background: rgba(34,197,94,0.07); }
+            .tag.status-on-hold  { border-color: #6b7280; color: #6b7280; background: rgba(107,114,128,0.07); }
 
-            @media (max-width: 480px) {
-                .store-grid { grid-template-columns: 1fr; }
-            }
+            .card-body h3 { font-size: 17px; margin: 0; }
+            .card-body p  { font-size: 13px; color: #aaa; line-height: 1.55; margin: 0; flex: 1; }
+
+            .card-links { display: flex; gap: var(--spacing-sm); padding-top: 4px; }
+            .card-links a { font-family: var(--font-mono); font-size: 12px; color: #666; transition: color 0.2s; }
+            .card-links a:hover { color: var(--color-pink); text-decoration: none; }
+
+            @media (max-width: 480px) { .hardware-grid { grid-template-columns: 1fr; } }
         </style>
     </head>
     <body>
@@ -97,39 +114,35 @@
         </header>
 
         <main>
-            <section class="showcase">
-                <h2>store</h2>
-                <p>3D printed items and gadgets/tech. More coming soon!</p>
-            </section>
-
             <section>
-                <!-- ─────────────────────────────────────────
-                     STORE GRID
-                     To add a product: copy one .card.product-card block.
-                     Category tags: type-3dprint / type-gadget
-                ───────────────────────────────────────── -->
-                <div class="store-grid">
+                <h2>hardware</h2>
 
-                    <!-- PRODUCT CARD TEMPLATE
-                    <div class="card product-card">
-                        <img src="path/to/photo.jpg" alt="product name" />
-                        <div class="tags">
-                            <span class="tag type-3dprint">3d print</span>
+                <!-- ─────────────────────────────────────────
+                     HARDWARE GRID
+                     Physical builds, 3D prints, maker projects.
+                     To add a build: copy one .card.hardware-card block.
+                     Status tags: status-wip / status-complete / status-on-hold
+                ───────────────────────────────────────── -->
+                <div class="hardware-grid">
+
+                    <!-- HARDWARE CARD TEMPLATE
+                    <div class="card hardware-card">
+                        <div class="card-image">
+                            <img src="images/projects/project-name.jpg" alt="project name" />
                         </div>
-                        <h3>product name</h3>
-                        <p>Short description.</p>
-                        <span class="price">$0.00</span>
+                        <div class="card-body">
+                            <div class="tags">
+                                <span class="tag status-wip">wip</span>
+                                <span class="tag">3d print</span>
+                            </div>
+                            <h3>project title</h3>
+                            <p>Short description.</p>
+                            <div class="card-links">
+                                <a href="#">github ↗</a>
+                            </div>
+                        </div>
                     </div>
                     -->
-
-                    <div class="card product-card">
-                        <div class="tags">
-                            <span class="tag type-3dprint">3d print</span>
-                        </div>
-                        <h3>product name</h3>
-                        <p>Short description of the item.</p>
-                        <span class="price">$0.00</span>
-                    </div>
 
                 </div>
             </section>

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card Style: Gradient Border — cherry's labs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --color-bg: #000000;
+            --color-text: #ffffff;
+            --color-pink: #ec4899;
+            --color-purple: #9354d3;
+            --radius: 10px;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 40px;
+            --font-heading: 'Audiowide', sans-serif;
+            --font-main: 'Quantico', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000;
+            background-image:
+                radial-gradient(circle at top right, rgba(147,84,211,0.06) 0%, transparent 50%),
+                radial-gradient(circle at bottom left, rgba(236,72,153,0.06) 0%, transparent 50%);
+            color: #fff;
+            font-family: var(--font-main);
+            font-size: 16px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10,10,10,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(236,72,153,0.2);
+            box-shadow: 0 8px 32px rgba(236,72,153,0.15);
+            padding: var(--spacing-sm) var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--spacing-md);
+        }
+
+        .site-name {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            color: var(--color-pink);
+            text-shadow: 0 0 12px rgba(236,72,153,0.4);
+        }
+
+        nav { display: flex; gap: var(--spacing-md); }
+        nav a {
+            font-family: var(--font-heading);
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--color-pink); }
+
+        .style-label {
+            text-align: center;
+            padding: var(--spacing-lg) var(--spacing-md) var(--spacing-sm);
+        }
+        .style-label h1 {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            color: var(--color-pink);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: var(--spacing-xs);
+        }
+        .style-label p { font-size: 13px; color: #555; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            max-width: 1000px;
+            margin: var(--spacing-md) auto;
+            padding: 0 var(--spacing-md) var(--spacing-lg);
+        }
+
+        /* ══ GRADIENT BORDER CARD STYLE ══
+           1px pink→purple gradient border using ::before pseudo-element.
+           Card bg clips to padding-box, gradient shows through 1px gap. */
+        .card {
+            position: relative;
+            border-radius: var(--radius);
+            /* Transparent border reserves 1px for the gradient below */
+            border: 1px solid transparent;
+            background:
+                rgba(20,20,20,0.8)
+                padding-box,
+                linear-gradient(135deg, rgba(236,72,153,0.5), rgba(147,84,211,0.5))
+                border-box;
+            background-image:
+                linear-gradient(135deg, rgba(236,72,153,0.04) 0%, transparent 60%, rgba(147,84,211,0.02) 100%),
+                linear-gradient(135deg, rgba(236,72,153,0.5), rgba(147,84,211,0.5));
+            background-origin: padding-box, border-box;
+            background-clip: padding-box, border-box;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow:
+                0 4px 16px rgba(0,0,0,0.35),
+                0 0 0 0 rgba(236,72,153,0);
+            padding: var(--spacing-sm);
+            transition: transform 0.25s cubic-bezier(0.4,0,0.2,1),
+                        box-shadow 0.25s cubic-bezier(0.4,0,0.2,1),
+                        background-image 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            background-image:
+                linear-gradient(135deg, rgba(236,72,153,0.06) 0%, transparent 60%, rgba(147,84,211,0.04) 100%),
+                linear-gradient(135deg, rgba(236,72,153,0.9), rgba(147,84,211,0.9));
+            box-shadow:
+                0 8px 28px rgba(0,0,0,0.45),
+                0 0 20px rgba(236,72,153,0.15);
+        }
+
+        .card h3 {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            color: var(--color-pink);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .card p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: var(--spacing-xs);
+            line-height: 1.5;
+        }
+
+        .tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #aaa;
+        }
+        .tag.wip  { border-color: rgba(245,158,11,0.4); color: #f59e0b; }
+        .tag.done { border-color: rgba(34,197,94,0.4);  color: #22c55e; }
+
+        .card-link {
+            font-size: 12px;
+            color: rgba(236,72,153,0.7);
+            text-decoration: none;
+            font-family: var(--font-heading);
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+        .card-link:hover { color: var(--color-pink); }
+
+        .hover-note {
+            text-align: center;
+            font-size: 12px;
+            color: #444;
+            padding: 0 var(--spacing-md) var(--spacing-lg);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="site-name">cherry's labs</span>
+        <nav>
+            <a href="#">hardware</a>
+            <a href="#">software</a>
+            <a href="#">store</a>
+            <a href="#">wiki</a>
+        </nav>
+    </header>
+
+    <div class="style-label">
+        <h1>Option B — Gradient Border</h1>
+        <p>1px pink→purple gradient runs around all four edges. Hover brightens the border and lifts the card.</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div class="tags">
+                <span class="tag wip">wip</span>
+                <span class="tag">rust</span>
+                <span class="tag">steamos</span>
+            </div>
+            <h3>deckcraft</h3>
+            <p>Controller-friendly Minecraft launcher for Steam Deck. Auto-downloads Java, authenticates via Microsoft, manages instances.</p>
+            <a class="card-link" href="#">→ wiki</a>
+        </div>
+
+        <div class="card">
+            <div class="tags">
+                <span class="tag done">complete</span>
+                <span class="tag">rust</span>
+                <span class="tag">linux</span>
+            </div>
+            <h3>dockswitch</h3>
+            <p>Dock-event automation for SteamOS. Detects dock connect/disconnect and runs configurable scripts.</p>
+            <a class="card-link" href="#">→ wiki</a>
+        </div>
+
+        <div class="card">
+            <div class="tags">
+                <span class="tag wip">wip</span>
+                <span class="tag">node.js</span>
+                <span class="tag">docker</span>
+            </div>
+            <h3>tidal-collaborative</h3>
+            <p>Self-hosted collaborative Tidal playlist sync. Real-time WebSocket sync over LAN or VPN.</p>
+            <a class="card-link" href="#">→ wiki</a>
+        </div>
+    </div>
+
+    <p class="hover-note">Hover the cards above to preview the interaction state.</p>
+
+</body>
+</html>
