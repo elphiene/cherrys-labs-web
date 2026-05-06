@@ -312,9 +312,10 @@
             #site-title {
                 font-family: var(--font-heading);
                 font-size: 28px;
-                color: var(--color-pink);
+                color: white;
                 text-align: center;
                 margin-bottom: var(--spacing-sm);
+                margin-top: var(--spacing-sm);
                 opacity: 0;
             }
             #intro-spacer {
@@ -544,17 +545,24 @@
         <script>
             // Intro cover — one-way scroll dismiss
             (function () {
-                const cover     = document.getElementById("intro-cover");
-                const spacer    = document.getElementById("intro-spacer");
+                const cover = document.getElementById("intro-cover");
+                const spacer = document.getElementById("intro-spacer");
                 const coverText = document.getElementById("intro-cover-text");
                 const siteTitle = document.getElementById("site-title");
 
                 function onScroll() {
-                    const progress = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
+                    const progress = Math.min(
+                        Math.max(window.scrollY / window.innerHeight, 0),
+                        1,
+                    );
 
                     cover.style.transform = `translateY(-${progress * 100}%)`;
-                    coverText.style.opacity = String(Math.max(0, 1 - progress * 3));
-                    siteTitle.style.opacity = String(Math.min(Math.max((progress - 0.5) * 2, 0), 1));
+                    coverText.style.opacity = String(
+                        Math.max(0, 1 - progress * 3),
+                    );
+                    siteTitle.style.opacity = String(
+                        Math.min(Math.max((progress - 0.5) * 2, 0), 1),
+                    );
 
                     if (progress >= 1) {
                         cover.remove();
