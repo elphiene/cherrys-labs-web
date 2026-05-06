@@ -91,8 +91,8 @@
             .stats-fallback { font-size: 13px; color: #444; font-family: var(--font-mono); }
 
             /* ── nav cards ── */
-            .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--spacing-md); margin-top: var(--spacing-md); }
-            .nav-card { display: flex; flex-direction: column; gap: var(--spacing-xs); text-align: center; align-items: center; }
+            .nav-grid { display: flex; flex-wrap: wrap; gap: var(--spacing-md); justify-content: center; }
+            .nav-card { display: flex; flex-direction: column; gap: var(--spacing-xs); text-align: center; align-items: center; width: 260px; }
             .tags { display: flex; gap: var(--spacing-xs); flex-wrap: wrap; justify-content: center; }
             .tag { font-size: 11px; padding: 2px 8px; border-radius: 20px; border: 1px solid var(--border-color-white); color: #ccc; }
             .card { position: relative; }
@@ -104,7 +104,7 @@
             article { margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid rgba(255,255,255,0.05); text-align: left; }
             article:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
             article time { display: block; font-size: 12px; color: #555; font-family: var(--font-mono); margin-bottom: 4px; }
-            article h4 { font-family: var(--font-mono); font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+            article h4 { font-family: var(--font-mono); font-size: 11px; color: var(--color-pink); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
             article p { font-size: 14px; color: #bbb; margin: 0; }
         </style>
     </head>
@@ -175,23 +175,21 @@
             <!-- Nav cards -->
             <section>
                 <p class="section-label">explore</p>
-                <div class="card">
-                    <div class="nav-grid">
-                        <div class="card nav-card">
-                            <div class="tags"><span class="tag">3d prints · gadgets</span></div>
-                            <h3><a class="card-nav-link" href="hardware.html">hardware</a></h3>
-                            <p>Physical builds, 3D prints, and maker projects.</p>
-                        </div>
-                        <div class="card nav-card">
-                            <div class="tags"><span class="tag">linux · steamos</span></div>
-                            <h3><a class="card-nav-link" href="software.html">software</a></h3>
-                            <p>Software tools, utilities, and launchers.</p>
-                        </div>
-                        <div class="card nav-card">
-                            <div class="tags"><span class="tag">3d prints · gadgets</span></div>
-                            <h3><a class="card-nav-link" href="store.html">store</a></h3>
-                            <p>3D printed items and physical tech for sale.</p>
-                        </div>
+                <div class="nav-grid">
+                    <div class="card nav-card">
+                        <div class="tags"><span class="tag">3d prints · gadgets</span></div>
+                        <h3><a class="card-nav-link" href="hardware.html">hardware</a></h3>
+                        <p>Physical builds, 3D prints, and maker projects.</p>
+                    </div>
+                    <div class="card nav-card">
+                        <div class="tags"><span class="tag">linux · steamos</span></div>
+                        <h3><a class="card-nav-link" href="software.html">software</a></h3>
+                        <p>Software tools, utilities, and launchers.</p>
+                    </div>
+                    <div class="card nav-card">
+                        <div class="tags"><span class="tag">3d prints · gadgets</span></div>
+                        <h3><a class="card-nav-link" href="store.html">store</a></h3>
+                        <p>3D printed items and physical tech for sale.</p>
                     </div>
                 </div>
             </section>
