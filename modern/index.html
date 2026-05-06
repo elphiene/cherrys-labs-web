@@ -406,10 +406,15 @@
                         <div class="person-info">
                             <h2>cherry</h2>
                             <p class="pronouns">she/her</p>
-                            <p class="role">founder · hardware</p>
+                            <p class="role">
+                                founder · developer · IT services
+                            </p>
                             <p>text</p>
                             <div class="person-links">
-                                <a href="https://cherrysofa.com"
+                                <a href="https://github.com/cherrygaysoda"
+                                    >github ↗</a
+                                >
+                                <a href="http://cherrysofa.com"
                                     >cherrysofa.com ↗</a
                                 >
                             </div>
@@ -420,19 +425,13 @@
                         <div class="person-info">
                             <h2>el</h2>
                             <p class="pronouns">they/them</p>
-                            <p class="role">developer · webmaster</p>
-                            <p>
-                                artist, webmaster. debian 13 · lenovo ideapad
-                                slim 3 · bambu lab a1 + ams lite
-                            </p>
+                            <p class="role">developer · webmaster · artist</p>
+                            <p>qualified network engineer,</p>
                             <div class="person-links">
                                 <a href="https://github.com/elphiene"
                                     >github ↗</a
                                 >
-                                <a
-                                    href="https://elphiene.github.io/elphiene/elphiene"
-                                    >elphiene ↗</a
-                                >
+                                <a href="https://elphiene.com">elphiene ↗</a>
                             </div>
                         </div>
                     </div>
@@ -544,21 +543,29 @@
         <script>
             // Intro cover — scroll-driven, bidirectional
             (function () {
-                const cover     = document.getElementById("intro-cover");
+                const cover = document.getElementById("intro-cover");
                 const coverText = document.getElementById("intro-cover-text");
                 const siteTitle = document.getElementById("site-title");
 
                 function onScroll() {
-                    const progress = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
+                    const progress = Math.min(
+                        Math.max(window.scrollY / window.innerHeight, 0),
+                        1,
+                    );
 
                     // Cover slides up
                     cover.style.transform = `translateY(-${progress * 100}%)`;
 
                     // Cover text fades out in the first half
-                    coverText.style.opacity = String(Math.max(0, 1 - progress * 3));
+                    coverText.style.opacity = String(
+                        Math.max(0, 1 - progress * 3),
+                    );
 
                     // Site title fades in during the second half
-                    const titleFade = Math.min(Math.max((progress - 0.5) * 2, 0), 1);
+                    const titleFade = Math.min(
+                        Math.max((progress - 0.5) * 2, 0),
+                        1,
+                    );
                     siteTitle.style.opacity = String(titleFade);
                 }
 
