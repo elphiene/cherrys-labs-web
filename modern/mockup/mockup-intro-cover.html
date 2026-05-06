@@ -6,65 +6,100 @@
         <title>mockup — intro cover</title>
         <style>
             * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { background: #000; color: #fff; font-family: monospace; }
+            body { background: #000; color: #fff; font-family: 'Courier New', monospace; padding-top: 90px; }
 
-            /* ── intro cover ── */
             #intro-cover {
                 position: fixed;
                 inset: 0;
                 z-index: 9999;
                 background: #000;
                 will-change: transform, opacity;
-                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
-            #intro-cover img {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+            #intro-cover-text {
+                font-size: clamp(22px, 5vw, 56px);
+                color: #fff;
+                text-align: center;
+                padding: 0 24px;
+                letter-spacing: 0.05em;
             }
-
             #intro-spacer {
                 height: 100vh;
                 pointer-events: none;
             }
 
-            /* ── placeholder site content below ── */
-            .placeholder {
-                max-width: 800px;
-                margin: 60px auto;
-                padding: 40px;
-                border: 1px solid rgba(255,255,255,0.1);
-                border-radius: 10px;
-                background: rgba(255,255,255,0.03);
-                font-size: 14px;
-                color: #666;
+            #site-title {
+                font-size: 28px;
+                color: #ec4899;
                 text-align: center;
+                margin-bottom: 8px;
+                opacity: 0;
             }
-            .placeholder h2 { color: #ec4899; font-size: 20px; margin-bottom: 12px; }
+            .section-label {
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 0.15em;
+                color: #ec4899;
+                text-align: center;
+                margin-bottom: 16px;
+            }
+            .placeholder-cards {
+                display: flex;
+                gap: 16px;
+                justify-content: center;
+                flex-wrap: wrap;
+                max-width: 900px;
+                margin: 0 auto 60px;
+                padding: 0 24px;
+            }
+            .placeholder-card {
+                width: 280px;
+                padding: 24px;
+                border: 1px solid rgba(255,255,255,0.07);
+                border-radius: 10px;
+                background: rgba(18,18,18,0.82);
+                text-align: center;
+                color: #555;
+                font-size: 14px;
+            }
         </style>
     </head>
     <body>
         <div id="intro-cover">
-            <img src="../images/backgrounds/welcome to cherry's labs.gif" alt="" />
+            <span id="intro-cover-text">welcome to cherry's labs</span>
         </div>
 
         <div id="intro-spacer"></div>
 
-        <div class="placeholder">
-            <h2>site content appears here</h2>
-            <p>scroll up to bring the cover back</p>
-        </div>
+        <main style="max-width:900px; margin:0 auto; padding:0 24px;">
+            <section style="margin-bottom:40px;">
+                <h2 id="site-title">welcome to cherry's labs</h2>
+                <p class="section-label">the team</p>
+                <div class="placeholder-cards">
+                    <div class="placeholder-card">cherry</div>
+                    <div class="placeholder-card">el</div>
+                </div>
+            </section>
+            <p style="color:#333; text-align:center; font-size:13px;">↑ scroll up to replay</p>
+        </main>
 
         <script>
             (function () {
-                const cover = document.getElementById("intro-cover");
+                const cover     = document.getElementById("intro-cover");
+                const coverText = document.getElementById("intro-cover-text");
+                const siteTitle = document.getElementById("site-title");
 
                 function onScroll() {
                     const progress = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
+
                     cover.style.transform = `translateY(-${progress * 100}%)`;
-                    cover.style.opacity = String(Math.max(0, 1 - progress * 2));
+
+                    coverText.style.opacity = String(Math.max(0, 1 - progress * 3));
+
+                    const titleFade = Math.min(Math.max((progress - 0.5) * 2, 0), 1);
+                    siteTitle.style.opacity = String(titleFade);
                 }
 
                 window.addEventListener("scroll", onScroll, { passive: true });
