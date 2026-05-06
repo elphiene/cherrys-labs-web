@@ -93,7 +93,6 @@
                 border-radius: var(--radius);
             }
             .project-links { position: relative; z-index: 1; }
-            .program-links { position: relative; z-index: 1; }
         </style>
     </head>
     <body>
@@ -122,35 +121,97 @@
                      Status tags: status-wip / status-complete / status-abandoned
                 ───────────────────────────────────────── -->
                 <div class="project-grid">
-                    <!-- PROJECT CARD TEMPLATE
-                    <div class="card project-card">
-                        <img src="path/to/image.png" alt="project name" />
-                        <div class="tags">
-                            <span class="tag status-wip">wip</span>
-                        </div>
-                        <h3>project title</h3>
-                        <p>Short description of the project.</p>
-                        <div class="project-links">
-                            <a href="#">source</a>
-                            <a href="#">demo</a>
-                        </div>
-                    </div>
-                    -->
 
                     <div class="card project-card">
                         <div class="tags">
                             <span class="tag status-wip">wip</span>
+                            <span class="tag">Rust</span>
+                            <span class="tag">Tauri</span>
+                            <span class="tag">SteamOS</span>
                         </div>
-                        <h3><a class="card-wiki-link" href="wiki/tidal-collaborative.html">Tidal-Collaborative</a></h3>
-                        <p>
-                            A self-hosted collaborative playlist sync for Tidal
-                            (music streaming).
-                        </p>
-                            <div class="program-links">
-                                <a href="https://github.com/elphiene/tidal-collaborative">Github</a>
-                            </div>
+                        <h3><a class="card-wiki-link" href="wiki/deckcraft.html">DeckCraft</a></h3>
+                        <p>A controller and touch-friendly Minecraft launcher for Steam Deck. Zero configuration — auto-downloads Java and manages instances.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/CherryGaySoda/DeckCraft">github</a>
+                            <a href="wiki/deckcraft.html">wiki</a>
                         </div>
                     </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">SQLite</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/tidal-collaborative.html">Tidal-Collaborative</a></h3>
+                        <p>A self-hosted collaborative playlist sync for Tidal (music streaming). Real-time WebSocket sync, home-lab friendly via Docker.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/elphiene/tidal-collaborative">github</a>
+                            <a href="wiki/tidal-collaborative.html">wiki</a>
+                        </div>
+                    </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                            <span class="tag">Rust</span>
+                            <span class="tag">Linux</span>
+                            <span class="tag">macOS</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/peerchat.html">PeerChat</a></h3>
+                        <p>A fully peer-to-peer terminal chat app — no central server. Text messaging, file transfer, voice, and ASCII webcam streaming via libp2p.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/CherryGaySoda/PeerChat">github</a>
+                            <a href="wiki/peerchat.html">wiki</a>
+                        </div>
+                    </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                            <span class="tag">Rust</span>
+                            <span class="tag">Linux</span>
+                            <span class="tag">Windows</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/daytona-controls.html">Daytona-Controls</a></h3>
+                        <p>GUI editor for ElSemi Model 2 Emulator control-binding files. Live gamepad input detection lets you press a button to bind it.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/elphiene/daytona-controls">github</a>
+                            <a href="wiki/daytona-controls.html">wiki</a>
+                        </div>
+                    </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-complete">complete</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">JS</span>
+                            <span class="tag">Web</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/non-steam-grid-generator.html">Non-Steam-Grid-Generator</a></h3>
+                        <p>A browser tool for creating custom artwork for non-Steam games. Automatically generates correctly sized images and files.</p>
+                        <div class="project-links">
+                            <a href="https://cherrygaysoda.github.io/Non-Steam-Grid-Generator">site</a>
+                            <a href="wiki/non-steam-grid-generator.html">wiki</a>
+                        </div>
+                    </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-complete">complete</span>
+                            <span class="tag">Rust</span>
+                            <span class="tag">SteamOS</span>
+                            <span class="tag">Linux</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/dockswitch.html">DockSwitch</a></h3>
+                        <p>Auto-switches SteamOS between Gaming Mode and Desktop Mode when a dock is connected or disconnected.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/CherryGaySoda/DockSwitch">github</a>
+                            <a href="wiki/dockswitch.html">wiki</a>
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </main>

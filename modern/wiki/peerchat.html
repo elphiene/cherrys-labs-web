@@ -48,6 +48,18 @@
                 margin-bottom: 0;
             }
 
+            .wiki-section ul {
+                margin: 0 0 var(--spacing-sm) 1.4em;
+                padding: 0;
+                color: #aaa;
+                font-size: 13px;
+                line-height: 1.7;
+            }
+
+            .wiki-section ul:last-child {
+                margin-bottom: 0;
+            }
+
             /* ── header: horizontal ── */
             header { text-align: left; padding: 12px var(--spacing-md); }
             .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
@@ -88,7 +100,7 @@
 
         <main>
             <section>
-                <a class="back-link" href="../wiki.html">← wiki</a>
+                <a class="back-link" href="../wiki.html">&#8592; wiki</a>
                 <h2>peerchat</h2>
 
                 <div class="wiki-article">
@@ -112,6 +124,22 @@
                         <h3>architecture</h3>
                         <p>PeerChat uses a daemon-client split: <code>peerchat-daemon</code> is a background service that owns all P2P networking and runs persistently, while <code>peerchat-client</code> is a lightweight TUI that communicates with the daemon over a local IPC socket.</p>
                         <p>This means you can detach and re-attach the UI without dropping connections, and multiple clients could theoretically connect to the same daemon.</p>
+                    </div>
+
+                    <div class="wiki-section" id="controls">
+                        <h3>controls</h3>
+                        <p>Keyboard shortcuts in the TUI client:</p>
+                        <ul>
+                            <li><strong>Enter</strong> — send message</li>
+                            <li><strong>Tab / Shift+Tab</strong> — switch contacts</li>
+                            <li><strong>Ctrl+Up / Ctrl+Down</strong> — navigate contacts</li>
+                            <li><strong>Ctrl+V</strong> — start / end voice chat with selected peer</li>
+                            <li><strong>Space</strong> — push-to-talk (during voice chat)</li>
+                            <li><strong>Ctrl+F</strong> — send a file</li>
+                            <li><strong>Ctrl+A</strong> — toggle ASCII camera</li>
+                            <li><strong>+ / -</strong> — adjust ASCII camera brightness</li>
+                            <li><strong>Esc / Ctrl+C</strong> — quit</li>
+                        </ul>
                     </div>
 
                     <div class="wiki-section" id="development">

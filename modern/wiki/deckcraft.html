@@ -88,7 +88,7 @@
 
         <main>
             <section>
-                <a class="back-link" href="../wiki.html">← wiki</a>
+                <a class="back-link" href="../wiki.html">&#8592; wiki</a>
                 <h2>deckcraft</h2>
 
                 <div class="wiki-article">
@@ -99,12 +99,21 @@
                         <p>Phases 0–6 are complete, meaning the launcher is fully functional for vanilla Minecraft across all versions. Mod loader support is planned for future phases.</p>
                     </div>
 
+                    <div class="wiki-section" id="installation">
+                        <h3>installation</h3>
+                        <p>DeckCraft is packaged as a Flatpak targeting the GNOME 47 runtime. Install the runtime then the application:</p>
+                        <p><code>flatpak install flathub org.gnome.Platform//47</code></p>
+                        <p><code>flatpak install --user deckcraft.flatpak</code></p>
+                        <p><code>flatpak run com.deckcraft.launcher</code></p>
+                        <p>To build from source you need Node.js 20+, Rust 1.77.2+, and GTK development libraries. On Debian/Ubuntu: <code>sudo apt install libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev</code>. Then <code>npm install &amp;&amp; npm run tauri build</code>.</p>
+                        <p><strong>Java is never installed manually.</strong> DeckCraft downloads Adoptium (Eclipse Temurin) automatically: Java 8 for MC 1.0–1.16, Java 16 for 1.17, Java 17 for 1.18–1.20, Java 21 for 1.21+.</p>
+                    </div>
+
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
                         <p><strong>Backend:</strong> Rust with Tauri 2.x (native desktop framework), SQLx (database), Tokio (async runtime), reqwest (HTTP), minecraft-msa-auth (Microsoft authentication).</p>
                         <p><strong>Frontend:</strong> Svelte 5 + SvelteKit, TailwindCSS, TypeScript.</p>
                         <p><strong>Packaging:</strong> Flatpak targeting the GNOME 47 runtime (webkit2gtk-4.1). Follows the XDG Base Directory spec — config in <code>~/.config/deckcraft/</code>, data in <code>~/.local/share/deckcraft/</code>.</p>
-                        <p><strong>Java management:</strong> Automatically downloads Adoptium (Eclipse Temurin) builds — Java 8 for MC 1.0–1.16, Java 16 for 1.17, Java 17 for 1.18–1.20, Java 21 for 1.21+.</p>
                     </div>
 
                     <div class="wiki-section" id="development">

@@ -88,7 +88,7 @@
 
         <main>
             <section>
-                <a class="back-link" href="../wiki.html">← wiki</a>
+                <a class="back-link" href="../wiki.html">&#8592; wiki</a>
                 <h2>tidal-collaborative</h2>
 
                 <div class="wiki-article">
@@ -97,6 +97,14 @@
                         <h3>overview</h3>
                         <p>A self-hosted server that lets multiple Tidal users collaboratively sync playlists in real time. Sign in with your Tidal account in any browser, link a playlist, and every change — adds and removes — propagates to all collaborators automatically within 60 seconds.</p>
                         <p>Designed to run on a home server or NAS (CasaOS, Debian, etc.) via Docker. Users must be on the same home LAN or connected via VPN.</p>
+                    </div>
+
+                    <div class="wiki-section" id="quick-start">
+                        <h3>quick start</h3>
+                        <p>Docker is the recommended way to deploy. Download the compose file and start the container:</p>
+                        <p><code>curl -O https://raw.githubusercontent.com/elphiene/tidal-collaborative/main/docker/docker-compose.yml &amp;&amp; docker compose up -d</code></p>
+                        <p>Then open <code>http://localhost:3000</code> — the in-browser setup wizard handles all first-time configuration. Encryption keys and session secrets are generated automatically. You will need a free Tidal developer app at <a href="https://developer.tidal.com">developer.tidal.com</a> for OAuth sign-in; the wizard shows the exact Redirect URI to paste and prompts for the Client ID.</p>
+                        <p>For development without Docker: <code>cd server &amp;&amp; npm install &amp;&amp; npm start</code>. Secrets auto-generate on first run.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
@@ -116,7 +124,7 @@
 
                     <div class="wiki-section" id="development">
                         <h3>development</h3>
-                        <p>The entire persistent state is one SQLite file (<code>docker/data/db.sqlite</code>), making backups trivial.</p>
+                        <p>The entire persistent state is one SQLite file (<code>docker/data/db.sqlite</code>), making backups trivial — just <code>cp db.sqlite backups/</code>.</p>
                         <p><strong>Roadmap:</strong> track reorder sync, granular view-only collaborator permissions, configurable poll interval per playlist, pagination for large playlists (&gt;500 tracks).</p>
                     </div>
 
