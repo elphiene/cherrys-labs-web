@@ -94,41 +94,38 @@
 
                 const THRESHOLD = Math.min(window.innerHeight * 0.55, 320);
                 let accumulated = 0;
+                let currentP    = 0;
+                let targetP     = 0;
+                let rafId       = null;
                 let dismissed   = false;
 
-                function setProgress(p) {
-                    p = Math.min(Math.max(p, 0), 1);
+                function applyProgress(p) {
                     cover.style.transform   = `translateY(-${p * 100}%)`;
                     coverText.style.opacity = String(Math.max(0, 1 - p * 3));
                     siteTitle.style.opacity = String(Math.min(Math.max((p - 0.5) * 2, 0), 1));
                 }
 
-                function animateDismiss() {
-                    dismissed = true;
-                    const startP = accumulated / THRESHOLD;
-                    const start  = performance.now();
-                    const dur    = 380;
-                    function step(now) {
-                        const t     = Math.min((now - start) / dur, 1);
-                        const eased = 1 - Math.pow(1 - t, 3);
-                        setProgress(startP + (1 - startP) * eased);
-                        if (t < 1) {
-                            requestAnimationFrame(step);
-                        } else {
-                            cover.remove();
-                            siteTitle.style.opacity = "1";
-                            document.documentElement.style.overflow = "";
-                            document.body.style.overflow = "";
-                        }
+                function tick() {
+                    currentP += (targetP - currentP) * 0.18;
+                    if (Math.abs(targetP - currentP) < 0.002) currentP = targetP;
+                    applyProgress(currentP);
+                    if (currentP >= 0.999) {
+                        dismissed = true;
+                        cover.remove();
+                        siteTitle.style.opacity = "1";
+                        document.documentElement.style.overflow = "";
+                        document.body.style.overflow = "";
+                        rafId = null;
+                        return;
                     }
-                    requestAnimationFrame(step);
+                    rafId = requestAnimationFrame(tick);
                 }
 
                 function addDelta(dy) {
-                    if (dismissed) return;
-                    accumulated = Math.max(0, accumulated + dy);
-                    setProgress(accumulated / THRESHOLD);
-                    if (accumulated >= THRESHOLD) animateDismiss();
+                    if (dismissed || dy <= 0) return;
+                    accumulated = Math.min(accumulated + dy, THRESHOLD);
+                    targetP = accumulated / THRESHOLD;
+                    if (!rafId) rafId = requestAnimationFrame(tick);
                 }
 
                 window.addEventListener("wheel", (e) => addDelta(e.deltaY), { passive: true });
