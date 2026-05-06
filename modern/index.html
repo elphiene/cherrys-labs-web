@@ -100,6 +100,23 @@
             .card-nav-link::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
             @media (max-width: 480px) { .nav-grid { grid-template-columns: 1fr; } }
 
+            /* ── intro cover ── */
+            #intro-cover {
+                position: fixed;
+                inset: 0;
+                z-index: 9999;
+                background: #000;
+                will-change: transform, opacity;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #intro-spacer {
+                height: 100vh;
+                pointer-events: none;
+                flex-shrink: 0;
+            }
+
             /* ── news & updates ── */
             article { margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid rgba(255,255,255,0.05); text-align: left; }
             article:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
@@ -109,6 +126,16 @@
         </style>
     </head>
     <body>
+        <!-- ─────────────────────────────────────────
+             INTRO COVER
+             Style this however you like — it sits over the whole page on load.
+             Scrolling pushes it upward and fades it out.
+             The #intro-spacer below reserves the scroll room it needs.
+        ───────────────────────────────────────── -->
+        <div id="intro-cover">
+            <!-- your content here -->
+        </div>
+
         <header>
             <div class="header-inner">
                 <img src="images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
@@ -126,6 +153,9 @@
         </header>
 
         <main>
+            <!-- Reserves scroll distance for the intro cover to travel through -->
+            <div id="intro-spacer"></div>
+
             <!-- Team -->
             <section>
                 <p class="section-label">the team</p>
@@ -225,6 +255,27 @@
         </footer>
 
         <script>
+            // Intro cover — scroll to dismiss
+            (function () {
+                const cover  = document.getElementById('intro-cover');
+                const spacer = document.getElementById('intro-spacer');
+                let done = false;
+
+                function onScroll() {
+                    if (done) return;
+                    const progress = Math.min(window.scrollY / window.innerHeight, 1);
+                    cover.style.transform = `translateY(-${progress * 100}%)`;
+                    cover.style.opacity   = String(Math.max(0, 1 - progress * 2));
+                    if (progress >= 1) {
+                        done = true;
+                        cover.remove();
+                        window.removeEventListener('scroll', onScroll);
+                    }
+                }
+
+                window.addEventListener('scroll', onScroll, { passive: true });
+            })();
+
             // Hamburger
             const toggle = document.querySelector('.nav-toggle');
             const nav    = document.getElementById('main-nav');
