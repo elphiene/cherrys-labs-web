@@ -88,6 +88,7 @@
         <script>
             (function () {
                 const cover     = document.getElementById("intro-cover");
+                const spacer    = document.getElementById("intro-spacer");
                 const coverText = document.getElementById("intro-cover-text");
                 const siteTitle = document.getElementById("site-title");
 
@@ -95,11 +96,16 @@
                     const progress = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
 
                     cover.style.transform = `translateY(-${progress * 100}%)`;
-
                     coverText.style.opacity = String(Math.max(0, 1 - progress * 3));
+                    siteTitle.style.opacity = String(Math.min(Math.max((progress - 0.5) * 2, 0), 1));
 
-                    const titleFade = Math.min(Math.max((progress - 0.5) * 2, 0), 1);
-                    siteTitle.style.opacity = String(titleFade);
+                    if (progress >= 1) {
+                        cover.remove();
+                        spacer.remove();
+                        siteTitle.style.opacity = "1";
+                        window.scrollTo(0, 0);
+                        window.removeEventListener("scroll", onScroll);
+                    }
                 }
 
                 window.addEventListener("scroll", onScroll, { passive: true });

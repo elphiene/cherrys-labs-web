@@ -399,6 +399,7 @@
             <!-- Team -->
             <section>
                 <h2 id="site-title">welcome to cherry's labs</h2>
+                &nbsp;
                 <p class="section-label">the team</p>
                 <div class="intros">
                     <div class="card person-card">
@@ -541,32 +542,27 @@
         </footer>
 
         <script>
-            // Intro cover — scroll-driven, bidirectional
+            // Intro cover — one-way scroll dismiss
             (function () {
-                const cover = document.getElementById("intro-cover");
+                const cover     = document.getElementById("intro-cover");
+                const spacer    = document.getElementById("intro-spacer");
                 const coverText = document.getElementById("intro-cover-text");
                 const siteTitle = document.getElementById("site-title");
 
                 function onScroll() {
-                    const progress = Math.min(
-                        Math.max(window.scrollY / window.innerHeight, 0),
-                        1,
-                    );
+                    const progress = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
 
-                    // Cover slides up
                     cover.style.transform = `translateY(-${progress * 100}%)`;
+                    coverText.style.opacity = String(Math.max(0, 1 - progress * 3));
+                    siteTitle.style.opacity = String(Math.min(Math.max((progress - 0.5) * 2, 0), 1));
 
-                    // Cover text fades out in the first half
-                    coverText.style.opacity = String(
-                        Math.max(0, 1 - progress * 3),
-                    );
-
-                    // Site title fades in during the second half
-                    const titleFade = Math.min(
-                        Math.max((progress - 0.5) * 2, 0),
-                        1,
-                    );
-                    siteTitle.style.opacity = String(titleFade);
+                    if (progress >= 1) {
+                        cover.remove();
+                        spacer.remove();
+                        siteTitle.style.opacity = "1";
+                        window.scrollTo(0, 0);
+                        window.removeEventListener("scroll", onScroll);
+                    }
                 }
 
                 window.addEventListener("scroll", onScroll, { passive: true });
