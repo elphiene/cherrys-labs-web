@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en-AU">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>cherry's labs — wiki: signal-tui</title>
+        <meta name="description" content="cherry's labs wiki - signal-tui" />
+        <meta name="author" content="Elphiene" />
+        <meta name="year" content="2026" />
+        <link rel="icon" type="image/x-icon" href="../images/icons/favicon.png" />
+        <link rel="stylesheet" href="../style.css" />
+        <style>
+            /* ── wiki article ── */
+            .back-link {
+                display: inline-block;
+                font-size: var(--font-size-small);
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .wiki-article {
+                background-color: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--color-white-alpha-10);
+                border-radius: var(--radius);
+                padding: var(--spacing-lg);
+            }
+
+            .wiki-section {
+                margin-bottom: var(--spacing-lg);
+                padding-bottom: var(--spacing-lg);
+                border-bottom: 1px solid var(--color-white-alpha-10);
+            }
+
+            .wiki-section:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .wiki-section h3 {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .wiki-section p {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .wiki-section p:last-child {
+                margin-bottom: 0;
+            }
+
+            /* ── header: horizontal ── */
+            header { text-align: left; padding: 12px var(--spacing-md); }
+            .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+            header .logo { max-width: 160px; margin-bottom: 0; }
+            header nav { justify-content: flex-end; flex-wrap: nowrap; gap: var(--spacing-xs); }
+            body { padding-top: 70px; }
+            .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; border-radius: 6px; }
+            .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--color-text); border-radius: 2px; transition: all 0.25s; }
+            .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+            .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            @media (max-width: 768px) {
+                body { padding-top: 60px; }
+                .nav-toggle { display: flex; }
+                header nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; background: rgba(8,8,8,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(236,72,153,0.3); padding: 8px 16px 16px; gap: 0; }
+                header nav.open { display: flex; }
+                header nav a { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); border-radius: 0; }
+                header nav a:last-child { border-bottom: none; }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-inner">
+                <img src="../images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+                <nav id="main-nav">
+                    <a href="../index.html">home</a>
+                    <a href="../hardware.html">hardware</a>
+                    <a href="../software.html">software</a>
+                    <a href="../store.html">store</a>
+                    <a href="../wiki.html">wiki</a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <a class="back-link" href="../wiki.html">← wiki</a>
+                <h2>signal-tui</h2>
+
+                <div class="wiki-article">
+
+                    <div class="wiki-section" id="overview">
+                        <h3>overview</h3>
+                        <p>A terminal user interface for Signal messenger, built with Python and <a href="https://github.com/Textualize/textual">Textual</a>. Runs on top of <code>signal-cli</code> as a background daemon, giving you full Signal messaging from the keyboard — send and receive text, manage contacts, get read receipts, and receive smart notifications — without ever leaving the terminal.</p>
+                        <p>Comes with 6 built-in colour themes (retro-green, cyberpunk-pink, nord, gruvbox, dracula, solarized-dark) plus fully custom presets defined in a YAML config file.</p>
+                    </div>
+
+                    <div class="wiki-section" id="tech-stack">
+                        <h3>tech stack</h3>
+                        <p><strong>Language:</strong> Python 3.10+.</p>
+                        <p><strong>UI framework:</strong> <a href="https://github.com/Textualize/textual">Textual</a> — reactive TUI framework built on top of Rich. Widgets include a contact list, message list, input box, status bar, info panel, and notification bar.</p>
+                        <p><strong>Signal backend:</strong> <code>signal-cli</code> runs as a background daemon and exposes a JSON-RPC socket. Signal-TUI communicates with it to send messages, receive incoming messages in real time, and manage the linked device.</p>
+                        <p><strong>Storage:</strong> Contact names persisted in <code>~/.config/signal-tui/contacts.json</code>; message history in a local store. All configuration lives at <code>~/.config/signal-tui/config.yaml</code>.</p>
+                    </div>
+
+                    <div class="wiki-section" id="architecture">
+                        <h3>architecture</h3>
+                        <p>Signal-TUI sits as a thin Python application on top of <code>signal-cli</code>. The app manages the Textual UI event loop, coordinates the daemon lifecycle (start, stop, restart via <kbd>r</kbd>), and subscribes to the JSON-RPC receive endpoint for real-time incoming messages.</p>
+                        <p>Linking a device requires scanning a QR code with your Signal mobile app once; after that <code>signal-cli</code> handles token refresh automatically. An in-app <kbd>l</kbd> shortcut launches the device linking flow via <code>link_device.py</code>.</p>
+                        <p>Themes are pure Python dicts in <code>themes.py</code> — each preset maps semantic colour names (primary, secondary, background, text, …) to hex values that are injected into Textual CSS at startup.</p>
+                    </div>
+
+                    <div class="wiki-section" id="setup">
+                        <h3>setup</h3>
+                        <p>Install <code>signal-cli</code> first (via package manager on Arch, manual download on Debian/Ubuntu, or Homebrew on macOS), then link your Signal account as a secondary device. After that, run the install script:</p>
+                        <p><code>git clone https://github.com/elphiene/signal-tui &amp;&amp; cd signal-tui &amp;&amp; ./install.sh</code></p>
+                        <p>The install script creates a Python virtualenv, installs all dependencies from <code>requirements.txt</code>, and registers a desktop launcher. Launch from the application menu or via <code>python -m signal_tui.app</code> from the activated venv.</p>
+                    </div>
+
+                    <div class="wiki-section" id="controls">
+                        <h3>keyboard controls</h3>
+                        <p><kbd>Enter</kbd> — send message &nbsp;|&nbsp; <kbd>Tab</kbd> / <kbd>Shift+Tab</kbd> — switch between contact list and info panel &nbsp;|&nbsp; <kbd>Up</kbd>/<kbd>Down</kbd> — navigate contacts</p>
+                        <p><kbd>n</kbd> — new conversation &nbsp;|&nbsp; <kbd>e</kbd> — edit contact name &nbsp;|&nbsp; <kbd>r</kbd> — refresh / restart daemon &nbsp;|&nbsp; <kbd>l</kbd> — link new device &nbsp;|&nbsp; <kbd>c</kbd> — open config file &nbsp;|&nbsp; <kbd>q</kbd> — quit</p>
+                    </div>
+
+                    <div class="wiki-section" id="links">
+                        <h3>links</h3>
+                        <p><a href="https://github.com/elphiene/signal-tui">github.com/elphiene/signal-tui</a></p>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                webmaster: <a href="https://elphiene.com">elphiene</a>
+                | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
+            </p>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".wiki-article").forEach((el, i) => {
+                    el.style.animationDelay = `${i * 0.1}s`;
+                });
+            });
+
+            const toggle = document.querySelector('.nav-toggle');
+            const nav    = document.getElementById('main-nav');
+            toggle.addEventListener('click', () => {
+                const open = nav.classList.toggle('open');
+                toggle.classList.toggle('active', open);
+                toggle.setAttribute('aria-expanded', String(open));
+            });
+            document.addEventListener('click', (e) => {
+                if (!toggle.contains(e.target) && !nav.contains(e.target)) {
+                    nav.classList.remove('open');
+                    toggle.classList.remove('active');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        </script>
+    </body>
+</html>
