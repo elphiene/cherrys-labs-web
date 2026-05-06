@@ -526,27 +526,14 @@
         </footer>
 
         <script>
-            // Intro cover — scroll to dismiss
+            // Intro cover — scroll-driven, bidirectional
             (function () {
                 const cover = document.getElementById("intro-cover");
-                const spacer = document.getElementById("intro-spacer");
-                let done = false;
 
                 function onScroll() {
-                    if (done) return;
-                    const progress = Math.min(
-                        window.scrollY / window.innerHeight,
-                        1,
-                    );
+                    const progress = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
                     cover.style.transform = `translateY(-${progress * 100}%)`;
                     cover.style.opacity = String(Math.max(0, 1 - progress * 2));
-                    if (progress >= 1) {
-                        done = true;
-                        cover.remove();
-                        spacer.remove();
-                        window.scrollTo(0, 0);
-                        window.removeEventListener("scroll", onScroll);
-                    }
                 }
 
                 window.addEventListener("scroll", onScroll, { passive: true });
