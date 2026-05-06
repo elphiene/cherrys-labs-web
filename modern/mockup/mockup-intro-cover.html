@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en-AU">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>mockup — intro cover</title>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { background: #000; color: #fff; font-family: monospace; }
+
+            /* ── intro cover ── */
+            #intro-cover {
+                position: fixed;
+                inset: 0;
+                z-index: 9999;
+                background: #000;
+                will-change: transform, opacity;
+                overflow: hidden;
+            }
+            #intro-cover img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            #intro-spacer {
+                height: 100vh;
+                pointer-events: none;
+            }
+
+            /* ── placeholder site content below ── */
+            .placeholder {
+                max-width: 800px;
+                margin: 60px auto;
+                padding: 40px;
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 10px;
+                background: rgba(255,255,255,0.03);
+                font-size: 14px;
+                color: #666;
+                text-align: center;
+            }
+            .placeholder h2 { color: #ec4899; font-size: 20px; margin-bottom: 12px; }
+        </style>
+    </head>
+    <body>
+        <div id="intro-cover">
+            <img src="../images/backgrounds/welcome to cherry's labs.gif" alt="" />
+        </div>
+
+        <div id="intro-spacer"></div>
+
+        <div class="placeholder">
+            <h2>site content appears here</h2>
+            <p>scroll up to bring the cover back</p>
+        </div>
+
+        <script>
+            (function () {
+                const cover = document.getElementById("intro-cover");
+
+                function onScroll() {
+                    const progress = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
+                    cover.style.transform = `translateY(-${progress * 100}%)`;
+                    cover.style.opacity = String(Math.max(0, 1 - progress * 2));
+                }
+
+                window.addEventListener("scroll", onScroll, { passive: true });
+            })();
+        </script>
+    </body>
+</html>
