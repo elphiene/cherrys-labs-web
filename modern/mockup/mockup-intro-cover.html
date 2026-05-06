@@ -71,8 +71,6 @@
             <span id="intro-cover-text">welcome to cherry's labs</span>
         </div>
 
-        <div id="intro-spacer"></div>
-
         <main style="max-width:900px; margin:0 auto; padding:0 24px;">
             <section style="margin-bottom:40px;">
                 <h2 id="site-title">welcome to cherry's labs</h2>
@@ -88,27 +86,61 @@
         <script>
             (function () {
                 const cover     = document.getElementById("intro-cover");
-                const spacer    = document.getElementById("intro-spacer");
                 const coverText = document.getElementById("intro-cover-text");
                 const siteTitle = document.getElementById("site-title");
 
-                function onScroll() {
-                    const progress = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
+                document.documentElement.style.overflow = "hidden";
+                document.body.style.overflow = "hidden";
 
-                    cover.style.transform = `translateY(-${progress * 100}%)`;
-                    coverText.style.opacity = String(Math.max(0, 1 - progress * 3));
-                    siteTitle.style.opacity = String(Math.min(Math.max((progress - 0.5) * 2, 0), 1));
+                const THRESHOLD = Math.min(window.innerHeight * 0.55, 320);
+                let accumulated = 0;
+                let dismissed   = false;
 
-                    if (progress >= 1) {
-                        cover.remove();
-                        spacer.remove();
-                        siteTitle.style.opacity = "1";
-                        window.scrollTo(0, 0);
-                        window.removeEventListener("scroll", onScroll);
-                    }
+                function setProgress(p) {
+                    p = Math.min(Math.max(p, 0), 1);
+                    cover.style.transform   = `translateY(-${p * 100}%)`;
+                    coverText.style.opacity = String(Math.max(0, 1 - p * 3));
+                    siteTitle.style.opacity = String(Math.min(Math.max((p - 0.5) * 2, 0), 1));
                 }
 
-                window.addEventListener("scroll", onScroll, { passive: true });
+                function animateDismiss() {
+                    dismissed = true;
+                    const startP = accumulated / THRESHOLD;
+                    const start  = performance.now();
+                    const dur    = 380;
+                    function step(now) {
+                        const t     = Math.min((now - start) / dur, 1);
+                        const eased = 1 - Math.pow(1 - t, 3);
+                        setProgress(startP + (1 - startP) * eased);
+                        if (t < 1) {
+                            requestAnimationFrame(step);
+                        } else {
+                            cover.remove();
+                            siteTitle.style.opacity = "1";
+                            document.documentElement.style.overflow = "";
+                            document.body.style.overflow = "";
+                        }
+                    }
+                    requestAnimationFrame(step);
+                }
+
+                function addDelta(dy) {
+                    if (dismissed) return;
+                    accumulated = Math.max(0, accumulated + dy);
+                    setProgress(accumulated / THRESHOLD);
+                    if (accumulated >= THRESHOLD) animateDismiss();
+                }
+
+                window.addEventListener("wheel", (e) => addDelta(e.deltaY), { passive: true });
+
+                let lastY = null;
+                window.addEventListener("touchstart", (e) => { lastY = e.touches[0].clientY; }, { passive: true });
+                window.addEventListener("touchmove", (e) => {
+                    if (lastY === null) return;
+                    addDelta(lastY - e.touches[0].clientY);
+                    lastY = e.touches[0].clientY;
+                }, { passive: true });
+                window.addEventListener("touchend", () => { lastY = null; }, { passive: true });
             })();
         </script>
     </body>
