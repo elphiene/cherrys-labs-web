@@ -297,9 +297,14 @@
                 z-index: 9999;
                 background: #000;
                 will-change: transform, opacity;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                overflow: hidden;
+            }
+            #intro-cover img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
             #intro-spacer {
                 height: 100vh;
@@ -349,8 +354,7 @@
              The #intro-spacer below reserves the scroll room it needs.
         ───────────────────────────────────────── -->
         <div id="intro-cover">
-            <!-- your content here -->
-            <p>welcome to cherry's labs.</p>
+            <img src="images/backgrounds/welcome to cherry's labs.gif" alt="" />
         </div>
 
         <header>
