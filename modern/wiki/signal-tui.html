@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en-AU">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>cherry's labs — wiki: signal-tui</title>
+        <meta name="description" content="cherry's labs wiki - signal-tui" />
+        <meta name="author" content="Elphiene" />
+        <meta name="year" content="2026" />
+        <link rel="icon" type="image/x-icon" href="../images/icons/favicon.png" />
+        <link rel="stylesheet" href="../style.css" />
+        <style>
+            /* ── wiki article ── */
+            .back-link {
+                display: inline-block;
+                font-size: var(--font-size-small);
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .wiki-article {
+                background-color: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--color-white-alpha-10);
+                border-radius: var(--radius);
+                padding: var(--spacing-lg);
+            }
+
+            .wiki-section {
+                margin-bottom: var(--spacing-lg);
+                padding-bottom: var(--spacing-lg);
+                border-bottom: 1px solid var(--color-white-alpha-10);
+            }
+
+            .wiki-section:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .wiki-section h3 {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .wiki-section p {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .wiki-section p:last-child {
+                margin-bottom: 0;
+            }
+
+            /* ── header: horizontal ── */
+            header { text-align: left; padding: 12px var(--spacing-md); }
+            .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+            header .logo { max-width: 160px; margin-bottom: 0; }
+            header nav { justify-content: flex-end; flex-wrap: nowrap; gap: var(--spacing-xs); }
+            body { padding-top: 70px; }
+            .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; border-radius: 6px; }
+            .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--color-text); border-radius: 2px; transition: all 0.25s; }
+            .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+            .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            @media (max-width: 768px) {
+                body { padding-top: 60px; }
+                .nav-toggle { display: flex; }
+                header nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; background: rgba(8,8,8,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(236,72,153,0.3); padding: 8px 16px 16px; gap: 0; }
+                header nav.open { display: flex; }
+                header nav a { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); border-radius: 0; }
+                header nav a:last-child { border-bottom: none; }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-inner">
+                <img src="../images/logos/cherrys-labs.png" alt="cherry's labs" class="logo" />
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+                <nav id="main-nav">
+                    <a href="../index.html">home</a>
+                    <a href="../hardware.html">hardware</a>
+                    <a href="../software.html">software</a>
+                    <a href="../store.html">store</a>
+                    <a href="../wiki.html">wiki</a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <a class="back-link" href="../wiki.html">← wiki</a>
+                <h2>signal-tui</h2>
+
+                <div class="wiki-article">
+
+                    <div class="wiki-section" id="overview">
+                        <h3>overview</h3>
+                        <p>A terminal user interface for Signal messenger, built with Python and Textual. Connects to a locally running <code>signal-cli</code> daemon to send and receive messages without leaving the terminal.</p>
+                        <p>Features full message send/receive, six built-in themes (plus custom theme support), contact management with persistent storage, read receipts, smart notifications (only for messages outside the current conversation), and message history with attachment indicators.</p>
+                    </div>
+
+                    <div class="wiki-section" id="tech-stack">
+                        <h3>tech stack</h3>
+                        <p><strong>Language:</strong> Python 3.10+.</p>
+                        <p><strong>UI framework:</strong> Textual — a modern Python TUI framework. The layout is a two-panel split: contact list on the left, message history and input on the right. An info panel (toggled with Tab/Esc) shows conversation stats.</p>
+                        <p><strong>Backend:</strong> signal-cli — a Java-based command-line Signal client. Signal-TUI spawns it as a daemon and communicates over a local JSON-RPC socket to send and receive messages.</p>
+                        <p><strong>Storage:</strong> Contact names and configuration live in <code>~/.config/signal-tui/</code> as YAML and JSON files. Message history is kept in memory per session.</p>
+                        <p><strong>Key dependencies:</strong> Textual, plus signal-cli (installed separately — available via pacman, manual download, or Homebrew on macOS).</p>
+                    </div>
+
+                    <div class="wiki-section" id="themes">
+                        <h3>themes</h3>
+                        <p>Six built-in presets: <code>retro-green</code>, <code>cyberpunk-pink</code>, <code>nord</code>, <code>gruvbox</code>, <code>dracula</code>, <code>solarized-dark</code>. Set the active preset in <code>~/.config/signal-tui/config.yaml</code> under <code>theme.preset</code>.</p>
+                        <p>Custom themes are supported via <code>preset: custom</code> with inline colour overrides, or by defining named custom presets under <code>theme.custom_presets</code>. All colours (primary, secondary, background, text, etc.) are configurable.</p>
+                    </div>
+
+                    <div class="wiki-section" id="development">
+                        <h3>development</h3>
+                        <p>Signal-TUI manages the signal-cli daemon lifecycle: it starts the daemon on launch, monitors it, and restarts it if it dies. The <code>r</code> keyboard shortcut force-restarts the daemon from within the UI without quitting the app.</p>
+                        <p>Device linking (pairing with your Signal mobile app via QR code) is handled in-app using the <code>l</code> shortcut, which wraps the <code>signal-cli link</code> command and renders the QR code directly in the terminal.</p>
+                        <p>An <code>install.sh</code> script creates a Python virtual environment, installs all dependencies, and sets up a <code>.desktop</code> launcher entry for use from your application menu. An <code>update.sh</code> script handles pulling new versions and upgrading the venv.</p>
+                        <p><strong>Project structure:</strong> <code>signal_tui/app.py</code> (main app), <code>daemon.py</code> (signal-cli lifecycle), <code>signal_client.py</code> (JSON-RPC interface), <code>themes.py</code> (theme definitions), <code>widgets/</code> (UI components), <code>screens/</code> (modal dialogs).</p>
+                    </div>
+
+                    <div class="wiki-section" id="links">
+                        <h3>links</h3>
+                        <p><a href="https://github.com/elphiene/signal-tui">github.com/elphiene/signal-tui</a></p>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                webmaster: <a href="https://elphiene.com">elphiene</a>
+                | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
+            </p>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".wiki-article").forEach((el, i) => {
+                    el.style.animationDelay = `${i * 0.1}s`;
+                });
+            });
+
+            const toggle = document.querySelector('.nav-toggle');
+            const nav    = document.getElementById('main-nav');
+            toggle.addEventListener('click', () => {
+                const open = nav.classList.toggle('open');
+                toggle.classList.toggle('active', open);
+                toggle.setAttribute('aria-expanded', String(open));
+            });
+            document.addEventListener('click', (e) => {
+                if (!toggle.contains(e.target) && !nav.contains(e.target)) {
+                    nav.classList.remove('open');
+                    toggle.classList.remove('active');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        </script>
+    </body>
+</html>

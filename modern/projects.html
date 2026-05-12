@@ -14,6 +14,28 @@
         />
         <link rel="stylesheet" href="style.css" />
         <style>
+            /* ── header: horizontal ── */
+            header { text-align: left; padding: 12px var(--spacing-md); }
+            .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+            header .logo { max-width: 160px; margin-bottom: 0; }
+            header nav { justify-content: flex-end; flex-wrap: nowrap; gap: var(--spacing-xs); }
+            body { padding-top: 90px; }
+
+            .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; border-radius: 6px; }
+            .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--color-text); border-radius: 2px; transition: all 0.25s; }
+            .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+            .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+            @media (max-width: 768px) {
+                body { padding-top: 60px; }
+                .nav-toggle { display: flex; }
+                header nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; background: rgba(8,8,8,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(236,72,153,0.3); padding: 8px 16px 16px; gap: 0; }
+                header nav.open { display: flex; }
+                header nav a { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); border-radius: 0; }
+                header nav a:last-child { border-bottom: none; }
+            }
+
             /* ── projects page extras ── */
             .project-grid {
                 display: grid;
@@ -25,14 +47,6 @@
                 display: flex;
                 flex-direction: column;
                 gap: var(--spacing-xs);
-            }
-
-            .project-card img {
-                width: 100%;
-                aspect-ratio: 16/9;
-                object-fit: cover;
-                border-radius: calc(var(--radius) / 2);
-                border: 1px solid var(--border-color-white);
             }
 
             .project-card .tags {
@@ -80,7 +94,6 @@
                 }
             }
 
-            /* Stretched-link for wiki navigation */
             .card { position: relative; }
             .card-wiki-link {
                 color: inherit;
@@ -93,64 +106,144 @@
                 border-radius: var(--radius);
             }
             .project-links { position: relative; z-index: 1; }
-            .program-links { position: relative; z-index: 1; }
         </style>
     </head>
     <body>
         <header>
-            <img
-                src="images/logos/cherrys-labs.png"
-                alt="cherry's labs"
-                class="logo"
-            />
-            <nav>
-                <a href="index.html">home</a>
-                <a href="projects.html">projects</a>
-                <a href="programs.html">programs</a>
-                <a href="store.html">store</a>
-                <a href="wiki.html">wiki</a>
-            </nav>
+            <div class="header-inner">
+                <img
+                    src="images/logos/cherrys-labs.png"
+                    alt="cherry's labs"
+                    class="logo"
+                />
+                <button
+                    class="nav-toggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                >
+                    <span></span><span></span><span></span>
+                </button>
+                <nav id="main-nav">
+                    <a href="index.html">home</a>
+                    <a href="hardware.html">hardware</a>
+                    <a href="software.html">software</a>
+                    <a href="store.html">store</a>
+                    <a href="wiki.html">wiki</a>
+                </nav>
+            </div>
         </header>
 
         <main>
             <section>
                 <h2>projects</h2>
 
-                <!-- ─────────────────────────────────────────
-                     PROJECT GRID
-                     To add a project: copy one .card.project-card block.
-                     Status tags: status-wip / status-complete / status-abandoned
-                ───────────────────────────────────────── -->
                 <div class="project-grid">
-                    <!-- PROJECT CARD TEMPLATE
-                    <div class="card project-card">
-                        <img src="path/to/image.png" alt="project name" />
-                        <div class="tags">
-                            <span class="tag status-wip">wip</span>
-                        </div>
-                        <h3>project title</h3>
-                        <p>Short description of the project.</p>
-                        <div class="project-links">
-                            <a href="#">source</a>
-                            <a href="#">demo</a>
-                        </div>
-                    </div>
-                    -->
 
                     <div class="card project-card">
                         <div class="tags">
                             <span class="tag status-wip">wip</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">SQLite</span>
                         </div>
                         <h3><a class="card-wiki-link" href="wiki/tidal-collaborative.html">Tidal-Collaborative</a></h3>
-                        <p>
-                            A self-hosted collaborative playlist sync for Tidal
-                            (music streaming).
-                        </p>
-                            <div class="program-links">
-                                <a href="https://github.com/elphiene/tidal-collaborative">Github</a>
-                            </div>
+                        <p>A self-hosted collaborative playlist sync for Tidal (music streaming). Real-time WebSocket sync, home-lab friendly via Docker.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/elphiene/tidal-collaborative">github ↗</a>
+                            <a href="wiki/tidal-collaborative.html">wiki ↗</a>
                         </div>
                     </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                            <span class="tag">Rust</span>
+                            <span class="tag">Tauri</span>
+                            <span class="tag">SteamOS</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/deckcraft.html">DeckCraft</a></h3>
+                        <p>A controller and touch-friendly Minecraft launcher for Steam Deck. Zero configuration — auto-downloads Java and manages instances.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/CherryGaySoda/DeckCraft">github ↗</a>
+                            <a href="wiki/deckcraft.html">wiki ↗</a>
+                        </div>
+                    </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                            <span class="tag">Rust</span>
+                            <span class="tag">libp2p</span>
+                            <span class="tag">Linux</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/peerchat.html">PeerChat</a></h3>
+                        <p>A fully peer-to-peer terminal chat app — no central server. Text messaging, file transfer, voice, and ASCII webcam streaming via libp2p.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/CherryGaySoda/PeerChat">github ↗</a>
+                            <a href="wiki/peerchat.html">wiki ↗</a>
+                        </div>
+                    </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                            <span class="tag">Rust</span>
+                            <span class="tag">egui</span>
+                            <span class="tag">Linux</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/daytona-controls.html">Daytona-Controls</a></h3>
+                        <p>GUI editor for ElSemi Model 2 Emulator control-binding files. Live gamepad input detection lets you press a button to bind it.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/elphiene/daytona-controls">github ↗</a>
+                            <a href="wiki/daytona-controls.html">wiki ↗</a>
+                        </div>
+                    </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-wip">wip</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">Textual</span>
+                            <span class="tag">Linux</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/signal-tui.html">Signal-TUI</a></h3>
+                        <p>A terminal UI for Signal messenger — full send/receive support, six built-in themes, and a keyboard-driven interface built with Python and Textual.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/elphiene/signal-tui">github ↗</a>
+                            <a href="wiki/signal-tui.html">wiki ↗</a>
+                        </div>
+                    </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-complete">complete</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">JS</span>
+                            <span class="tag">Web</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/non-steam-grid-generator.html">Non-Steam-Grid-Generator</a></h3>
+                        <p>A browser tool for generating correctly sized Steam artwork for non-Steam games. No installation needed — runs entirely in the browser.</p>
+                        <div class="project-links">
+                            <a href="https://cherrygaysoda.github.io/Non-Steam-Grid-Generator">site ↗</a>
+                            <a href="wiki/non-steam-grid-generator.html">wiki ↗</a>
+                        </div>
+                    </div>
+
+                    <div class="card project-card">
+                        <div class="tags">
+                            <span class="tag status-complete">complete</span>
+                            <span class="tag">Rust</span>
+                            <span class="tag">SteamOS</span>
+                            <span class="tag">Linux</span>
+                        </div>
+                        <h3><a class="card-wiki-link" href="wiki/dockswitch.html">DockSwitch</a></h3>
+                        <p>Auto-switches SteamOS between Gaming Mode and Desktop Mode when a dock is connected or disconnected.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/CherryGaySoda/DockSwitch">github ↗</a>
+                            <a href="wiki/dockswitch.html">wiki ↗</a>
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </main>
@@ -163,6 +256,20 @@
         </footer>
 
         <script>
+            const toggle = document.querySelector('.nav-toggle');
+            const nav    = document.getElementById('main-nav');
+            toggle.addEventListener('click', () => {
+                const open = nav.classList.toggle('open');
+                toggle.classList.toggle('active', open);
+                toggle.setAttribute('aria-expanded', String(open));
+            });
+            document.addEventListener('click', (e) => {
+                if (!toggle.contains(e.target) && !nav.contains(e.target)) {
+                    nav.classList.remove('open');
+                    toggle.classList.remove('active');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+            });
             document.addEventListener("DOMContentLoaded", () => {
                 document.querySelectorAll(".card").forEach((card, i) => {
                     card.style.animationDelay = `${i * 0.1}s`;
