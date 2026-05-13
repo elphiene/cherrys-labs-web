@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>cherry's labs — wiki: dockswitch</title>
-        <meta name="description" content="cherry's labs wiki - dockswitch" />
+        <title>cherry's labs — wiki: signal-tui</title>
+        <meta name="description" content="cherry's labs wiki - signal-tui" />
         <meta name="author" content="Elphiene" />
         <meta name="year" content="2026" />
         <link rel="icon" type="image/x-icon" href="../images/icons/favicon.png" />
@@ -89,30 +89,42 @@
         <main>
             <section>
                 <a class="back-link" href="../wiki.html">← wiki</a>
-                <h2>dockswitch</h2>
+                <h2>signal-tui</h2>
 
                 <div class="wiki-article">
 
                     <div class="wiki-section" id="overview">
                         <h3>overview</h3>
-                        <p>A Rust utility that monitors dock connection events and automatically switches SteamOS between Gaming Mode and Desktop Mode, allowing seamless transitions between handheld and desktop use.</p>
-                        <!-- expand: what problem it solves, who it's for, current status -->
+                        <p>A terminal user interface for Signal messenger, built with Python and Textual. Connects to a locally running <code>signal-cli</code> daemon to send and receive messages without leaving the terminal.</p>
+                        <p>Features full message send/receive, six built-in themes (plus custom theme support), contact management with persistent storage, read receipts, smart notifications (only for messages outside the current conversation), and message history with attachment indicators.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
-                        <p>Rust. Targets SteamOS / Linux.</p>
-                        <!-- expand: key crates/libraries, how dock events are detected (udev?), systemd integration if any -->
+                        <p><strong>Language:</strong> Python 3.10+.</p>
+                        <p><strong>UI framework:</strong> Textual — a modern Python TUI framework. The layout is a two-panel split: contact list on the left, message history and input on the right. An info panel (toggled with Tab/Esc) shows conversation stats.</p>
+                        <p><strong>Backend:</strong> signal-cli — a Java-based command-line Signal client. Signal-TUI spawns it as a daemon and communicates over a local JSON-RPC socket to send and receive messages.</p>
+                        <p><strong>Storage:</strong> Contact names and configuration live in <code>~/.config/signal-tui/</code> as YAML and JSON files. Message history is kept in memory per session.</p>
+                        <p><strong>Key dependencies:</strong> Textual, plus signal-cli (installed separately — available via pacman, manual download, or Homebrew on macOS).</p>
+                    </div>
+
+                    <div class="wiki-section" id="themes">
+                        <h3>themes</h3>
+                        <p>Six built-in presets: <code>retro-green</code>, <code>cyberpunk-pink</code>, <code>nord</code>, <code>gruvbox</code>, <code>dracula</code>, <code>solarized-dark</code>. Set the active preset in <code>~/.config/signal-tui/config.yaml</code> under <code>theme.preset</code>.</p>
+                        <p>Custom themes are supported via <code>preset: custom</code> with inline colour overrides, or by defining named custom presets under <code>theme.custom_presets</code>. All colours (primary, secondary, background, text, etc.) are configurable.</p>
                     </div>
 
                     <div class="wiki-section" id="development">
                         <h3>development</h3>
-                        <p><!-- document the development process, design decisions, known issues, roadmap --></p>
+                        <p>Signal-TUI manages the signal-cli daemon lifecycle: it starts the daemon on launch, monitors it, and restarts it if it dies. The <code>r</code> keyboard shortcut force-restarts the daemon from within the UI without quitting the app.</p>
+                        <p>Device linking (pairing with your Signal mobile app via QR code) is handled in-app using the <code>l</code> shortcut, which wraps the <code>signal-cli link</code> command and renders the QR code directly in the terminal.</p>
+                        <p>An <code>install.sh</code> script creates a Python virtual environment, installs all dependencies, and sets up a <code>.desktop</code> launcher entry for use from your application menu. An <code>update.sh</code> script handles pulling new versions and upgrading the venv.</p>
+                        <p><strong>Project structure:</strong> <code>signal_tui/app.py</code> (main app), <code>daemon.py</code> (signal-cli lifecycle), <code>signal_client.py</code> (JSON-RPC interface), <code>themes.py</code> (theme definitions), <code>widgets/</code> (UI components), <code>screens/</code> (modal dialogs).</p>
                     </div>
 
                     <div class="wiki-section" id="links">
                         <h3>links</h3>
-                        <p><a href="https://github.com/CherryGaySoda/DockSwitch">github.com/CherryGaySoda/DockSwitch</a></p>
+                        <p><a href="https://github.com/elphiene/signal-tui">github.com/elphiene/signal-tui</a></p>
                     </div>
 
                 </div>
