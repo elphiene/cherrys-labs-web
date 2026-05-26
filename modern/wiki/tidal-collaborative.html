@@ -88,28 +88,30 @@
 
         <main>
             <section>
-                <a class="back-link" href="../wiki.html">← wiki</a>
+                <a class="back-link" href="../wiki.html">&larr; wiki</a>
                 <h2>tidal-collaborative</h2>
 
                 <div class="wiki-article">
 
                     <div class="wiki-section" id="overview">
                         <h3>overview</h3>
-                        <p>A self-hosted server that lets multiple Tidal users collaboratively sync playlists in real time. Sign in with your Tidal account in any browser, link a playlist, and every change — adds and removes — propagates to all collaborators automatically within 60 seconds.</p>
+                        <p>A self-hosted server that lets multiple Tidal users collaboratively sync playlists in real time. Sign in with your Tidal account in any browser, link a playlist, and every change &mdash; adds and removes &mdash; propagates to all collaborators automatically within 30 seconds.</p>
                         <p>Designed to run on a home server or NAS (CasaOS, Debian, etc.) via Docker. Users must be on the same home LAN or connected via VPN.</p>
+                        <p>Additional features include: an activity log (full audit trail of every change with who, what, and when), an invite-code system for private shared playlists, an admin panel for managing playlists and users, per-user sync status indicators (surfaces rate limits and expired sessions), and a browser-guided first-run setup wizard that generates secrets and walks through Tidal app registration.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
                         <p><strong>Server:</strong> Node.js 20 LTS, Express 4, <code>ws</code> (WebSocket), better-sqlite3 (SQLite), express-session.</p>
-                        <p><strong>Auth &amp; encryption:</strong> Tidal OAuth 2.1 PKCE — handled entirely server-side, no tokens ever touch the browser. Tidal access and refresh tokens are encrypted at rest with AES-256-GCM using a key stored in the database (or overridden via env var).</p>
+                        <p><strong>Auth &amp; encryption:</strong> Tidal OAuth 2.1 PKCE &mdash; handled entirely server-side, no tokens ever touch the browser. Tidal access and refresh tokens are encrypted at rest with AES-256-GCM using a key stored in the database (or overridden via env var).</p>
                         <p><strong>Container:</strong> Docker on <code>node:20-alpine</code>, multi-platform (amd64 + arm64). Image published to Docker Hub.</p>
-                        <p><strong>Web UI:</strong> Vanilla HTML/CSS/JavaScript — no frameworks or build step.</p>
+                        <p><strong>Web UI:</strong> Vanilla HTML/CSS/JavaScript &mdash; no frameworks or build step.</p>
+                        <p><strong>Observability:</strong> prom-client &mdash; exposes a <code>/metrics</code> endpoint compatible with Prometheus and Grafana.</p>
                     </div>
 
                     <div class="wiki-section" id="architecture">
                         <h3>architecture</h3>
-                        <p>The server polls each linked Tidal playlist every 60 seconds, detects added/removed tracks via set-difference against the SQLite state, writes changes to the shared playlist table, calls the Tidal API to propagate those changes to every other linked user's playlist, and pushes real-time notifications to all open browser tabs over WebSocket.</p>
+                        <p>The server polls each linked Tidal playlist every 30 seconds, detects added/removed tracks via set-difference against the SQLite state, writes changes to the shared playlist table, calls the Tidal API to propagate those changes to every other linked user's playlist, and pushes real-time notifications to all open browser tabs over WebSocket.</p>
                         <p>Secrets (encryption key, session secret) are auto-generated on first run and stored in SQLite. Setting the corresponding env vars overrides the database values, which is useful for existing deployments or deterministic local dev.</p>
                         <p>A first-run setup wizard in the browser handles Tidal OAuth app registration, admin PIN creation, and the redirect URI calculation.</p>
                     </div>
@@ -117,7 +119,7 @@
                     <div class="wiki-section" id="development">
                         <h3>development</h3>
                         <p>The entire persistent state is one SQLite file (<code>docker/data/db.sqlite</code>), making backups trivial.</p>
-                        <p><strong>Roadmap:</strong> track reorder sync, granular view-only collaborator permissions, configurable poll interval per playlist, pagination for large playlists (&gt;500 tracks).</p>
+                        <p><strong>Roadmap:</strong> granular view-only collaborator permissions, configurable poll interval per playlist, pagination for large playlists (&gt;500 tracks).</p>
                     </div>
 
                     <div class="wiki-section" id="links">
