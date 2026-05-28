@@ -23,7 +23,7 @@ Bio: [FILL IN — 2–4 sentences]
 Links:
   - GitHub: [FILL IN]
   - [other]: [FILL IN]
-Photo: [filename in modern/images/photos/ — or TBD]
+Photo: [filename in images/photos/ — or TBD]
 ```
 
 ### El's card
@@ -35,7 +35,7 @@ Bio: [FILL IN — 2–4 sentences]
 Links:
   - GitHub: https://github.com/elphiene
   - [other]: [FILL IN]
-Photo: [filename in modern/images/photos/ — or TBD]
+Photo: [filename in images/photos/ — or TBD]
 ```
 
 ---
@@ -52,7 +52,7 @@ Description: [FILL IN — 1–3 sentences]
 Tags: [e.g. Hardware, Python, SteamOS]
 GitHub: [URL or TBD]
 Live URL: [URL or N/A]
-Image: [filename in modern/images/projects/ — or TBD]
+Image: [filename in images/projects/ — or TBD]
 ---------------
 ```
 
@@ -73,7 +73,7 @@ Platform: [e.g. SteamOS/Linux, Web, Windows]
 Description: [FILL IN — 1–3 sentences]
 Tags: [e.g. Rust, HTML, Python]
 GitHub: [URL or TBD]
-Screenshot: [filename in modern/images/programs/ — or TBD]
+Screenshot: [filename in images/programs/ — or TBD]
 ---------------
 ```
 
@@ -96,13 +96,13 @@ Price: [FILL IN — e.g. $12.00 AUD]
 Description: [FILL IN — 1–2 sentences]
 Category: [e.g. 3D Print, Gadget, Tech]
 Stock: [In Stock / Made to Order / Coming Soon]
-Photo: [filename in modern/images/products/ — or TBD]
+Photo: [filename in images/products/ — or TBD]
 ---------------
 ```
 
 ---
 
-## Wiki pages (`modern/wiki/`)
+## Wiki pages (`wiki/`)
 
 > Fill in the development notes for each project's wiki article.
 
