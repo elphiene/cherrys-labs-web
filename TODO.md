@@ -10,9 +10,9 @@
 - [ ] `wiki/dockswitch.html` — Development section
 - [ ] `wiki/non-steam-grid-generator.html` — Development section
 - [ ] `wiki/tidal-collaborative.html` — Development section
-- [ ] Images — Add profile photos for Cherry and El (`modern/images/photos/`)
-- [ ] Images — Add project screenshots/previews (`modern/images/projects/`)
-- [ ] Images — Add product photos (`modern/images/products/`)
+- [ ] Images — Add profile photos for Cherry and El (`images/photos/`)
+- [ ] Images — Add project screenshots/previews (`images/projects/`)
+- [ ] Images — Add product photos (`images/products/`)
 
 ## Technical
 
