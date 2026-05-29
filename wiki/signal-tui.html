@@ -95,31 +95,21 @@
 
                     <div class="wiki-section" id="overview">
                         <h3>overview</h3>
-                        <p>A terminal user interface for Signal messenger, built with Python and Textual. Connects to a locally running <code>signal-cli</code> daemon to send and receive messages without leaving the terminal.</p>
-                        <p>Features full message send/receive, six built-in themes (plus custom theme support), contact management with persistent storage, read receipts, smart notifications (only for messages outside the current conversation), and message history with attachment indicators.</p>
+                        <p>A keyboard-driven terminal UI for Signal messenger, backed by <code>signal-cli</code> over JSON-RPC. The original Python/Textual implementation has been archived; the project is currently being rewritten in Rust using ratatui for a faster, leaner interface.</p>
+                        <p>The Python version is preserved in <code>archive/python-tui/</code> for reference but is no longer maintained. The Rust rewrite targets a buddy-list-style TUI with the same signal-cli JSON-RPC backend.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
-                        <p><strong>Language:</strong> Python 3.10+.</p>
-                        <p><strong>UI framework:</strong> Textual — a modern Python TUI framework. The layout is a two-panel split: contact list on the left, message history and input on the right. An info panel (toggled with Tab/Esc) shows conversation stats.</p>
-                        <p><strong>Backend:</strong> signal-cli — a Java-based command-line Signal client. Signal-TUI spawns it as a daemon and communicates over a local JSON-RPC socket to send and receive messages.</p>
-                        <p><strong>Storage:</strong> Contact names and configuration live in <code>~/.config/signal-tui/</code> as YAML and JSON files. Message history is kept in memory per session.</p>
-                        <p><strong>Key dependencies:</strong> Textual, plus signal-cli (installed separately — available via pacman, manual download, or Homebrew on macOS).</p>
+                        <p><strong>Language:</strong> Rust.</p>
+                        <p><strong>UI framework:</strong> ratatui — a Rust library for building terminal UIs.</p>
+                        <p><strong>Backend:</strong> signal-cli — a Java-based command-line Signal client. signal-tui communicates with it over a local JSON-RPC Unix socket to send and receive messages. Requires <code>signal-cli</code> installed and a linked Signal account on the host.</p>
+                        <p><strong>Archived implementation:</strong> Python 3 + Textual (see <code>archive/python-tui/</code>).</p>
                     </div>
 
-                    <div class="wiki-section" id="themes">
-                        <h3>themes</h3>
-                        <p>Six built-in presets: <code>retro-green</code>, <code>cyberpunk-pink</code>, <code>nord</code>, <code>gruvbox</code>, <code>dracula</code>, <code>solarized-dark</code>. Set the active preset in <code>~/.config/signal-tui/config.yaml</code> under <code>theme.preset</code>.</p>
-                        <p>Custom themes are supported via <code>preset: custom</code> with inline colour overrides, or by defining named custom presets under <code>theme.custom_presets</code>. All colours (primary, secondary, background, text, etc.) are configurable.</p>
-                    </div>
-
-                    <div class="wiki-section" id="development">
-                        <h3>development</h3>
-                        <p>Signal-TUI manages the signal-cli daemon lifecycle: it starts the daemon on launch, monitors it, and restarts it if it dies. The <code>r</code> keyboard shortcut force-restarts the daemon from within the UI without quitting the app.</p>
-                        <p>Device linking (pairing with your Signal mobile app via QR code) is handled in-app using the <code>l</code> shortcut, which wraps the <code>signal-cli link</code> command and renders the QR code directly in the terminal.</p>
-                        <p>An <code>install.sh</code> script creates a Python virtual environment, installs all dependencies, and sets up a <code>.desktop</code> launcher entry for use from your application menu. An <code>update.sh</code> script handles pulling new versions and upgrading the venv.</p>
-                        <p><strong>Project structure:</strong> <code>signal_tui/app.py</code> (main app), <code>daemon.py</code> (signal-cli lifecycle), <code>signal_client.py</code> (JSON-RPC interface), <code>themes.py</code> (theme definitions), <code>widgets/</code> (UI components), <code>screens/</code> (modal dialogs).</p>
+                    <div class="wiki-section" id="status">
+                        <h3>status</h3>
+                        <p>Early-stage rewrite. The Rust scaffolding covers the app, UI, signal client, config, and types modules. See <code>PLAN.md</code> in the repository for the full architecture and remaining roadmap.</p>
                     </div>
 
                     <div class="wiki-section" id="links">
