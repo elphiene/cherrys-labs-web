@@ -18,13 +18,12 @@ npx wrangler pages deploy .
 
 ```
 .
-├── *.html              ← pages (index, projects, programs, software, hardware, store, wiki)
+├── *.html              ← pages (index, hardware, software, store, wiki)
 ├── style.css           ← shared stylesheet
 ├── images/             ← all site assets
 ├── wiki/               ← individual wiki article pages
-├── mockup/             ← design iteration scratch (not deployed)
+├── mockup/             ← design iteration scratch
 ├── wrangler.toml       ← Cloudflare Pages config
-├── archive/retro/      ← preserved Y2K version (not developed)
 └── CONTENT_TEMPLATE.md ← Cherry fills this in for content
 ```
 

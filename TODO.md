@@ -4,7 +4,8 @@
 
 - [ ] `index.html` — Cherry's intro card (see `CONTENT_TEMPLATE.md` → Homepage section)
 - [ ] `index.html` — El's intro card (expand existing stub)
-- [ ] `projects.html` — Add all project cards (see template)
+- [ ] `hardware.html` — Add hardware/3D-print cards (see template)
+- [ ] `software.html` — Add remaining software cards (see template)
 - [ ] `store.html` — Add product cards once stock is decided (see template)
 - [ ] `wiki/deckcraft.html` — Tech stack + development sections
 - [ ] `wiki/dockswitch.html` — Development section
@@ -16,11 +17,10 @@
 
 ## Technical
 
-- [ ] `programs.html` — Fix Deckcraft GitHub link (currently `#`)
-- [ ] Navigation — Decide on mobile nav pattern (hamburger menu vs. other)
+- [ ] `software.html` — Fix Deckcraft GitHub link (currently `#`)
+- [ ] `software.html` — Remove `wiki/program-name.html` placeholder stub card
 - [ ] Store — Integrate payment solution (Stripe, Ko-fi, Etsy link, etc.)
 - [ ] `index.html` — Add news/updates entries as content develops
-- [ ] `projects.html` — Add remaining projects beyond Tidal-Collaborative
 
 ## Pending decisions
 
