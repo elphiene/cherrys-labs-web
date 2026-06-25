@@ -1,0 +1,27 @@
+# Excludes files from the Cloudflare Pages deploy (gitignore-style patterns).
+# Keeps internal docs, design scratch, and secrets off the public site.
+
+# Secrets — must never be served
+Agent
+*.pem
+*.key
+*.env
+.env*
+
+# Internal docs & planning
+*.md
+CONTENT_TEMPLATE.md
+
+# Design scratch & brand refs (not part of the live site)
+mockup/
+brand/
+
+# Source assets not used by the live site
+fonts/
+
+# Tooling / VCS
+.git/
+.gitignore
+.gitkeep
+.claude/
+.wrangler/
