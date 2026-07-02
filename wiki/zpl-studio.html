@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>cherry's labs — wiki: peerchat</title>
-        <meta name="description" content="cherry's labs wiki - peerchat" />
+        <title>cherry's labs — wiki: zpl-studio</title>
+        <meta name="description" content="cherry's labs wiki - zpl-studio" />
         <meta name="author" content="Elphiene" />
         <meta name="year" content="2026" />
         <link rel="icon" type="image/x-icon" href="../images/icons/favicon.png" />
@@ -89,44 +89,35 @@
         <main>
             <section>
                 <a class="back-link" href="../wiki.html">← wiki</a>
-                <h2>peerchat</h2>
+                <h2>zpl-studio</h2>
 
                 <div class="wiki-article">
 
                     <div class="wiki-section" id="overview">
                         <h3>overview</h3>
-                        <p>A fully peer-to-peer chat application written in Rust with a terminal UI. No central server — peers connect directly using libp2p.</p>
-                        <p>Phase 1 MVP is complete: peers on a LAN discover each other automatically via mDNS, and text messaging and presence status are working. File transfer, voice chat (Opus), and ASCII art webcam streaming are planned for future phases.</p>
+                        <p>A Dymo-style WYSIWYG label designer for Zebra thermal printers. A flexible, template-based ZPL label printer with automatic variable detection and offline preview — el's fork and continuation of Cherry's original <code>ZebraPrintLabel</code> ("ZPL Printer Tool") project.</p>
+                        <p>Templates use <code>{{VARIABLE}}</code> and <code>{{VARIABLE:Display Label}}</code> placeholders, which the app automatically detects and turns into input fields in the UI.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
-                        <p><strong>Language:</strong> Rust (async with Tokio).</p>
-                        <p><strong>Networking:</strong> libp2p — Kademlia DHT (internet-wide discovery), mDNS (LAN auto-discovery), Gossipsub (message propagation), QUIC transport. All peer connections use the Noise protocol for encryption.</p>
-                        <p><strong>UI:</strong> ratatui + crossterm — cyberpunk dark theme with neon pink (#FF10F0) accents. Contact list on the left, message history top-right, input bottom-right.</p>
-                        <p><strong>Audio:</strong> cpal (cross-platform audio capture/playback) + Opus codec for low-latency voice.</p>
-                        <p><strong>Storage:</strong> SQLite.</p>
-                    </div>
-
-                    <div class="wiki-section" id="architecture">
-                        <h3>architecture</h3>
-                        <p>PeerChat uses a daemon-client split: <code>peerchat-daemon</code> is a background service that owns all P2P networking and runs persistently, while <code>peerchat-client</code> is a lightweight TUI that communicates with the daemon over a local IPC socket.</p>
-                        <p>This means you can detach and re-attach the UI without dropping connections, and multiple clients could theoretically connect to the same daemon.</p>
+                        <p><strong>Language:</strong> Rust (2021 edition).</p>
+                        <p><strong>GUI:</strong> <code>egui</code> + <code>eframe</code> — an immediate-mode UI framework.</p>
+                        <p><strong>Printing:</strong> Win32 API via <code>windows-sys</code> on Windows; CUPS via the <code>cups</code> crate on Linux. Both send raw ZPL data directly to the printer without driver processing.</p>
+                        <p><strong>Rendering:</strong> <code>zpl-forge</code> for fully offline ZPL-to-PNG rendering at 203/300/600 DPI, with no external API dependency.</p>
+                        <p><strong>Other:</strong> <code>rfd</code> for native file dialogs, <code>regex</code> for template variable extraction. Early Android support exploration is also in the repo (Kotlin), tracked in <code>ANDROID_PLAN.md</code> / <code>ANDROID_STATUS.md</code>.</p>
                     </div>
 
                     <div class="wiki-section" id="development">
                         <h3>development</h3>
-                        <p><strong>Phase 1 (complete):</strong> daemon with libp2p, IPC protocol, TUI client, text messaging, mDNS local discovery, presence broadcasting.</p>
-                        <p><strong>Phase 2:</strong> message history storage, DHT discovery (internet-wide), contact management.</p>
-                        <p><strong>Phase 3:</strong> file transfer with chunking and resume support.</p>
-                        <p><strong>Phase 4:</strong> voice chat — audio capture, Opus encoding, voice streaming UI.</p>
-                        <p><strong>Phase 5:</strong> ASCII camera — webcam capture, ASCII conversion, frame streaming.</p>
-                        <p><strong>Phase 6:</strong> NAT traversal, group chats, offline messages, encryption at rest, error handling. Windows support is also planned; current focus is Linux and macOS.</p>
+                        <p>Currently at v2.0.0 — the template-based rewrite with offline preview and automatic variable detection. GitHub Actions builds Windows (EXE) and Linux (AppImage) artifacts automatically on every push.</p>
+                        <p>Follows KISS/DRY/YAGNI: single executable (~4-6 MB), no database, no network features, no user accounts — just loads templates and prints.</p>
                     </div>
 
                     <div class="wiki-section" id="links">
                         <h3>links</h3>
-                        <p>Repository is currently private.</p>
+                        <p><a href="https://github.com/elphiene/zpl-studio">github.com/elphiene/zpl-studio</a></p>
+                        <p>Forked from Cherry's <code>ZebraPrintLabel</code> — that original repository is currently private/unavailable.</p>
                     </div>
 
                 </div>

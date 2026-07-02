@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>cherry's labs — wiki: peerchat</title>
-        <meta name="description" content="cherry's labs wiki - peerchat" />
+        <title>cherry's labs — wiki: lastfm-widget</title>
+        <meta name="description" content="cherry's labs wiki - lastfm-widget" />
         <meta name="author" content="Elphiene" />
         <meta name="year" content="2026" />
         <link rel="icon" type="image/x-icon" href="../images/icons/favicon.png" />
@@ -89,44 +89,32 @@
         <main>
             <section>
                 <a class="back-link" href="../wiki.html">← wiki</a>
-                <h2>peerchat</h2>
+                <h2>lastfm-widget</h2>
 
                 <div class="wiki-article">
 
                     <div class="wiki-section" id="overview">
                         <h3>overview</h3>
-                        <p>A fully peer-to-peer chat application written in Rust with a terminal UI. No central server — peers connect directly using libp2p.</p>
-                        <p>Phase 1 MVP is complete: peers on a LAN discover each other automatically via mDNS, and text messaging and presence status are working. File transfer, voice chat (Opus), and ASCII art webcam streaming are planned for future phases.</p>
+                        <p>A compact, always-on-top desktop widget that shows what's currently scrobbling on Last.fm. Y2K / Winamp aesthetic with a frosted glass skin and a user-selectable accent colour.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
-                        <p><strong>Language:</strong> Rust (async with Tokio).</p>
-                        <p><strong>Networking:</strong> libp2p — Kademlia DHT (internet-wide discovery), mDNS (LAN auto-discovery), Gossipsub (message propagation), QUIC transport. All peer connections use the Noise protocol for encryption.</p>
-                        <p><strong>UI:</strong> ratatui + crossterm — cyberpunk dark theme with neon pink (#FF10F0) accents. Contact list on the left, message history top-right, input bottom-right.</p>
-                        <p><strong>Audio:</strong> cpal (cross-platform audio capture/playback) + Opus codec for low-latency voice.</p>
-                        <p><strong>Storage:</strong> SQLite.</p>
+                        <p><strong>Backend:</strong> Python 3.10+ with <code>pywebview</code>, running on WebKitGTK on Linux.</p>
+                        <p><strong>UI:</strong> HTML/CSS/JS rendered inside the pywebview shell — skins handled via <code>skins.css</code>, with a JSX-based widget variant also present in the repo.</p>
+                        <p><strong>Data source:</strong> Last.fm's <code>user.getRecentTracks</code> API, polled every 15 seconds (~10–20s real-world latency).</p>
+                        <p><strong>Requirements:</strong> a Last.fm account with scrobbling enabled, and a compositor (picom, Mutter, KWin, etc.) for the frosted-glass backdrop-blur effect — without one it falls back to a solid dark background.</p>
                     </div>
 
-                    <div class="wiki-section" id="architecture">
-                        <h3>architecture</h3>
-                        <p>PeerChat uses a daemon-client split: <code>peerchat-daemon</code> is a background service that owns all P2P networking and runs persistently, while <code>peerchat-client</code> is a lightweight TUI that communicates with the daemon over a local IPC socket.</p>
-                        <p>This means you can detach and re-attach the UI without dropping connections, and multiple clients could theoretically connect to the same daemon.</p>
-                    </div>
-
-                    <div class="wiki-section" id="development">
-                        <h3>development</h3>
-                        <p><strong>Phase 1 (complete):</strong> daemon with libp2p, IPC protocol, TUI client, text messaging, mDNS local discovery, presence broadcasting.</p>
-                        <p><strong>Phase 2:</strong> message history storage, DHT discovery (internet-wide), contact management.</p>
-                        <p><strong>Phase 3:</strong> file transfer with chunking and resume support.</p>
-                        <p><strong>Phase 4:</strong> voice chat — audio capture, Opus encoding, voice streaming UI.</p>
-                        <p><strong>Phase 5:</strong> ASCII camera — webcam capture, ASCII conversion, frame streaming.</p>
-                        <p><strong>Phase 6:</strong> NAT traversal, group chats, offline messages, encryption at rest, error handling. Windows support is also planned; current focus is Linux and macOS.</p>
+                    <div class="wiki-section" id="features">
+                        <h3>features</h3>
+                        <p>Album art, track title, artist, and album name with a scrolling marquee title bar. A decorative spectrum visualizer. An accent-colour picker with 6 swatches, saved to localStorage. Windowshade behaviour — double-click the title bar to collapse to 21px. Drag the title bar to reposition.</p>
+                        <p>The progress bar is an estimate only (Last.fm doesn't expose playback position), and the ♥ love button is visual-only in v1 — actual love/unlove requires session auth, planned for a future version.</p>
                     </div>
 
                     <div class="wiki-section" id="links">
                         <h3>links</h3>
-                        <p>Repository is currently private.</p>
+                        <p><a href="https://github.com/elphiene/lastfm-widget">github.com/elphiene/lastfm-widget</a></p>
                     </div>
 
                 </div>
