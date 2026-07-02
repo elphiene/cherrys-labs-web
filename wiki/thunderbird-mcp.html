@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>cherry's labs — wiki: peerchat</title>
-        <meta name="description" content="cherry's labs wiki - peerchat" />
+        <title>cherry's labs — wiki: thunderbird-mcp</title>
+        <meta name="description" content="cherry's labs wiki - thunderbird-mcp" />
         <meta name="author" content="Elphiene" />
         <meta name="year" content="2026" />
         <link rel="icon" type="image/x-icon" href="../images/icons/favicon.png" />
@@ -89,44 +89,37 @@
         <main>
             <section>
                 <a class="back-link" href="../wiki.html">← wiki</a>
-                <h2>peerchat</h2>
+                <h2>thunderbird-mcp</h2>
 
                 <div class="wiki-article">
 
                     <div class="wiki-section" id="overview">
                         <h3>overview</h3>
-                        <p>A fully peer-to-peer chat application written in Rust with a terminal UI. No central server — peers connect directly using libp2p.</p>
-                        <p>Phase 1 MVP is complete: peers on a LAN discover each other automatically via mDNS, and text messaging and presence status are working. File transfer, voice chat (Opus), and ASCII art webcam streaming are planned for future phases.</p>
+                        <p>An MCP (Model Context Protocol) server that gives Claude access to Thunderbird — reading and searching email across all connected accounts (including iCloud), looking up contacts, and browsing the unified calendar.</p>
+                        <p>The read path works directly against Thunderbird's local profile files and doesn't require Thunderbird to be running. Sending email and other write operations go through a bundled WebExtension bridge, which does require Thunderbird to be open.</p>
                     </div>
 
                     <div class="wiki-section" id="tech-stack">
                         <h3>tech stack</h3>
-                        <p><strong>Language:</strong> Rust (async with Tokio).</p>
-                        <p><strong>Networking:</strong> libp2p — Kademlia DHT (internet-wide discovery), mDNS (LAN auto-discovery), Gossipsub (message propagation), QUIC transport. All peer connections use the Noise protocol for encryption.</p>
-                        <p><strong>UI:</strong> ratatui + crossterm — cyberpunk dark theme with neon pink (#FF10F0) accents. Contact list on the left, message history top-right, input bottom-right.</p>
-                        <p><strong>Audio:</strong> cpal (cross-platform audio capture/playback) + Opus codec for low-latency voice.</p>
-                        <p><strong>Storage:</strong> SQLite.</p>
+                        <p><strong>Language:</strong> JavaScript / Node.js.</p>
+                        <p><strong>Storage access:</strong> <code>sqlite3</code> (not <code>better-sqlite3</code>, for Node v24 compatibility) reading Thunderbird's local mail, contacts, and calendar databases directly.</p>
+                        <p><strong>Write bridge:</strong> a local-only HTTP bridge on <code>127.0.0.1:8084</code> paired with a Manifest V2 Thunderbird WebExtension, loaded as a temporary add-on. Never tunneled — local only, no network exposure.</p>
                     </div>
 
-                    <div class="wiki-section" id="architecture">
-                        <h3>architecture</h3>
-                        <p>PeerChat uses a daemon-client split: <code>peerchat-daemon</code> is a background service that owns all P2P networking and runs persistently, while <code>peerchat-client</code> is a lightweight TUI that communicates with the daemon over a local IPC socket.</p>
-                        <p>This means you can detach and re-attach the UI without dropping connections, and multiple clients could theoretically connect to the same daemon.</p>
+                    <div class="wiki-section" id="status">
+                        <h3>status</h3>
+                        <p>Email read path (list accounts/folders, search, read full messages), contacts read path, and calendar read path (requires Thunderbird closed) are all working. The send-email bridge, message management (move/delete/mark read/tag), and contact writes are also implemented via the WebExtension.</p>
+                        <p>Calendar writes are not implemented — Thunderbird has no standard <code>browser.calendar</code> WebExtension API. For CalDAV-synced Google calendars, Claude's separate Google Calendar connector can be used instead; changes sync back into Thunderbird. This doesn't help with iCloud-backed calendars, which remain read-only.</p>
                     </div>
 
-                    <div class="wiki-section" id="development">
-                        <h3>development</h3>
-                        <p><strong>Phase 1 (complete):</strong> daemon with libp2p, IPC protocol, TUI client, text messaging, mDNS local discovery, presence broadcasting.</p>
-                        <p><strong>Phase 2:</strong> message history storage, DHT discovery (internet-wide), contact management.</p>
-                        <p><strong>Phase 3:</strong> file transfer with chunking and resume support.</p>
-                        <p><strong>Phase 4:</strong> voice chat — audio capture, Opus encoding, voice streaming UI.</p>
-                        <p><strong>Phase 5:</strong> ASCII camera — webcam capture, ASCII conversion, frame streaming.</p>
-                        <p><strong>Phase 6:</strong> NAT traversal, group chats, offline messages, encryption at rest, error handling. Windows support is also planned; current focus is Linux and macOS.</p>
+                    <div class="wiki-section" id="tools">
+                        <h3>tools exposed</h3>
+                        <p><code>list_accounts</code>, <code>list_folders</code>, <code>search_emails</code>, <code>read_email</code>, <code>list_address_books</code>, <code>list_contacts</code>, <code>list_calendars</code>, <code>list_events</code>, <code>bridge_status</code>, <code>send_email</code>, <code>list_tags</code>, <code>move_message</code>, <code>delete_message</code>, <code>set_message_read</code>, <code>update_message_tags</code>, <code>create_contact</code>, <code>update_contact</code>.</p>
                     </div>
 
                     <div class="wiki-section" id="links">
                         <h3>links</h3>
-                        <p>Repository is currently private.</p>
+                        <p><a href="https://github.com/elphiene/thunderbird-mcp">github.com/elphiene/thunderbird-mcp</a></p>
                     </div>
 
                 </div>
