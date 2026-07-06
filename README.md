@@ -33,7 +33,7 @@ npx wrangler pages deploy .
 
 ## Cloudflare situation
 
-The site is built and deployed to Cloudflare Pages (project name `cherryslabs-modern`, set in `wrangler.toml`), but `cherryslabs.com`'s DNS currently points at a home IP instead of the Pages project. In practice that means:
+The site is built and deployed to Cloudflare Pages (project name `cherryslabs`, set in `wrangler.toml`), but `cherryslabs.com`'s DNS currently points at a home IP instead of the Pages project. In practice that means:
 
 - The domain resolves and serves over **plain HTTP**, not HTTPS — there's no TLS cert being served for it right now.
 - What actually answers requests is a local `openresty` reverse proxy on the home network, not Cloudflare Pages.

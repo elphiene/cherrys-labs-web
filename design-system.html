@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en-AU">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>cherry's labs — design system</title>
+        <meta
+            name="description"
+            content="cherry's labs - living design system reference: tokens, components, and proposed extensions."
+        />
+        <meta name="author" content="Elphiene" />
+        <meta name="year" content="2026" />
+        <link rel="icon" type="image/x-icon" href="images/icons/favicon.png" />
+        <link rel="stylesheet" href="style.css" />
+        <style>
+            /* ── header: horizontal (matches subpages) ── */
+            header { text-align: left; padding: 12px var(--spacing-md); }
+            .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+            header .logo { max-width: 160px; margin-bottom: 0; }
+            header nav { justify-content: flex-end; flex-wrap: nowrap; gap: var(--spacing-xs); }
+            body { padding-top: 90px; }
+            .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; border-radius: 6px; }
+            .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--color-text); border-radius: 2px; transition: all 0.25s; }
+            .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+            .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            @media (max-width: 768px) {
+                body { padding-top: 60px; }
+                .nav-toggle { display: flex; }
+                header nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; background: rgba(8,8,8,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(236,72,153,0.3); padding: 8px 16px 16px; gap: 0; }
+                header nav.open { display: flex; }
+                header nav a { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); border-radius: 0; }
+                header nav a:last-child { border-bottom: none; }
+            }
+
+            /* ── design-system page scaffolding ── */
+            .ds-lead { color: #aaa; font-size: 14px; line-height: 1.6; max-width: 760px; margin-bottom: var(--spacing-sm); }
+            .ds-lead a { color: var(--color-pink); }
+
+            .ds-toc { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-white-alpha-10); }
+            .ds-toc a {
+                font-family: var(--font-mono);
+                font-size: 12px;
+                padding: 4px 12px;
+                border: 1px solid var(--border-color-white);
+                border-radius: 20px;
+                color: #aaa;
+                text-decoration: none;
+            }
+            .ds-toc a:hover { color: var(--color-pink); border-color: var(--color-pink); text-decoration: none; }
+
+            .ds-sub { font-size: 13px; color: #888; margin-bottom: var(--spacing-md); max-width: 720px; line-height: 1.6; }
+            .ds-sub code { font-family: var(--font-mono); color: #bbb; }
+
+            /* swatches */
+            .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: var(--spacing-sm); margin-bottom: var(--spacing-md); }
+            .swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border-color-white); }
+            .swatch-color { height: 64px; }
+            .swatch-label { padding: 10px 12px; background: rgba(255, 255, 255, 0.03); }
+            .swatch-label .name { font-family: var(--font-mono); font-size: 12px; color: var(--color-text); display: block; margin-bottom: 2px; }
+            .swatch-label .value { font-family: var(--font-mono); font-size: 11px; color: #777; }
+            .swatch-label .usage { font-size: 11px; color: #666; display: block; margin-top: 4px; }
+
+            /* typography */
+            .type-sample { margin-bottom: var(--spacing-sm); }
+            .type-sample .label { font-family: var(--font-mono); font-size: 11px; color: #777; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; display: block; }
+
+            /* spacing scale */
+            .spacing-row { display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-xs); }
+            .spacing-row .label { font-family: var(--font-mono); font-size: 12px; color: #999; width: 160px; flex-shrink: 0; }
+            .spacing-bar { height: 16px; background: linear-gradient(90deg, var(--color-pink), var(--color-purple)); border-radius: 4px; }
+
+            /* generic demo rows */
+            .demo-row { display: flex; flex-wrap: wrap; gap: var(--spacing-sm); align-items: center; margin-bottom: var(--spacing-sm); }
+            .demo-block { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; border-radius: var(--radius); height: 90px; width: 140px; font-family: var(--font-mono); font-size: 11px; color: #999; text-align: center; padding: 8px; }
+
+            /* code callouts */
+            pre.ds-code { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-color-white); border-radius: calc(var(--radius) / 2); padding: var(--spacing-sm); overflow-x: auto; font-family: var(--font-mono); font-size: 12px; color: #ccc; margin-top: var(--spacing-sm); line-height: 1.6; }
+
+            /* proposed-extension framing */
+            .proposed-section { position: relative; border: 1px dashed rgba(245, 158, 11, 0.4); border-radius: var(--radius); padding: var(--spacing-md); margin-bottom: var(--spacing-lg); background: rgba(245, 158, 11, 0.03); }
+            .proposed-flag { display: inline-block; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 20px; padding: 2px 10px; margin-bottom: var(--spacing-sm); }
+
+            /* ── PROPOSED: buttons ── */
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-family: var(--font-heading);
+                font-size: 13px;
+                padding: 11px 22px;
+                border-radius: calc(var(--radius) / 2);
+                border: 1px solid transparent;
+                cursor: pointer;
+                text-decoration: none;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .btn-primary { background: linear-gradient(135deg, var(--color-pink), var(--color-purple)); color: #fff; box-shadow: var(--shadow); }
+            .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover), 0 0 20px rgba(236, 72, 153, 0.35); color: #fff; text-decoration: none; }
+            .btn-secondary { background: transparent; border-color: var(--border-color-white); color: var(--color-text); }
+            .btn-secondary:hover { border-color: var(--color-pink); color: var(--color-pink); background: rgba(236, 72, 153, 0.08); text-decoration: none; }
+            .btn-ghost { background: transparent; color: var(--color-pink); padding-left: 8px; padding-right: 8px; }
+            .btn-ghost:hover { background: rgba(236, 72, 153, 0.1); text-decoration: none; }
+            .btn[disabled] { opacity: 0.35; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+
+            /* ── PROPOSED: form fields ── */
+            .ds-field { margin-bottom: var(--spacing-sm); max-width: 320px; }
+            .ds-field label { display: block; font-family: var(--font-mono); font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+            .ds-field input, .ds-field textarea, .ds-field select {
+                width: 100%;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--border-color-white);
+                border-radius: calc(var(--radius) / 2);
+                padding: 10px 14px;
+                color: var(--color-text);
+                font-family: var(--font-main);
+                font-size: 14px;
+                transition: border-color 0.2s, box-shadow 0.2s;
+            }
+            .ds-field input:focus, .ds-field textarea:focus, .ds-field select:focus {
+                outline: none;
+                border-color: var(--color-pink);
+                box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.15);
+            }
+            .ds-field input::placeholder, .ds-field textarea::placeholder { color: #555; }
+            .ds-checkbox { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #ccc; }
+            .ds-checkbox input { accent-color: var(--color-pink); width: 16px; height: 16px; }
+
+            /* ── PROPOSED: empty state ── */
+            .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 160px; padding: var(--spacing-md); gap: 6px; }
+            .empty-state h3 { color: #555; font-size: 16px; font-family: var(--font-heading); }
+            .empty-state p { color: #444; font-size: 13px; }
+
+            /* ── PROPOSED: notice / alert banner ── */
+            .notice { display: flex; gap: 12px; align-items: flex-start; padding: var(--spacing-sm); border-radius: var(--radius); border: 1px solid; background: rgba(255, 255, 255, 0.03); font-size: 14px; line-height: 1.5; margin-bottom: var(--spacing-sm); }
+            .notice .notice-icon { font-family: var(--font-mono); font-weight: bold; flex-shrink: 0; }
+            .notice-info { border-color: rgba(147, 84, 211, 0.4); }
+            .notice-info .notice-icon { color: var(--color-purple); }
+            .notice-warning { border-color: rgba(245, 158, 11, 0.4); }
+            .notice-warning .notice-icon { color: #f59e0b; }
+            .notice-danger { border-color: rgba(239, 68, 68, 0.4); }
+            .notice-danger .notice-icon { color: #ef4444; }
+
+            /* ── PROPOSED: table ── */
+            .ds-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+            .ds-table th, .ds-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--color-white-alpha-10); }
+            .ds-table th { font-family: var(--font-heading); color: var(--color-pink); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+            .ds-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+            /* mini component demos reused from live site */
+            .mini-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--spacing-sm); }
+            .mini-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: var(--spacing-xs); }
+            .mini-tag { font-family: var(--font-mono); font-size: 11px; padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.1); color: #888; background: rgba(255, 255, 255, 0.03); }
+            .mini-tag.status-wip { border-color: #f59e0b; color: #f59e0b; background: rgba(245, 158, 11, 0.07); }
+            .mini-tag.status-complete { border-color: #22c55e; color: #22c55e; background: rgba(34, 197, 94, 0.07); }
+            .mini-tag.status-abandoned, .mini-tag.status-on-hold { border-color: #6b7280; color: #6b7280; background: rgba(107, 114, 128, 0.07); }
+            .mini-tag.status-new { border-color: var(--color-pink); color: var(--color-pink); background: rgba(236, 72, 153, 0.07); }
+            .mini-tag.type-3dprint { border-color: var(--color-purple); color: var(--color-purple); background: transparent; }
+            .mini-tag.type-gadget { border-color: var(--color-pink); color: var(--color-pink); background: transparent; }
+
+            .mini-wiki-list { display: flex; flex-direction: column; }
+            .mini-wiki-entry { display: flex; align-items: baseline; gap: var(--spacing-md); padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); text-decoration: none; transition: padding-left 0.2s ease, border-color 0.2s; }
+            .mini-wiki-entry:last-child { border-bottom: none; }
+            .mini-wiki-entry:hover { padding-left: 8px; border-color: rgba(236,72,153,0.2); text-decoration: none; }
+            .mini-wiki-name { font-family: var(--font-mono); font-size: 14px; color: var(--color-pink); min-width: 160px; flex-shrink: 0; }
+            .mini-wiki-desc { font-size: 13px; color: #888; }
+
+            .mini-divider { width: 100%; height: 1px; margin: var(--spacing-md) 0; background: linear-gradient(90deg, transparent 0%, var(--color-white-alpha-20) 20%, var(--color-white-alpha-30) 50%, var(--color-white-alpha-20) 80%, transparent 100%); }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-inner">
+                <img
+                    src="images/logos/cherrys-labs.png"
+                    alt="cherry's labs"
+                    class="logo"
+                />
+                <button
+                    class="nav-toggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                >
+                    <span></span><span></span><span></span>
+                </button>
+                <nav id="main-nav">
+                    <a href="index.html">home</a>
+                    <a href="hardware.html">hardware</a>
+                    <a href="software.html">software</a>
+                    <a href="store.html">store</a>
+                    <a href="wiki.html">wiki</a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <h2>design system</h2>
+                <p class="ds-lead">
+                    A living, component-level reference for cherry's labs — extracted from
+                    <code>style.css</code>. This is for whoever's building the next page or
+                    component (El, cherry, or Claude): use the tokens and patterns below as-is,
+                    don't invent new ones. For brand voice, logo direction, and asset strategy,
+                    see <a href="brand/cherrys-labs-brief.md">brand/cherrys-labs-brief.md</a> —
+                    that doc is the source of truth for identity; this page is the source of
+                    truth for implementation. If the two ever disagree, <code>style.css</code>
+                    wins.
+                </p>
+                <p class="ds-lead">
+                    Sections marked <span class="proposed-flag">proposed</span> describe
+                    components the site doesn't have yet (buttons, form fields, alerts, tables,
+                    a formal empty state). They're built from existing tokens and are ready to
+                    merge into <code>style.css</code> if/when they're needed — nothing on the
+                    live site currently depends on them.
+                </p>
+
+                <div class="ds-toc">
+                    <a href="#colors">colors</a>
+                    <a href="#typography">typography</a>
+                    <a href="#spacing">spacing</a>
+                    <a href="#surface">radius · shadow · blur</a>
+                    <a href="#cards">cards</a>
+                    <a href="#tags">tags &amp; status</a>
+                    <a href="#lists">wiki lists &amp; articles</a>
+                    <a href="#layout">layout patterns</a>
+                    <a href="#proposed-buttons">proposed: buttons</a>
+                    <a href="#proposed-forms">proposed: form fields</a>
+                    <a href="#proposed-empty">proposed: empty state</a>
+                    <a href="#proposed-notice">proposed: notices</a>
+                    <a href="#proposed-table">proposed: table</a>
+                    <a href="#dos-donts">do / don't</a>
+                </div>
+            </section>
+
+            <!-- ═══════════════ COLORS ═══════════════ -->
+            <section id="colors">
+                <h3>colors</h3>
+                <p class="ds-sub">Pink leads, purple supports. Ambient glow is two faint radial gradients on pure black — purple top-right, pink bottom-left, ~5% opacity — visible as the wash behind this whole page.</p>
+
+                <div class="swatch-grid">
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:#000000; border-bottom:1px solid var(--border-color-white);"></div>
+                        <div class="swatch-label"><span class="name">--color-bg</span><span class="value">#000000</span><span class="usage">page base</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:#ffffff;"></div>
+                        <div class="swatch-label"><span class="name">--color-text</span><span class="value">#ffffff</span><span class="usage">body copy</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:#ec4899;"></div>
+                        <div class="swatch-label"><span class="name">--color-pink</span><span class="value">#ec4899</span><span class="usage">headings, links, glows</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:#9354d3;"></div>
+                        <div class="swatch-label"><span class="name">--color-purple</span><span class="value">#9354d3</span><span class="usage">gradients, ambient glow</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:#1a1a1a;"></div>
+                        <div class="swatch-label"><span class="name">--color-grey</span><span class="value">#1a1a1a</span><span class="usage">card/header base</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:#2a2a2a;"></div>
+                        <div class="swatch-label"><span class="name">--color-grey-light</span><span class="value">#2a2a2a</span><span class="usage">hover surface</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:rgba(26,26,26,0.7); border-bottom:1px solid var(--border-color-white);"></div>
+                        <div class="swatch-label"><span class="name">--color-card-bg</span><span class="value">rgba(26,26,26,.7)</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:rgba(42,42,42,0.8); border-bottom:1px solid var(--border-color-white);"></div>
+                        <div class="swatch-label"><span class="name">--color-card-bg-hover</span><span class="value">rgba(42,42,42,.8)</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:rgba(255,255,255,0.05); border-bottom:1px solid var(--border-color-white);"></div>
+                        <div class="swatch-label"><span class="name">--color-white-alpha-05</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:rgba(255,255,255,0.1); border-bottom:1px solid var(--border-color-white);"></div>
+                        <div class="swatch-label"><span class="name">--color-white-alpha-10</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:rgba(255,255,255,0.2); border-bottom:1px solid var(--border-color-white);"></div>
+                        <div class="swatch-label"><span class="name">--color-white-alpha-20</span></div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background:rgba(255,255,255,0.3); border-bottom:1px solid var(--border-color-white);"></div>
+                        <div class="swatch-label"><span class="name">--color-white-alpha-30</span></div>
+                    </div>
+                </div>
+
+                <div class="card" style="background-image:radial-gradient(circle at top right, rgba(147,84,211,0.25) 0%, transparent 50%), radial-gradient(circle at bottom left, rgba(236,72,153,0.25) 0%, transparent 50%); background-color:#000;">
+                    <p class="sub-info">Ambient background wash (exaggerated here — live opacity is ~5%): <code style="font-family:var(--font-mono)">radial-gradient(circle at top right, rgba(147,84,211,.05) 0%, transparent 50%)</code> + the pink mirror bottom-left.</p>
+                </div>
+            </section>
+
+            <!-- ═══════════════ TYPOGRAPHY ═══════════════ -->
+            <section id="typography">
+                <h3>typography</h3>
+                <p class="ds-sub">Lowercase, terse labels. Headings and nav always use Audiowide; body copy is Quantico; code/tags/mono details use Courier New. Rubik Glitch exists as a token but is reserved for special/easter-egg moments only — it's not used anywhere on the live pages today.</p>
+
+                <div class="card">
+                    <div class="type-sample">
+                        <span class="label">--font-heading — Audiowide</span>
+                        <div style="font-family:var(--font-heading); font-size:28px; color:var(--color-pink);">cherry's labs</div>
+                    </div>
+                    <div class="type-sample">
+                        <span class="label">--font-main — Quantico (body, 16px / 1.6 line-height)</span>
+                        <div style="font-family:var(--font-main); font-size:16px; line-height:1.6;">A neon-lit lab notebook for two builders. Confident and technical, but playful.</div>
+                    </div>
+                    <div class="type-sample">
+                        <span class="label">--font-glitch — Rubik Glitch (sparingly, special moments only)</span>
+                        <div style="font-family:var(--font-glitch); font-size:22px; color:var(--color-pink);">glitch</div>
+                    </div>
+                    <div class="type-sample">
+                        <span class="label">--font-mono — Courier New (tags, code, wiki names)</span>
+                        <div style="font-family:var(--font-mono); font-size:14px; color:#ccc;">github.com/elphiene/cherrys-labs-web</div>
+                    </div>
+                </div>
+
+                <div class="mini-divider"></div>
+
+                <div class="card">
+                    <div class="type-sample"><span class="label">section h2 — 28px, Audiowide, pink, soft white text-glow</span><div style="font-family:var(--font-heading); font-size:28px; color:var(--color-pink); text-shadow:0 0 20px rgba(255,255,255,0.1);">section heading</div></div>
+                    <div class="type-sample"><span class="label">section h3 / card h3 — 22px, Audiowide, pink</span><div style="font-family:var(--font-heading); font-size:22px; color:var(--color-pink);">subsection heading</div></div>
+                    <div class="type-sample"><span class="label">--font-size-h4 — 18px, Audiowide</span><div style="font-family:var(--font-heading); font-size:18px;">card heading</div></div>
+                    <div class="type-sample"><span class="label">--font-size-base — 16px, Quantico</span><div style="font-size:16px;">Base body copy size, used everywhere by default.</div></div>
+                    <div class="type-sample"><span class="label">--font-size-small — 14px</span><div style="font-size:14px; color:#999;">Footer text, sub-info, secondary copy.</div></div>
+                </div>
+            </section>
+
+            <!-- ═══════════════ SPACING ═══════════════ -->
+            <section id="spacing">
+                <h3>spacing scale</h3>
+                <p class="ds-sub">Five steps, used consistently for padding, gaps, and margins. Don't introduce one-off pixel values — pick the nearest step.</p>
+                <div class="card">
+                    <div class="spacing-row"><span class="label">--spacing-xs — 8px</span><div class="spacing-bar" style="width:8px;"></div></div>
+                    <div class="spacing-row"><span class="label">--spacing-sm — 16px</span><div class="spacing-bar" style="width:16px;"></div></div>
+                    <div class="spacing-row"><span class="label">--spacing-md — 24px</span><div class="spacing-bar" style="width:24px;"></div></div>
+                    <div class="spacing-row"><span class="label">--spacing-lg — 40px</span><div class="spacing-bar" style="width:40px;"></div></div>
+                    <div class="spacing-row"><span class="label">--spacing-xl — 60px</span><div class="spacing-bar" style="width:60px;"></div></div>
+                </div>
+            </section>
+
+            <!-- ═══════════════ RADIUS / SHADOW / BLUR ═══════════════ -->
+            <section id="surface">
+                <h3>radius · shadow · blur</h3>
+                <p class="ds-sub">Glassmorphism is the core motif: translucent dark surfaces, strong backdrop blur, hairline white borders, pink glow on hover.</p>
+                <div class="demo-row">
+                    <div class="demo-block" style="background:var(--color-grey); border-radius:var(--radius);">--radius<br>10px</div>
+                    <div class="demo-block" style="background:var(--color-grey); box-shadow:var(--shadow-white); border-radius:var(--radius);">--shadow-white</div>
+                    <div class="demo-block" style="background:var(--color-grey); box-shadow:var(--shadow-white-strong); border-radius:var(--radius);">--shadow-white-strong</div>
+                    <div class="demo-block" style="background:var(--color-grey); box-shadow:var(--shadow); border-radius:var(--radius);">--shadow<br>(pink, resting)</div>
+                    <div class="demo-block" style="background:var(--color-grey); box-shadow:var(--shadow-hover); border-radius:var(--radius);">--shadow-hover<br>(pink, active)</div>
+                </div>
+                <div class="card">
+                    <p class="sub-info">Hover any card on this page (or anywhere on the live site) to see the standard interaction: lift -3px, pink border, layered pink glow shadow, 20px backdrop blur (<code style="font-family:var(--font-mono)">--blur-amount-strong</code>). This card itself is the demo.</p>
+                </div>
+            </section>
+
+            <!-- ═══════════════ CARDS ═══════════════ -->
+            <section id="cards">
+                <h3>cards</h3>
+                <p class="ds-sub">Every content block on the site is a <code>.card</code>: translucent dark glass, 1px hairline border, staggered fade-in on load, lift + pink glow on hover. Specific card types add their own inner layout on top of the base.</p>
+
+                <div class="mini-grid">
+                    <div class="card">
+                        <h4>base .card</h4>
+                        <p class="sub-info">Used directly for stat panels, showcase blocks, and as the wrapper for wiki articles.</p>
+                    </div>
+                    <div class="card">
+                        <div class="mini-tags"><span class="mini-tag status-complete">complete</span><span class="mini-tag">Rust</span></div>
+                        <h4>software-card</h4>
+                        <p class="sub-info">Image placeholder + tags + title + description + github/wiki links. Grid: <code style="font-family:var(--font-mono)">auto-fill, minmax(320px, 1fr)</code>.</p>
+                    </div>
+                    <div class="card" style="align-items:center; text-align:center;">
+                        <div style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--color-pink),var(--color-purple)); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-size:22px; margin:0 auto 8px;">C</div>
+                        <h4>person-card</h4>
+                        <p class="sub-info">Avatar initial in a pink→purple gradient circle, centered content, role + links.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════ TAGS / STATUS ═══════════════ -->
+            <section id="tags">
+                <h3>tags &amp; status pills</h3>
+                <p class="ds-sub">Small mono pills. Status pills are colour-coded; plain tech/category tags are neutral grey.</p>
+                <div class="card">
+                    <div class="mini-tags">
+                        <span class="mini-tag status-wip">wip</span>
+                        <span class="mini-tag status-complete">complete</span>
+                        <span class="mini-tag status-abandoned">abandoned</span>
+                        <span class="mini-tag status-on-hold">on-hold</span>
+                        <span class="mini-tag">Rust</span>
+                        <span class="mini-tag">Docker</span>
+                        <span class="mini-tag type-3dprint">3d print</span>
+                        <span class="mini-tag type-gadget">gadget</span>
+                    </div>
+                    <p class="sub-info">wip → amber · complete → green · abandoned / on-hold → grey · plain tech tags → neutral. Store category tags (<code style="font-family:var(--font-mono)">type-3dprint</code> / <code style="font-family:var(--font-mono)">type-gadget</code>) use purple/pink outlines instead of fills.</p>
+                </div>
+            </section>
+
+            <!-- ═══════════════ WIKI LISTS / ARTICLES ═══════════════ -->
+            <section id="lists">
+                <h3>wiki lists &amp; articles</h3>
+                <p class="ds-sub">The wiki index uses a flat row list (not cards) with a hover slide-right; article pages use bordered <code>.wiki-section</code> blocks inside one big card.</p>
+
+                <div class="card">
+                    <div class="mini-wiki-list">
+                        <a class="mini-wiki-entry" href="wiki.html">
+                            <span class="mini-wiki-name">wiki-entry</span>
+                            <span class="mini-wiki-desc">Hover to slide right 8px, border tints pink</span>
+                        </a>
+                        <a class="mini-wiki-entry" href="wiki.html">
+                            <span class="mini-wiki-name">another-entry</span>
+                            <span class="mini-wiki-desc">Rows separated by a 1px hairline, no border on the last row</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════ LAYOUT PATTERNS ═══════════════ -->
+            <section id="layout">
+                <h3>layout patterns</h3>
+                <p class="ds-sub">Fixed glass header (pink-tinted gradient, pink glow shadow) on every page. Content is capped at 1200px and centered. Sections are separated by a soft horizontal gradient divider — visible above and below this block.</p>
+                <div class="mini-divider"></div>
+                <p class="sub-info">That's the divider: <code style="font-family:var(--font-mono)">section:not(:last-child)::after</code> — a 1px gradient line, transparent → white 30% → transparent.</p>
+            </section>
+
+            <!-- ═══════════════ PROPOSED: BUTTONS ═══════════════ -->
+            <div class="proposed-section" id="proposed-buttons">
+                <span class="proposed-flag">proposed — not in style.css yet</span>
+                <h3>buttons</h3>
+                <p class="ds-sub">The site has never needed a real button — every action is a link (nav, card links, hamburger). As soon as something needs a real call-to-action (a form submit, "load more," a store checkout button), it should use one of these rather than styling a one-off <code>&lt;a&gt;</code>.</p>
+                <div class="demo-row">
+                    <button class="btn btn-primary">primary action</button>
+                    <button class="btn btn-secondary">secondary</button>
+                    <button class="btn btn-ghost">ghost</button>
+                    <button class="btn btn-primary" disabled>disabled</button>
+                </div>
+                <pre class="ds-code">.btn { font-family: var(--font-heading); padding: 11px 22px; border-radius: calc(var(--radius) / 2); }
+.btn-primary  { background: linear-gradient(135deg, var(--color-pink), var(--color-purple)); color: #fff; box-shadow: var(--shadow); }
+.btn-secondary{ background: transparent; border: 1px solid var(--border-color-white); }
+.btn-ghost    { background: transparent; color: var(--color-pink); }</pre>
+            </div>
+
+            <!-- ═══════════════ PROPOSED: FORM FIELDS ═══════════════ -->
+            <div class="proposed-section" id="proposed-forms">
+                <span class="proposed-flag">proposed — not in style.css yet</span>
+                <h3>form fields</h3>
+                <p class="ds-sub">No page currently has a form. This is the pattern to reach for the day one shows up (store checkout, a contact form, a wiki comment box) — dark glass surface, pink focus ring, matches the card aesthetic instead of default browser chrome.</p>
+                <div class="ds-field">
+                    <label for="ds-demo-input">project name</label>
+                    <input id="ds-demo-input" type="text" placeholder="e.g. DeckCraft" />
+                </div>
+                <div class="ds-field">
+                    <label for="ds-demo-select">status</label>
+                    <select id="ds-demo-select">
+                        <option>wip</option>
+                        <option>complete</option>
+                        <option>abandoned</option>
+                    </select>
+                </div>
+                <div class="ds-field ds-checkbox">
+                    <input id="ds-demo-check" type="checkbox" />
+                    <label for="ds-demo-check" style="text-transform:none; font-size:14px; margin:0;">feature on homepage</label>
+                </div>
+                <pre class="ds-code">input, textarea, select {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-color-white);
+    border-radius: calc(var(--radius) / 2);
+}
+input:focus { border-color: var(--color-pink); box-shadow: 0 0 0 3px rgba(236,72,153,0.15); }</pre>
+            </div>
+
+            <!-- ═══════════════ PROPOSED: EMPTY STATE ═══════════════ -->
+            <div class="proposed-section" id="proposed-empty">
+                <span class="proposed-flag">proposed — currently duplicated as inline styles</span>
+                <h3>empty state</h3>
+                <p class="ds-sub"><code>hardware.html</code> and <code>store.html</code> both hand-roll the same "coming soon" placeholder with inline <code>style=""</code> attributes. Worth promoting to a real class so it's consistent and easy to reuse anywhere else content is pending.</p>
+                <div class="card empty-state">
+                    <h3>coming soon</h3>
+                    <p>hardware builds are on the way.</p>
+                </div>
+                <pre class="ds-code">.empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:160px; text-align:center; }
+.empty-state h3 { color:#555; font-family:var(--font-heading); }
+.empty-state p  { color:#444; font-size:13px; }</pre>
+            </div>
+
+            <!-- ═══════════════ PROPOSED: NOTICE / ALERT ═══════════════ -->
+            <div class="proposed-section" id="proposed-notice">
+                <span class="proposed-flag">proposed — not in style.css yet</span>
+                <h3>notice / alert banner</h3>
+                <p class="ds-sub">Useful for exactly the kind of thing that just came up on this site: flagging a private/broken repo link, a deprecation notice, or an "under construction" banner — without hand-writing inline styles each time.</p>
+                <div class="notice notice-info"><span class="notice-icon">i</span><span>Info: this project's docs are still being written.</span></div>
+                <div class="notice notice-warning"><span class="notice-icon">!</span><span>Warning: repository is currently private — links point to the wiki write-up only.</span></div>
+                <div class="notice notice-danger"><span class="notice-icon">×</span><span>Danger: this endpoint is deprecated and will be removed.</span></div>
+                <pre class="ds-code">.notice { display:flex; gap:12px; border-radius:var(--radius); border:1px solid; }
+.notice-info    { border-color: rgba(147,84,211,0.4); }
+.notice-warning { border-color: rgba(245,158,11,0.4); }
+.notice-danger  { border-color: rgba(239,68,68,0.4); }</pre>
+            </div>
+
+            <!-- ═══════════════ PROPOSED: TABLE ═══════════════ -->
+            <div class="proposed-section" id="proposed-table">
+                <span class="proposed-flag">proposed — not in style.css yet</span>
+                <h3>table</h3>
+                <p class="ds-sub">No page uses a table today, but wiki articles increasingly document structured specs (tech stacks, tool lists) that would read better as one than as stacked paragraphs.</p>
+                <table class="ds-table">
+                    <thead><tr><th>project</th><th>stack</th><th>status</th></tr></thead>
+                    <tbody>
+                        <tr><td>DeckCraft</td><td>Rust, Tauri, Svelte</td><td><span class="mini-tag status-complete">complete</span></td></tr>
+                        <tr><td>PeerChat</td><td>Rust, libp2p</td><td><span class="mini-tag status-wip">wip</span></td></tr>
+                    </tbody>
+                </table>
+                <pre class="ds-code">.ds-table th { color: var(--color-pink); font-family: var(--font-heading); text-transform: uppercase; }
+.ds-table td, .ds-table th { border-bottom: 1px solid var(--color-white-alpha-10); }</pre>
+            </div>
+
+            <!-- ═══════════════ DO / DON'T ═══════════════ -->
+            <section id="dos-donts">
+                <h3>do / don't</h3>
+                <div class="mini-grid">
+                    <div class="card">
+                        <h4 style="color:#22c55e;">do</h4>
+                        <p class="sub-info">Pure black backgrounds. Pink-led accents with purple in support. Glass surfaces with strong blur. Soft neon glow on hover/focus. Lowercase copy. Audiowide for anything heading-level.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color:#ef4444;">don't</h4>
+                        <p class="sub-info">Light backgrounds. Flat material-style cards with hard shadows. Rubik Glitch outside of special moments. Dropping the glow — it's the signature. Title-case nav labels.</p>
+                    </div>
+                </div>
+                <p class="ds-sub" style="margin-top: var(--spacing-md);">Full brand voice, logo direction, and asset checklist (wallpaper, screensaver, business cards) live in <a href="brand/cherrys-labs-brief.md">brand/cherrys-labs-brief.md</a> — this page only covers implementation-level tokens and components.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                webmaster:
+                <a href="https://elphiene.com">elphiene</a>
+                | 2026 | <a href="https://cherrysofa.com">cherrysofa.com</a>
+            </p>
+        </footer>
+
+        <script>
+            const toggle = document.querySelector(".nav-toggle");
+            const nav = document.getElementById("main-nav");
+            toggle.addEventListener("click", () => {
+                const open = nav.classList.toggle("open");
+                toggle.classList.toggle("active", open);
+                toggle.setAttribute("aria-expanded", String(open));
+            });
+            document.addEventListener("click", (e) => {
+                if (!toggle.contains(e.target) && !nav.contains(e.target)) {
+                    nav.classList.remove("open");
+                    toggle.classList.remove("active");
+                    toggle.setAttribute("aria-expanded", "false");
+                }
+            });
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".card").forEach((card, i) => {
+                    card.style.animationDelay = `${i * 0.05}s`;
+                });
+            });
+        </script>
+    </body>
+</html>

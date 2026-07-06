@@ -1,3 +1,3 @@
-name = "cherryslabs-modern"
+name = "cherryslabs"
 assets = { directory = "." }
 compatibility_date = "2025-01-01"
