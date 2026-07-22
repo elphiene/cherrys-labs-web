@@ -2,7 +2,7 @@
 
 A collaborative project between cherry and el showcasing their projects, programs, and 3D printed creations.
 
-Live at **[cherryslabs.com](http://cherryslabs.com)** (Cloudflare Pages).
+Live at **[cherryslabs.elphiene.com](http://cherryslabs.elphiene.com)** (Cloudflare Pages).
 
 ## Quick start
 
@@ -33,13 +33,9 @@ npx wrangler pages deploy .
 
 ## Cloudflare situation
 
-The site is built and deployed to Cloudflare Pages (project name `cherryslabs`, set in `wrangler.toml`), but `cherryslabs.com`'s DNS currently points at a home IP instead of the Pages project. In practice that means:
+The site is built and deployed to Cloudflare Pages (project name `cherryslabs`, set in `wrangler.toml`). It's now served from `cherryslabs.elphiene.com` instead of `cherryslabs.com`, because `cherryslabs.com`'s DNS lives in Cherry's Cloudflare account (currently pointed at a home IP, not the Pages project) and El can't edit it there. `cherryslabs.elphiene.com` is a subdomain of `elphiene.com`, which El's own Cloudflare account controls, so it can be pointed at the Pages project directly.
 
-- The domain resolves and serves over **plain HTTP**, not HTTPS — there's no TLS cert being served for it right now.
-- What actually answers requests is a local `openresty` reverse proxy on the home network, not Cloudflare Pages.
-- Deploying with `npx wrangler pages deploy .` still works and updates the Pages project, but that build isn't what's reachable at `cherryslabs.com` until DNS is repointed at Pages.
-
-Fixing this means updating the domain's DNS to point at the Cloudflare Pages project (or Cloudflare proxying to it) instead of the home IP.
+Deploying with `npx wrangler pages deploy .` still updates the Pages project as before; the only change is which hostname is wired up to serve it.
 
 ## Tech
 
